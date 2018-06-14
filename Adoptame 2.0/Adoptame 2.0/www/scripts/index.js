@@ -53,10 +53,13 @@
         //Convierto el usuario a minusculas
         user = user.toLowerCase();
 
-        alert(user + "  Contraseña: " + password);
+        //alert(user + "  Contraseña: " + password);
+        
+        var contrahash = atob(hash);
+        alert(contrahash);
 
         var queryString =
-            'http://192.168.1.130/Adoptame/public/api/cliente/' + user;
+            'http://192.168.1.129/Adoptame/public/api/cliente/' + user;
 
         $.getJSON(queryString, function (results) {
             //alert(results[0].nombre);
@@ -72,7 +75,7 @@
                     //Compruebo que tipo de usuario es y redirijo
 
                     if (results[0].tipo == 1) {
-                        alert("Potectora");
+                        alert("Protectora");
                         //Almaceno en sesion el usuario
                         window.sessionStorage.setItem("usuario", user);
                         //window.location.replace("protIndex.html");
@@ -84,11 +87,7 @@
                     } else {
                         alert("Error al iniciar sesion");
                     }
-
-
                 }
-
-
             }
 
         }).fail(function (jqXHR) {
@@ -98,7 +97,12 @@
         });
         return false;
 
-
-
-
     });
+
+$('#registro').click(function () {
+    window.location.replace("registro.html");
+    });
+
+$('#pruebas').click(function () {
+    window.location.replace("pruebas.html");
+});
