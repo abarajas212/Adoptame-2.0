@@ -43,7 +43,7 @@ function onDeviceReady() {
 
 function registrar() {
 
-    var flagValidacionesBlanco, flagValidacionesEspacio;
+    var flagValidacionesBlanco, flagValidacionesEspacio, flagValidacionTelefono;
 
     //Recoge id usario
     var id = document.getElementById("idUsuario").value;
@@ -67,7 +67,7 @@ function registrar() {
     }
 
     if (flagValidacionesEspacio = validarEspacios(password)) {
-        app.dialog.alert('La contraseña no puede contener espacios','Error');
+        app.dialog.alert('La contraseña no puede contener espacios', 'Error');
         return null;
     }
 
@@ -97,6 +97,23 @@ function registrar() {
         app.dialog.alert('El email introducido es incorrecto', 'Error');
         return null;
     }
+
+    //Validar telefono
+    var telefono = document.getElementById("telefono").value;
+
+    if (flagValidacionTelefono = validarTelefono(telefono)) {
+        app.dialog.alert('Introduzca únicamente los 9 dígitos en el teléfono', 'Error');
+        return null;
+    }
+
+    //Validar ciudad
+    var ciudad = document.getElementById("ciudad").value;
+
+    if (ciudad == '0') {
+        app.dialog.alert('Introduzca una ciudad', 'Error');
+        return null;
+    }
+
 
     var tipo;
 
@@ -136,36 +153,36 @@ function registrar() {
                 })
                 .success(function () {
                     // Operacion termina correctamente
-                    app.dialog.alert('Se ha registrado correctamente','Confirmacion');
+                    app.dialog.alert('Se ha registrado correctamente', 'Confirmacion');
                     window.location.replace("login.html");
                 })
                 .error(function () {
                     // Se completa con error
-                    app.dialog.alert('Error al registrar, intentelo más tarde' ,'Error');
+                    app.dialog.alert('Error al registrar, intentelo más tarde', 'Error');
                 });
 
         } else {
             //Mostar popup el usuario ya existe en el sistema
-            app.dialog.alert('El usuario ya está registrado, utilice otro id de usuario','Error');
+            app.dialog.alert('El usuario ya está registrado, utilice otro id de usuario', 'Error');
         }
 
     }).fail(function (jqXHR) {
-        app.dialog.alert('Error en el sistema, contacte con el administrador','Error');
+        app.dialog.alert('Error en el sistema, contacte con el administrador', 'Error');
     });
 
 
 }
 
- function validarCampoBlanco(campo){
+function validarCampoBlanco(campo) {
 
-     if (campo == "" || campo.length == 0) {
+    if (campo == "" || campo.length == 0) {
 
-         //alert(campo + ' el campo no puede estar vacío');
-         return true;
-     } else {
-         //alert("Sin espacios");
-         return false;
-     }
+        //alert(campo + ' el campo no puede estar vacío');
+        return true;
+    } else {
+        //alert("Sin espacios");
+        return false;
+    }
 }
 
 
@@ -188,8 +205,19 @@ function validarEspacios(campo) {
 
 }
 
+/**
+ * Funcion que comprueba que un número de teléfono está formado por nueve dígitos consecutivos
+    y sin espacios ni guiones entre las cifras
+ * @param {any} campo
+ */
+function validarTelefono(campo){
 
-
+    if (!(/^\d{9}$/.test(campo))) {
+        return true;
+    } else {
+        return false;
+    }
+}
 //Comprobacion usuario y contraseña 
 /*$('#btnRegistro').click(function () {
 
@@ -218,63 +246,63 @@ function validarEspacios(campo) {
             //Usuario
             tipo = 2;
         }*/
-        //Se le asigna el tipo 3 a todos los usuarios hasta que introduzcan el codigo de la protectora
-      /*  tipo = 3;
+//Se le asigna el tipo 3 a todos los usuarios hasta que introduzcan el codigo de la protectora
+/*  tipo = 3;
 
-        //Comprobar que las contraseñas coinciden
-        if (password != password2) {
-            //Mostrar popup
-            alert("Las contraseñas deben ser iguales");
-        } else {
+  //Comprobar que las contraseñas coinciden
+  if (password != password2) {
+      //Mostrar popup
+      alert("Las contraseñas deben ser iguales");
+  } else {
 
-            //Comprobar que el usuario no existe en la bbdd
-            $.getJSON(queryString, function (results) {
+      //Comprobar que el usuario no existe en la bbdd
+      $.getJSON(queryString, function (results) {
 
-                if (jQuery.isEmptyObject(results)) {
-                    //Enviar json al servidor para dar de alta al usuario
+          if (jQuery.isEmptyObject(results)) {
+              //Enviar json al servidor para dar de alta al usuario
 
-                    var queryStringR =
-                        'http://192.168.1.129/Adoptame/public/api/cliente/agregar';
+              var queryStringR =
+                  'http://192.168.1.129/Adoptame/public/api/cliente/agregar';
 
-                    //Hash de la contraseña
-                    var hashpassword = btoa(password);
+              //Hash de la contraseña
+              var hashpassword = btoa(password);
 
-                    $.post(queryStringR, {
+              $.post(queryStringR, {
 
-                        id: id,
-                        password: hashpassword,
-                        tipo: tipo,
-                        nombre: nombre,
-                        apellido: apellido,
-                        email: email
+                  id: id,
+                  password: hashpassword,
+                  tipo: tipo,
+                  nombre: nombre,
+                  apellido: apellido,
+                  email: email
 
-                    })
-                        .complete(function () {
-                            // Operación se completa, independientemente del estado
-                        })
-                        .success(function () {
-                            // Operacion termina correctamente
-                            alert("Se ha registrado correctamente");
-                            window.location.replace("login.html");
-                        })
-                        .error(function () {
-                            // Se completa con error
-                            alert("No se pudo registrar");
-                        });
+              })
+                  .complete(function () {
+                      // Operación se completa, independientemente del estado
+                  })
+                  .success(function () {
+                      // Operacion termina correctamente
+                      alert("Se ha registrado correctamente");
+                      window.location.replace("login.html");
+                  })
+                  .error(function () {
+                      // Se completa con error
+                      alert("No se pudo registrar");
+                  });
 
-                } else {
-                    //Mostar popup el usuario ya existe en el sistema
-                    alert("El usuario ya esta registrado");
-                }
+          } else {
+              //Mostar popup el usuario ya existe en el sistema
+              alert("El usuario ya esta registrado");
+          }
 
-            }).fail(function (jqXHR) {
-                /* $('#error-msg').show();
-                 $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);
-                 alert("Error retrieving data. " + jqXHR.statusText)*/
-             /*   alert("Error en el sistema, contacte con el administrador");
-            });
+      }).fail(function (jqXHR) {
+          /* $('#error-msg').show();
+           $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);
+           alert("Error retrieving data. " + jqXHR.statusText)*/
+/*   alert("Error en el sistema, contacte con el administrador");
+});
 
-        }
+}
 
 });*/
 

@@ -85,7 +85,8 @@
                         // var user = window.sessionStorage.getItem("usuario");
                        // window.location.replace("userIndex.html");
                     } else {
-                        alert("Error al iniciar sesion");
+                        alert("MODIFICAR tipos de usuario");
+                        window.sessionStorage.setItem("usuario", user);
                     }
                 }
             }
@@ -103,6 +104,6 @@ $('#registro').click(function () {
     window.location.replace("registro.html");
     });
 
-$('#pruebas').click(function () {
-    window.location.replace("pruebas.html");
+$('#registarProtectora').click(function () {
+    window.location.replace("registroProtectora.html");
 });
