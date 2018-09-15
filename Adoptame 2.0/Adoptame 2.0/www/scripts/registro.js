@@ -45,15 +45,20 @@ function registrar() {
 
     var flagValidacionesBlanco, flagValidacionesEspacio;
 
-    //Recoge id usario
-    var id = document.getElementById("idUsuario").value;
+    //Comprobar si el usuario ha pulsado colabora con una protectora
+    var colabora = document.getElementById("checkColabora").value
+    alert(colabora);
+    return null;
 
-    if (flagValidacionesBlanco = validarCampoBlanco(id)) {
+    //Recoge id usario
+    var idUsuario = document.getElementById("idUsuario").value;
+
+    if (flagValidacionesBlanco = validarCampoBlanco(idUsuario)) {
         app.dialog.alert('Introduzca un nombre de usuario', 'Error');
         return null;
     }
 
-    if (flagValidacionesEspacio = validarEspacios(id)) {
+    if (flagValidacionesEspacio = validarEspacios(idUsuario)) {
         app.dialog.alert('El id de usuario no puede contener espacios', 'Error');
         return null;
     }
@@ -98,16 +103,15 @@ function registrar() {
         return null;
     }
 
-    var tipo;
-
     //Convierto el usuario a minusculas
-    id = id.toLowerCase();
+    idUsuario = idUsuario.toLowerCase();
 
     //Direccion server para utilizar json
-    var queryString =
-        'http://192.168.1.129/Adoptame/public/api/cliente/' + id;
+   /* var queryString =
+        'http://192.168.1.131/Adoptame/public/api/cliente/' + idUsuario;*/
 
-    tipo = 3;
+    var queryString =
+        'http://192.168.0.23/Adoptame/public/api/cliente/' + idUsuario;
 
     //Comprobar que el usuario no existe en la bbdd
     $.getJSON(queryString, function (results) {
@@ -115,55 +119,59 @@ function registrar() {
         if (jQuery.isEmptyObject(results)) {
             //Enviar json al servidor para dar de alta al usuario
 
+            /*var queryStringR =
+                'http://192.168.1.131/Adoptame/public/api/cliente/agregar';*/
+
             var queryStringR =
-                'http://192.168.1.129/Adoptame/public/api/cliente/agregar';
+                'http://192.168.1.131/Adoptame/public/api/cliente/agregar';
 
             //Hash de la contraseña
             var hashpassword = btoa(password);
 
             $.post(queryStringR, {
 
-                id: id,
+                idUsuario: idUsuario,
                 password: hashpassword,
-                tipo: tipo,
                 nombre: nombre,
-                apellido: apellido,
+                apellidos: apellido,
                 email: email
 
             })
                 .complete(function () {
                     // Operación se completa, independientemente del estado
+                    app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
                 })
                 .success(function () {
                     // Operacion termina correctamente
-                    app.dialog.alert('Se ha registrado correctamente','Confirmacion');
-                    window.location.replace("login.html");
+                    app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
                 })
                 .error(function () {
                     // Se completa con error
-                    app.dialog.alert('Error al registrar, intentelo más tarde' ,'Error');
+                    app.dialog.alert('Error al registrar, intentelo más tarde', 'Error', redireccionar);
                 });
 
         } else {
             //Mostar popup el usuario ya existe en el sistema
-            app.dialog.alert('El usuario ya está registrado, utilice otro id de usuario','Error');
+            app.dialog.alert('El usuario ya está registrado, utilice otro id de usuario', 'Error', redireccionar);
         }
 
     }).fail(function (jqXHR) {
-        app.dialog.alert('Error en el sistema, contacte con el administrador','Error');
+        //app.dialog.alert('Contacte con el administrador', 'Error');
     });
 
-
+    app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
+ 
 }
 
+/**
+ * Funcion que comprueba si el campo esta en blanco
+ * @param {any} campo
+ */
  function validarCampoBlanco(campo){
 
      if (campo == "" || campo.length == 0) {
-
-         //alert(campo + ' el campo no puede estar vacío');
          return true;
      } else {
-         //alert("Sin espacios");
          return false;
      }
 }
@@ -188,96 +196,12 @@ function validarEspacios(campo) {
 
 }
 
-
-
-//Comprobacion usuario y contraseña 
-/*$('#btnRegistro').click(function () {
-
-        var id = document.getElementById("idUsuario").value;
-        var nombre = document.getElementById("name").value;
-        var apellido = document.getElementById("surnames").value;
-        var email = document.getElementById("email").value;
-        var password = document.getElementById("userPassword").value;
-        var password2 = document.getElementById("userPasswordConfirm").value;
-        var tipo;
-
-        //Comprobar parametros de entrada
-
-        //Convierto el usuario a minusculas
-        id = id.toLowerCase();
-
-        //Direccion server para utilizar json
-        var queryString =
-            'http://192.168.1.129/Adoptame/public/api/cliente/' + id;
-
-        /*Comprobar checkbox para saber que tipo de usuario es
-        if (document.getElementById("check").checked == true) {
-            //Protectora
-            tipo = 1;
-        } else {
-            //Usuario
-            tipo = 2;
-        }*/
-        //Se le asigna el tipo 3 a todos los usuarios hasta que introduzcan el codigo de la protectora
-      /*  tipo = 3;
-
-        //Comprobar que las contraseñas coinciden
-        if (password != password2) {
-            //Mostrar popup
-            alert("Las contraseñas deben ser iguales");
-        } else {
-
-            //Comprobar que el usuario no existe en la bbdd
-            $.getJSON(queryString, function (results) {
-
-                if (jQuery.isEmptyObject(results)) {
-                    //Enviar json al servidor para dar de alta al usuario
-
-                    var queryStringR =
-                        'http://192.168.1.129/Adoptame/public/api/cliente/agregar';
-
-                    //Hash de la contraseña
-                    var hashpassword = btoa(password);
-
-                    $.post(queryStringR, {
-
-                        id: id,
-                        password: hashpassword,
-                        tipo: tipo,
-                        nombre: nombre,
-                        apellido: apellido,
-                        email: email
-
-                    })
-                        .complete(function () {
-                            // Operación se completa, independientemente del estado
-                        })
-                        .success(function () {
-                            // Operacion termina correctamente
-                            alert("Se ha registrado correctamente");
-                            window.location.replace("login.html");
-                        })
-                        .error(function () {
-                            // Se completa con error
-                            alert("No se pudo registrar");
-                        });
-
-                } else {
-                    //Mostar popup el usuario ya existe en el sistema
-                    alert("El usuario ya esta registrado");
-                }
-
-            }).fail(function (jqXHR) {
-                /* $('#error-msg').show();
-                 $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);
-                 alert("Error retrieving data. " + jqXHR.statusText)*/
-             /*   alert("Error en el sistema, contacte con el administrador");
-            });
-
-        }
-
-});*/
-
+/**
+ * Funcion que redirecciona a la pagina de inicio
+ */
+function redireccionar() {
+    window.location.replace("index.html");
+};
 
 function onPause() {
     // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.

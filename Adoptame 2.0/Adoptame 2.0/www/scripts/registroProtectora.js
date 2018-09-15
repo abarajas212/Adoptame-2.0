@@ -121,19 +121,25 @@ function registrar() {
     id = id.toLowerCase();
 
     //Direccion server para utilizar json
+    /*var queryString =
+        'http://192.168.1.129/Adoptame/public/api/cliente/' + id;*/
+
     var queryString =
-        'http://192.168.1.129/Adoptame/public/api/cliente/' + id;
+        'http://192.168.0.23/Adoptame/public/api/cliente/' + id;
 
     tipo = 3;
 
-    //Comprobar que el usuario no existe en la bbdd
+    //Comprobar que la protectora no existe en la bbdd
     $.getJSON(queryString, function (results) {
 
         if (jQuery.isEmptyObject(results)) {
             //Enviar json al servidor para dar de alta al usuario
 
+            /*var queryStringR =
+                'http://192.168.1.129/Adoptame/public/api/cliente/agregar';*/
+
             var queryStringR =
-                'http://192.168.1.129/Adoptame/public/api/cliente/agregar';
+                'http://192.168.0.23/Adoptame/public/api/cliente/agregar';
 
             //Hash de la contraseña
             var hashpassword = btoa(password);

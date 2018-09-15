@@ -4,14 +4,14 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
     document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-
+    var app;
     function onDeviceReady() {
         // Controlar la pausa de Cordova y reanudar eventos
         document.addEventListener('pause', onPause.bind(this), false);
         document.addEventListener('resume', onResume.bind(this), false);
 
         // TODO: Cordova se ha cargado. Haga aquí las inicializaciones de Cordova y Framework 7.
-        var app = new Framework7({
+        app = new Framework7({
             // App root element
             root: '#app',
             // App Name
@@ -52,42 +52,53 @@
 
         //Convierto el usuario a minusculas
         user = user.toLowerCase();
-
-        //alert(user + "  Contraseña: " + password);
         
-        var contrahash = atob(hash);
-        alert(contrahash);
+        var hash = btoa(password);
 
         var queryString =
-            'http://192.168.1.129/Adoptame/public/api/cliente/' + user;
+            'http://192.168.0.23/Adoptame/public/api/cliente/' + user
+
+        /*  CASA   
+        var queryString =
+            'http://192.168.1.131/Adoptame/public/api/cliente/' + user;*/
 
         $.getJSON(queryString, function (results) {
             //alert(results[0].nombre);
 
             //Si el json vuelve vacio, el usuario no existe
             if (jQuery.isEmptyObject(results)) {
-                alert("Usuario incorrecto");
+                app.dialog.alert('El usuario no existe', 'Error');
+                return null;
             } else { //El usuario introducido existe en el sistema
                 //Comparo la contraseña introducida con la de la bbdd
-                if (results[0].password != password) {
-                    alert("Error en el usuario o contraseña");
+                if (results[0].password != hash) {
+                    app.dialog.alert('Error en el usuario o contraseña', 'Error');
+                    return null;
                 } else {
                     //Compruebo que tipo de usuario es y redirijo
-
-                    if (results[0].tipo == 1) {
-                        alert("Protectora");
-                        //Almaceno en sesion el usuario
+                    alert(results[0].idProtectora);
+                    if (results[0].idProtectora == null || results[0].idProtectora.isEmptyObject)
+                        //Usuario que hace login no pertenece a protectora, cargar pantalla para usuarios que buscan animales
+                        alert("Pantalla busca animales");
+                    else {
+                        alert("Pantalla adminis");
+                        //comprobar permisos que tiene el usuario y almacenarlos en las variables de la aplicacion
+                        // para consultarlas cuando sea necesarioz
+                    }
+                    /*if (results[0].tipo == 1) {
+                        alert("Administrador protectora");
+                        //Administrador protectora
                         window.sessionStorage.setItem("usuario", user);
                         //window.location.replace("protIndex.html");
                     } else if (results[0].tipo == 2) {
-                        alert("Usuario");
+                        alert("Colaborador protectora");
                         window.sessionStorage.setItem("usuario", user);
                         // var user = window.sessionStorage.getItem("usuario");
                        // window.location.replace("userIndex.html");
                     } else {
-                        alert("MODIFICAR tipos de usuario");
+                        alert("Tipo 0 o null usuario normal");
                         window.sessionStorage.setItem("usuario", user);
-                    }
+                    }*/
                 }
             }
 
@@ -106,4 +117,8 @@ $('#registro').click(function () {
 
 $('#registarProtectora').click(function () {
     window.location.replace("registroProtectora.html");
+});
+
+$('#pruebasUsuario').click(function () {
+    window.location.replace("userIndex.html");
 });
