@@ -29,33 +29,36 @@
 <body>
     <!-- App root element -->
     <div id="app">
-        <!-- Statusbar overlay -->
-        <div class="statusbar"></div>
+        <div class="panel panel-left panel-reveal">
+            <div class="block">
+                <p>Usuario</p>
+                <p><a class="panel-close" href="#">Volver</a></p>
+            </div>
+        </div>
+        <!-- En el panel derecho se despliegan diferentes combos en los que podran elegir los filtros
+               para la busqueda-->
+        <div class="panel panel-right panel-cover">
+            <div class="block">
+                <p>Aplicar filtros de busqueda</p>
+                
+                <p><a class="panel-close" href="#">Volver</a></p>
+            </div>
+        </div>
 
-        <!-- Your main view, should have "view-main" class -->
-        <div class="view view-main">
-            <!-- Initial Page, "data-name" contains page name -->
-            <div data-name="userIndex" class="page">
-
-                <!-- Top Navbar -->
+        <div class="view view-main view-init">
+            <div class="page">
                 <div class="navbar">
                     <div class="navbar-inner">
-                        <div class="left">
-                            <a onclick="window.location = 'index.html'" class="link back">
-                                <i class="icon icon-back"></i>
-                                <span class="ios-only">Back</span>
-                            </a>
-                        </div>
+                        <div class="left"></div>
                         <div class="title">Buscar adopcion</div>
+                        <div class="right"></div>
                     </div>
                 </div>
-                <!-- Scrollable page content -->
                 <div class="page-content">
-                    
-                    <div class="block block-strong row">
-                        <div class="col">
-                            <a class="button" href="#" id="btnRegistro">Registrar</a>
-                        </div>
+                    <div class="block">
+                        <p><a class="panel-open" href="#">Open Left Panel</a></p>
+                        <p><a class="panel-open" href="#" data-panel="right">Panel derecho</a></p>
+                        <button class="col button button-fill button-round" href="#" id="btnFiltrar">Filtrar</button>
                     </div>
                 </div>
             </div>
@@ -66,6 +69,6 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="scripts/registro.js"></script>
+    <script type="text/javascript" src="scripts/userIndex.js"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnFiltrar").addEventListener('click', filtrar, false);
+document.getElementById("btnLimpiar").addEventListener('click', limpiarFiltros, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -41,12 +42,37 @@ function onDeviceReady() {
 };
 
 /**
- * Funcion que redirecciona a la pagina de inicio
+ * Funcion que recoge el valor de los filtros que se han seleccionado
  */
 function filtrar() {
-    window.location.replace("filtrar.html");
+
+    var especie = $("#especie").val();
+    alert(especie);
+
+    var sexo = $("#sexo").val();
+    var sexo = $("#tamanio").val();
+    var estado = $("#estado").val();
+
+
+    // Volver a la pantalla de seleccion una vez almacenados los datos
+    //window.location.replace("userIndex.html");
 }
 
+/*
+   
+*/
+function limpiarFiltros() {
+
+    window.location.replace("filtrar.html");
+    
+    var especie = $("#especie").val();
+    var sexo = $("#sexo").val();
+    var sexo = $("#tamanio").val();
+    var estado = $("#estado").val();
+
+    alert(especie);
+
+}
 /**
  * Funcion que redirecciona a la pagina de inicio
  */
