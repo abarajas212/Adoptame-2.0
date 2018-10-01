@@ -122,3 +122,7 @@ $('#registarProtectora').click(function () {
 $('#pruebasUsuario').click(function () {
     window.location.replace("userIndex.html");
 });
+
+$('#pruebasProtectora').click(function () {
+    window.location.replace("protIndex.html");
+});
