@@ -55,12 +55,12 @@
         
         var hash = btoa(password);
 
-        var queryString =
-            'http://192.168.0.23/Adoptame/public/api/cliente/' + user
+        /*var queryString =
+            'http://192.168.0.23/Adoptame/public/api/cliente/' + user*/
 
-        /*  CASA   
+        /*  CASA  */ 
         var queryString =
-            'http://192.168.1.131/Adoptame/public/api/cliente/' + user;*/
+            'http://192.168.1.131/Adoptame/public/api/cliente/' + user;
 
         $.getJSON(queryString, function (results) {
             //alert(results[0].nombre);
@@ -75,15 +75,22 @@
                     app.dialog.alert('Error en el usuario o contraseña', 'Error');
                     return null;
                 } else {
-                    //Compruebo que tipo de usuario es y redirijo
-                    alert(results[0].idProtectora);
-                    if (results[0].idProtectora == null || results[0].idProtectora.isEmptyObject)
+                    //Compruebo que tipo de usuario es y redirijo (si pertenece a una protectora se le redirige a la pantalla de la protectora)
+                    if (results[0].idProtectora == null || results[0].idProtectora.isEmptyObject){
+
                         //Usuario que hace login no pertenece a protectora, cargar pantalla para usuarios que buscan animales
-                        alert("Pantalla busca animales");
-                    else {
-                        alert("Pantalla adminis");
+                        //alert("Pantalla usuario");
+                        //Almaceno el id de usuario en la sesion
+                        window.sessionStorage.setItem("usuario", user);
+                        window.location.replace("userIndex.html");
+
+                    } else {
+                        //alert("Pantalla protectora");
                         //comprobar permisos que tiene el usuario y almacenarlos en las variables de la aplicacion
                         // para consultarlas cuando sea necesarioz
+                        window.sessionStorage.setItem("usuario", user);
+                        window.sessionStorage.setItem("protectora", results[0].idProtectora);
+                        window.location.replace("protIndex.html");
                     }
                     /*if (results[0].tipo == 1) {
                         alert("Administrador protectora");

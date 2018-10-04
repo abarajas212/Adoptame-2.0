@@ -29,22 +29,19 @@
 <body>
     <!-- App root element -->
     <div id="app">
+        <!-- Panel izquierdo -->
         <div class="panel panel-left panel-reveal">
             <div class="block">
-                <p>Usuario</p>
+                <img src="images/huella.png" width="75" height="75" align="middle" border="0" />
+                <p id="usuarioP"> Usuario:  </p>
+                <p id="protectoraP">Protectora:  </p>
+                <div class="col">
+                    <a class="button" href="#" id="btnSesion">Cerrar sesión</a>
+                </div>
                 <p><a class="panel-close" href="#">Volver</a></p>
             </div>
         </div>
-        <!-- En el panel derecho se despliegan diferentes combos en los que podran elegir los filtros
-               para la busqueda-->
-        <div class="panel panel-right panel-cover">
-            <div class="block">
-                <p>Aplicar filtros de busqueda</p>
-
-                <p><a class="panel-close" href="#">Volver</a></p>
-            </div>
-        </div>
-
+        <!-- Pantalla principal -->
         <div class="view view-main view-init">
             <div class="page">
                 <div class="navbar">

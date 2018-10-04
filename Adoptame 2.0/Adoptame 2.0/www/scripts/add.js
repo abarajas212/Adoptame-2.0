@@ -87,7 +87,41 @@ function aniadirAnimal() {
     }
 
     //todo Enviar los datos a la bbdd
-} 
+    //var idUsuario = window.sessionStorage.getItem("usuario");
+
+    //Actualmente la ciudad se recoge por pantalla (modificar para que al iniciar sesion con protectora)
+    // Se cargue automáticamente la ciudad
+
+
+    //Url donde hacer el post
+    var queryStringR =
+        'http://192.168.1.131/Adoptame/public/api/protectora/agregar';
+
+    $.post(queryStringR, {
+
+        idUsuario: idUsuario,
+        especie: especie,
+        sexo: sexo,
+        ciudad: ciudad,
+        tamanio: tam,
+        estado: estado,
+        nombre: nombre,
+        descripcion: descripcion
+
+    }) .complete(function () {
+            // Operación se completa, independientemente del estado
+            app.dialog.alert('Se ha añadido correctamente', 'Añadido', redireccionar);
+        })
+        .success(function () {
+            // Operacion termina correctamente
+            app.dialog.alert('Se ha añadido correctamente', 'Añadido', redireccionar);
+        })
+        .error(function () {
+            // Se completa con error
+            app.dialog.alert('Error al añadir, intentelo más tarde', 'Error', redireccionar);
+        });
+
+}
 
 /**
  * Funcion que comprueba si el campo esta en blanco
@@ -105,7 +139,7 @@ function validarCampoBlanco(campo) {
  * Funcion que redirecciona a la pagina de inicio
  */
 function redireccionar() {
-    window.location.replace("index.html");
+    window.location.replace("protIndex.html");
 };
 
 function onPause() {

@@ -5,6 +5,8 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnFiltrar").addEventListener('click', filtrar, false);
+document.getElementById("btnSesion").addEventListener('click', cerrarSesion, false);
+
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -38,6 +40,10 @@ function onDeviceReady() {
     });
 
     var mainView = app.views.create('.view-main');
+
+    //Cargar el usuario en la sesion
+    var user = window.sessionStorage.getItem("usuario");
+    document.getElementById("usuarioP").innerHTML = "Usuario: " + user;
 };
 
 /**
@@ -45,6 +51,19 @@ function onDeviceReady() {
  */
 function filtrar() {
     window.location.replace("filtrar.html");
+}
+
+/**
+ * Funcion que cierra sesion, redirigiendo y eliminando los datos de sesion
+ */
+function cerrarSesion() {
+    //Mostrar popup de confirmacion
+    app.dialog.confirm('¿Está seguro de que desea cerrar sesión?', function () {
+        app.dialog.alert('Hasta pronto! :)');
+        window.sessionStorage.clear();
+        window.location.replace("index.html");
+    });
+
 }
 
 /**
