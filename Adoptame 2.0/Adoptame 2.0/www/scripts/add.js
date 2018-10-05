@@ -5,15 +5,24 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnAniadir").addEventListener('click', aniadirAnimal, false);
+document.getElementById("btnFoto").addEventListener('click', aniadirFoto, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
 var app;
 
+var pictureSource;   // picture source
+var destinationType; // sets the format of returned value
+
+
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
     document.addEventListener('pause', onPause.bind(this), false);
     document.addEventListener('resume', onResume.bind(this), false);
+
+    // Carga los controladores de la camara
+    pictureSource = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
 
     // TODO: Cordova se ha cargado. Haga aquí las inicializaciones de Cordova y Framework 7.
     app = new Framework7({
@@ -45,6 +54,7 @@ function onDeviceReady() {
  * Funcion que añade un animal nuevo, se activa al pulsar el boton "btnAniadir"
  */
 function aniadirAnimal() {
+
     var radios = document.getElementsByTagName('input');
     var value, tam, estado, especie, sexo;
 
@@ -86,42 +96,148 @@ function aniadirAnimal() {
         }
     }
 
-    //todo Enviar los datos a la bbdd
-    //var idUsuario = window.sessionStorage.getItem("usuario");
+    // Enviar los datos a la bbdd
+    var idProtectora = window.sessionStorage.getItem("protectora");
 
-    //Actualmente la ciudad se recoge por pantalla (modificar para que al iniciar sesion con protectora)
-    // Se cargue automáticamente la ciudad
-
-
+    var ciudad = null;
     //Url donde hacer el post
     var queryStringR =
         'http://192.168.1.131/Adoptame/public/api/protectora/agregar';
 
+
     $.post(queryStringR, {
 
-        idUsuario: idUsuario,
+        idProtectora: idProtectora,
+        ciudad: ciudad,
         especie: especie,
         sexo: sexo,
-        ciudad: ciudad,
         tamanio: tam,
         estado: estado,
-        nombre: nombre,
-        descripcion: descripcion
+        nombre: nombreAnimal,
+        descripcion: descripcionAnimal
 
-    }) .complete(function () {
-            // Operación se completa, independientemente del estado
-            app.dialog.alert('Se ha añadido correctamente', 'Añadido', redireccionar);
-        })
-        .success(function () {
-            // Operacion termina correctamente
-            app.dialog.alert('Se ha añadido correctamente', 'Añadido', redireccionar);
-        })
-        .error(function () {
-            // Se completa con error
-            app.dialog.alert('Error al añadir, intentelo más tarde', 'Error', redireccionar);
-        });
+    });
+
+    alert("Guardado correctamente");
+    window.location.replace("protIndex.html");
+    
 
 }
+
+/*
+*  Funciones para el manejo de la imagen
+*/
+
+// Called when a photo is successfully retrieved
+//
+function onPhotoDataSuccess(imageData) {
+    // Uncomment to view the base64-encoded image data
+    // console.log(imageData);
+
+    // Get image handle
+    //
+    var smallImage = document.getElementById('smallImage');
+
+    // Unhide image elements
+    //
+    smallImage.style.display = 'block';
+
+    // Show the captured photo
+    // The inline CSS rules are used to resize the image
+    //
+    //smallImage.src = "data:image/jpeg;base64," + imageData;
+
+    smallImage.src = imageData;
+
+    //Una vez puesta la foto en html la subimos al servidor
+
+    var options = new FileUploadOptions();
+    options.fileKey = "file";
+    options.fileName = imageData.substr(imageData.lastIndexOf('/') + 1);
+    options.mimeType = "image/jpeg";
+
+    var params = {};
+    params.value1 = "test";
+    params.value2 = "param";
+
+    options.params = params;
+
+    var ft = new FileTransfer();
+    //ft.upload(imageData, encodeURI("http://192.168.0.174/APIrestAdoptame/gabri.php"), win, fail, options);
+    ft.upload(imageData, encodeURI("http://192.168.1.131/Adoptame/public/api/protectora/uploadFoto"), win, fail, options);
+
+}
+
+// Limpiar cache
+function clearCache() {
+    navigator.camera.cleanup();
+}
+
+//Enviar la foto al servidor
+var retries = 0;
+function EnviarServidor(image) {
+
+    var win = function (r) {
+        clearCache();
+        retries = 0;
+        alert('Done!');
+    }
+
+    var fail = function (error) {
+        if (retries == 0) {
+            retries++
+            setTimeout(function () {
+                onCapturePhoto(fileURI)
+            }, 1000)
+        } else {
+            retries = 0;
+            clearCache();
+            alert('Ups. Something wrong happens!');
+        }
+    }
+
+    var options = new FileUploadOptions();
+    options.fileKey = "file";
+    options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
+    options.mimeType = "image/jpeg";
+    options.params = {}; // if we need to send parameters to the server request
+    var ft = new FileTransfer();
+    ft.upload(fileURI, encodeURI("http://192.168.1.131/Adoptame/public/api/protectora/uploadFoto"), win, fail, options);
+}
+
+//Log del envio
+function win(r) {
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
+}
+
+//Log del envio
+function fail(error) {
+    alert("An error has occurred: Code = " + error.code);
+    alert("upload error source " + error.source);
+    alert("upload error target " + error.target);
+}
+
+// Called if something bad happens.
+//
+function onFail(message) {
+    alert('Failed because: ' + message);
+}
+
+/**
+ * Funcion que abre la camara para hacer una foto y añadirla
+ */
+function aniadirFoto() {
+
+    // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+    navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
+        quality: 20, allowEdit: true,
+        destinationType: destinationType.FILE_URI
+    });
+
+}
+
 
 /**
  * Funcion que comprueba si el campo esta en blanco
