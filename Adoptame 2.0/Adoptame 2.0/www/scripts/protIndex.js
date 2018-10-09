@@ -44,7 +44,7 @@ function onDeviceReady() {
     user = window.sessionStorage.getItem("usuario");
     document.getElementById("usuarioP").innerHTML = "Usuario: " + user;
 
-    protectora = window.sessionStorage.getItem("usuario");
+    protectora = window.sessionStorage.getItem("protectora");
     document.getElementById("protectoraP").innerHTML = "Protectora: " + protectora;
 };
 

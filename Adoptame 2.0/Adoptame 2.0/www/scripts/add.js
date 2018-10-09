@@ -4,7 +4,7 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-document.getElementById("btnAniadir").addEventListener('click', aniadirAnimal, false);
+//document.getElementById("btnAniadir").addEventListener('click', aniadirAnimal, false);
 document.getElementById("btnFoto").addEventListener('click', aniadirFoto, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
@@ -13,6 +13,9 @@ var app;
 
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
+var nombreAnimal; // Nombre del animal que se recoge por pantalla
+var idProtectora //Id de la protectora que se recogera de la variable que se carga al hacer login
+var idFoto //Nombre de la foto
 
 
 function onDeviceReady() {
@@ -60,18 +63,18 @@ function aniadirAnimal() {
 
     //Validar que nombre y descripción no estén vacíos.
 
-    var nombreAnimal = document.getElementById("nombre").value;
+    nombreAnimal = document.getElementById("nombre").value;
 
     if (validarCampoBlanco(nombreAnimal)) {
         app.dialog.alert('Introduzca un nombre para el animal', 'Error');
-        return null;
+        return 1;
     }
 
     var descripcionAnimal = document.getElementById("descripcion").value;
 
     if (validarCampoBlanco(descripcionAnimal)) {
         app.dialog.alert('Introduzca una descripcionAnimal para el animal', 'Error');
-        return null;
+        return 1;
     }
 
     //Recorre todos los inputs de la pantalla
@@ -97,13 +100,12 @@ function aniadirAnimal() {
     }
 
     // Enviar los datos a la bbdd
-    var idProtectora = window.sessionStorage.getItem("protectora");
+    idProtectora = window.sessionStorage.getItem("protectora");
 
     var ciudad = null;
     //Url donde hacer el post
     var queryStringR =
         'http://192.168.1.131/Adoptame/public/api/protectora/agregar';
-
 
     $.post(queryStringR, {
 
@@ -118,10 +120,9 @@ function aniadirAnimal() {
 
     });
 
-    alert("Guardado correctamente");
-    window.location.replace("protIndex.html");
+    /*alert("Guardado correctamente");
+    window.location.replace("protIndex.html");*/
     
-
 }
 
 /*
@@ -133,6 +134,12 @@ function aniadirAnimal() {
 function onPhotoDataSuccess(imageData) {
     // Uncomment to view the base64-encoded image data
     // console.log(imageData);
+
+    //Subir animal una vez seleccionada la foto
+    var devuelto = aniadirAnimal();
+
+    if (devuelto == 1)
+        return null;
 
     // Get image handle
     //
@@ -161,55 +168,69 @@ function onPhotoDataSuccess(imageData) {
     params.value2 = "param";
 
     options.params = params;
-
+    //Guardar el nombre de la foto
+    idFoto = options.fileName;
+    //Transferir
     var ft = new FileTransfer();
     //ft.upload(imageData, encodeURI("http://192.168.0.174/APIrestAdoptame/gabri.php"), win, fail, options);
+    //Subir la foto
     ft.upload(imageData, encodeURI("http://192.168.1.131/Adoptame/public/api/protectora/uploadFoto"), win, fail, options);
-
+    
 }
+
 
 // Limpiar cache
 function clearCache() {
     navigator.camera.cleanup();
 }
 
-//Enviar la foto al servidor
-var retries = 0;
-function EnviarServidor(image) {
-
-    var win = function (r) {
-        clearCache();
-        retries = 0;
-        alert('Done!');
-    }
-
-    var fail = function (error) {
-        if (retries == 0) {
-            retries++
-            setTimeout(function () {
-                onCapturePhoto(fileURI)
-            }, 1000)
-        } else {
-            retries = 0;
-            clearCache();
-            alert('Ups. Something wrong happens!');
-        }
-    }
-
-    var options = new FileUploadOptions();
-    options.fileKey = "file";
-    options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
-    options.mimeType = "image/jpeg";
-    options.params = {}; // if we need to send parameters to the server request
-    var ft = new FileTransfer();
-    ft.upload(fileURI, encodeURI("http://192.168.1.131/Adoptame/public/api/protectora/uploadFoto"), win, fail, options);
-}
-
 //Log del envio
 function win(r) {
+
     console.log("Code = " + r.responseCode);
     console.log("Response = " + r.response);
     console.log("Sent = " + r.bytesSent);
+
+     //Almacenar los datos de la foto y el animal al que corresponde
+    //Recoger el id del animal
+
+    var queryStringFoto =
+        'http://192.168.1.131/Adoptame/public/api/protectora/obtenerIdAnimal/' + idProtectora + '/' + nombreAnimal ;
+
+    $.getJSON(queryStringFoto, function (results) {
+        //Recogo el id del animal
+        var idAnimal = results[0].idAnimal
+
+        //Enviar una peticion post para almacenar los datos que relacionan el animal con la foto
+        var queryStringSubirFoto =
+            'http://192.168.1.131/Adoptame/public/api/protectora/animalFoto';
+
+        $.post(queryStringSubirFoto, {
+
+            idAnimal: idAnimal,
+            idFoto: idFoto
+
+        }).complete(function () {
+                    // Operación se completa, independientemente del estado
+            app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
+        }).success(function () {
+            // Operacion termina correctamente
+            app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
+
+        }).error(function () {
+                // Se completa con error
+                //app.dialog.alert('Error al registrar, intentelo más tarde', 'Error', redireccionar);
+        });
+
+    }).fail(function (jqXHR) {
+        /* $('#error-msg').show();
+         $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);
+        alert("Error en el sistema, contacte con el administrador");*/
+        });
+
+
+    app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
+    
 }
 
 //Log del envio
@@ -222,7 +243,8 @@ function fail(error) {
 // Called if something bad happens.
 //
 function onFail(message) {
-    alert('Failed because: ' + message);
+    //alert('Failed because: ' + message);
+    alert('Error: La foto ha sido cancelada');
 }
 
 /**
