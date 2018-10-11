@@ -45,11 +45,6 @@ function registrar() {
 
     var flagValidacionesBlanco, flagValidacionesEspacio;
 
-    //Comprobar si el usuario ha pulsado colabora con una protectora
-    var colabora = document.getElementById("checkColabora").value
-    alert(colabora);
-    return null;
-
     //Recoge id usario
     var idUsuario = document.getElementById("idUsuario").value;
 
@@ -159,7 +154,16 @@ function registrar() {
         //app.dialog.alert('Contacte con el administrador', 'Error');
     });
 
-    app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
+    //Comprobar si el usuario ha pulsado colabora con una protectora
+    var toggle = app.toggle.get('.toggle');
+
+    if (toggle.checked) {
+        window.sessionStorage.setItem("usuarioColabora", idUsuario);
+        app.dialog.alert('Se ha registrado correctamente, sera redirigido para unirse a una protectora', 'Colaborador', redireccionarColabora);
+    } else {
+        app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
+    }
+
  
 }
 
@@ -201,6 +205,13 @@ function validarEspacios(campo) {
  */
 function redireccionar() {
     window.location.replace("index.html");
+};
+
+/**
+ * Funcion que redirecciona a la pagina para introducir el codigo de colaboración
+ */
+function redireccionar() {
+    window.location.replace("registroAvanzado.html");
 };
 
 function onPause() {

@@ -41,12 +41,12 @@
                 <div class="navbar">
                     <div class="navbar-inner">
                         <div class="left">
-                            <a class="link back">
+                            <a onclick="window.location = 'index.html'" class="link back">
                                 <i class="icon icon-back"></i>
                                 <span class="ios-only">Back</span>
                             </a>
                         </div>
-                        <div class="title">Registro</div>
+                        <div class="title">Unirse a una protectora</div>
                     </div>
                 </div>
                 <!-- Toolbar
@@ -57,53 +57,54 @@
                 </div>
                 <!-- Scrollable page content -->
                 <div class="page-content">
-                    <form class="list" id="my-form">
-                        <ul>
-                            <li>
-                                <!-- Combo para elegir Colaborador/Administrador
+                    <div class="block">
 
-            En función de este combo se activará o desactivará elemento   -->
-                            </li>   
-                            <li>
-                                <div class="item-content">
-                                    <div class="item-inner">
-                                        <div class="item-title">Nueva protectora</div>
-                                        <div class="item-after">
-                                            <label class="toggle toggle-init">
-                                                <input type="checkbox" name="toggle" value="yes"><i class="toggle-icon"></i>
-                                            </label>
+                        <BlockTitle>¿Cómo unirse?</BlockTitle>
+                        <Block>
+                            <p> Para unirte a una protectora primero tienes que contactar con ella. Si ellos deciden que puedes unirte para colaborar deberán suministrarse su id de protectora y un código. 
+                            Estos datos los deberás introducir a continuación y podrás formar ayudar en las tareas de la protectora </p>
+                        </Block>
+
+                        <form class="list" id="my-form">
+                            <ul>
+                                <li>
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Id de la protectora</div>
+                                            <div class="item-input-wrap">
+                                                <input type="text" name="idProtectora" id="idProtectora" validate required>
+                                                <span class="input-clear-button"></span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>       
-                            <li class="item-content item-input item-input-with-info">
-                                <div class="item-content item-input">
-                                    <div class="item-inner">
-                                        <div class="item-title item-label">Código de acceso</div>
-                                        <div class="item-input-wrap">
-                                            <input type="text" name="IDacceso" placeholder="Código de acceso">
+                                </li>
+                                <li>
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">Codigo protectora</div>
+                                            <div class="item-input-wrap">
+                                                <textarea name="textarea" rows="2" cols="50" minLength="25" maxLength="25" id="codigo" placeholder="Introduzca el código que le han enviado"></textarea>
+                                                <span class="input-clear-button"></span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="item-input-info">Contracte con la protectora para que le suministre el código </div>
+                                </li>
+                                <div class="block block-strong row">
+                                    <div class="col"><a class="button convert-form-to-data" id="btnUnirse">Unirse</a></div>
                                 </div>
-                            </li>
-                                    
-                        </ul>
-                    </form>
-                    <div class="block block-strong row">
-                        <div class="col"><a class="button convert-form-to-data" id="btnRegistro">Registrar</a></div>
+                            </ul>
+                        </form>                       
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Path to Framework7 Library JS-->
-    <script type="text/javascript" src="scripts/framework7.min.js"></script>
-    <!-- Path to your app js-->
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-    <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="scripts/registroAvanzado.js"></script>
+        <!-- Path to Framework7 Library JS-->
+        <script type="text/javascript" src="scripts/framework7.min.js"></script>
+        <!-- Path to your app js-->
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+        <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="scripts/registroAvanzado.js"></script>
 </body>
 </html>
 

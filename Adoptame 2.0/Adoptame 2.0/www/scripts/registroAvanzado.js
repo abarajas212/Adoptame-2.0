@@ -4,6 +4,12 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+document.getElementById("btnUnirse").addEventListener('click', unirse, false);
+
+/**
+ * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
+ */
+var app;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -11,7 +17,7 @@ function onDeviceReady() {
     document.addEventListener('resume', onResume.bind(this), false);
 
     // TODO: Cordova se ha cargado. Haga aquí las inicializaciones de Cordova y Framework 7.
-    var app = new Framework7({
+     app = new Framework7({
         // App root element
         root: '#app',
         // App Name
@@ -29,7 +35,10 @@ function onDeviceReady() {
                 url: 'about.html',
             },
         ],
-        // ... other parameters
+        // Habilita la funcion pegar en inputs
+        touch: {
+            disableContextMenu: false,
+        }
     });
 
     var mainView = app.views.create('.view-main');
@@ -43,5 +52,40 @@ function onResume() {
     // TODO: esta aplicación se ha reactivado. Restaure el estado de la aplicación aquí.
 };
 
+/**
+ * Funcion que realiza las gestiones necesarias para unir un usuario a una protectora
+ */
+function unirse() {
+
+    var codigo = document.getElementById("codigo").value;
+    var idprotectora = document.getElementById("idProtectora").value;
+
+    if (flagValidacionesBlanco = validarCampoBlanco(idProtectora)) {
+        app.dialog.alert('Introduzca un identificador de protectora', 'Error');
+        return null;
+    }
+
+    if (flagValidacionesBlanco = validarCampoBlanco(codigo)) {
+        app.dialog.alert('Introduzca un codigo', 'Error');
+        return null;
+    }
+
+    //Comprobar
+    //Modificar usuario
+
+    //Eliminar usuario window.sessionStorage.setItem("usuarioColabora", idUsuario);
+}
 
 
+/**
+ * Funcion que comprueba si el campo esta en blanco
+ * @param {any} campo
+ */
+function validarCampoBlanco(campo) {
+
+    if (campo == "" || campo.length == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
