@@ -41,12 +41,12 @@
                 <div class="navbar">
                     <div class="navbar-inner">
                         <div class="left">
-                            <a onclick="window.location = 'index.html'" class="link back">
+                            <a onclick="window.location = 'protIndex.html'" class="link back">
                                 <i class="icon icon-back"></i>
                                 <span class="ios-only">Back</span>
                             </a>
                         </div>
-                        <div class="title">Unirse a una protectora</div>
+                        <div class="title">Codigo de la protectora</div>
                     </div>
                 </div>
                 <!-- Toolbar
@@ -59,10 +59,12 @@
                 <div class="page-content">
                     <div class="block">
 
-                        <BlockTitle>¿Cómo unirse?</BlockTitle>
+                        <BlockTitle>¿Cómo añadir colaboradores?</BlockTitle>
                         <Block>
-                            <p> Para unirte a una protectora primero tienes que contactar con ella. Si ellos deciden que puedes unirte para colaborar deberán suministrarse su id de protectora y un código. 
-                            Estos datos los deberás introducir a continuación y podrás formar ayudar en las tareas de la protectora </p>
+                            <p>
+                                Envía los siguientes datos al usuario que deseas que se una la protectora. Cuando un usuario se registre este código se 
+                                 modificará automáticamente por seguridad.
+                            </p>
                         </Block>
 
                         <form class="list" id="my-form">
@@ -72,7 +74,7 @@
                                         <div class="item-inner">
                                             <div class="item-title item-label">Id de la protectora</div>
                                             <div class="item-input-wrap">
-                                                <input type="text" name="idProtectora" id="idProtectora" validate required>
+                                                <input type="text" name="idProtectora" id="idProtectora" disabled>
                                                 <span class="input-clear-button"></span>
                                             </div>
                                         </div>
@@ -83,17 +85,14 @@
                                         <div class="item-inner">
                                             <div class="item-title item-label">Codigo protectora</div>
                                             <div class="item-input-wrap">
-                                                <textarea name="textarea" rows="2" cols="50" minLength="25" maxLength="25" id="codigo" placeholder="Introduzca el código que le han enviado"></textarea>
+                                                <textarea name="textarea" rows="2" cols="50" minLength="25" maxLength="25" id="codigo" disabled></textarea>
                                                 <span class="input-clear-button"></span>
                                             </div>
                                         </div>
                                     </div>
                                 </li>
-                                <div class="block block-strong row">
-                                    <div class="col"><a class="button convert-form-to-data" id="btnUnirse">Unirse</a></div>
-                                </div>
                             </ul>
-                        </form>                       
+                        </form>
                     </div>
                 </div>
             </div>
@@ -104,6 +103,6 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="scripts/platformOverrides.js"></script>
         <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript" src="scripts/registroAvanzado.js"></script>
+        <script type="text/javascript" src="scripts/codigoProtectora.js"></script>
 </body>
 </html>

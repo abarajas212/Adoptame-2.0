@@ -51,10 +51,88 @@ function onDeviceReady() {
 /**
     Enlace para pantalla añadir animal
 */
-
 $('#aniadir').click(function () {
     window.location.replace("add.html");
 });
+
+/**
+    Enlace para ver codigo protectora
+*/
+$('#verCodigo').click(function () {
+    window.location.replace("codigoProtectora.html");
+});
+
+
+// Prompt para enviar codigo por email
+$('#enviarCodigo').click(function () {
+    app.dialog.prompt('Escriba el email del destinatario del código', function (email) {
+        app.dialog.confirm('¿Está seguro de que desea enviar el código a: ' + email + '?', function () {
+            //Consultar codigo de la protectora
+            //Cargar la portectora de la sesion
+            protectora = window.sessionStorage.getItem("protectora");
+
+            var destinatario = email.toLowerCase();
+
+            if (destinatario != null){
+                //Consultar el codigo
+                /*  CASA  */
+                var queryString =
+                    'http://192.168.1.131/Adoptame/public/api/protectora/obtenerDatoEmail/' + protectora;
+
+                $.getJSON(queryString, function (results) {
+
+                    //Recoge los datos
+                    if (results[0].codigo != null) {
+                        var codigo = results[0].codigo;
+                    }
+
+                    if (results[0].idProtectora != null) {
+                        var idProtectora = results[0].idProtectora;
+                    }
+
+                    if (results[0].nombre != null) {
+                        var nombreProtectora = results[0].nombre;
+                    }
+
+                    //Post para enviar el email
+                    var queryStringP =
+                        'http://192.168.1.131/Adoptame/public/api/protectora/enviarEmail/codigoProtectora';
+
+                    $.post(queryStringP, {
+
+                        idProtectora: idProtectora,
+                        codigo: codigo,
+                        nombreProtectora: nombreProtectora,
+                        destinatario: destinatario
+
+                    })
+                        .complete(function () {
+                            // Operación se completa, independientemente del estado
+                            //app.dialog.alert('Se ha enviado el email correctamente', 'Enviado', redireccionar);
+                        })
+                        .success(function () {
+                            // Operacion termina correctamente
+                            //app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
+                        })
+                        .error(function () {
+                            // Se completa con error
+                            //app.dialog.alert('Error al registrar, intentelo más tarde', 'Error', redireccionar);
+                        });
+
+
+                        app.dialog.alert('Ok, se enviará un email a ' + email + ' con el código para que pueda unirse a la protectora');
+
+                    }).fail(function (jqXHR) {
+                    /* $('#error-msg').show();
+                     $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);*/
+                    alert("Error, no se puedo recuperar el codigo");
+                    });
+            }
+        });
+    });
+});
+
+
 /**
  * Funcion que redirecciona a la pagina de inicio
  */
@@ -76,6 +154,7 @@ function cerrarSesion() {
     });
 
 }
+
 
 /**
  * Funcion que redirecciona a la pagina de inicio
