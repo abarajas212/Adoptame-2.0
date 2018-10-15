@@ -105,7 +105,7 @@ function aniadirAnimal() {
     var ciudad = null;
     //Url donde hacer el post
     var queryStringR =
-        'http://192.168.1.131/Adoptame/public/api/protectora/agregar';
+        'http://192.168.1.128/Adoptame/public/api/protectora/agregar';
 
     $.post(queryStringR, {
 
@@ -174,7 +174,7 @@ function onPhotoDataSuccess(imageData) {
     var ft = new FileTransfer();
     //ft.upload(imageData, encodeURI("http://192.168.0.174/APIrestAdoptame/gabri.php"), win, fail, options);
     //Subir la foto
-    ft.upload(imageData, encodeURI("http://192.168.1.131/Adoptame/public/api/protectora/uploadFoto"), win, fail, options);
+    ft.upload(imageData, encodeURI("http://192.168.1.128/Adoptame/public/api/protectora/uploadFoto"), win, fail, options);
     
 }
 
@@ -195,7 +195,7 @@ function win(r) {
     //Recoger el id del animal
 
     var queryStringFoto =
-        'http://192.168.1.131/Adoptame/public/api/protectora/obtenerIdAnimal/' + idProtectora + '/' + nombreAnimal ;
+        'http://192.168.1.128/Adoptame/public/api/protectora/obtenerIdAnimal/' + idProtectora + '/' + nombreAnimal ;
 
     $.getJSON(queryStringFoto, function (results) {
         //Recogo el id del animal
@@ -203,7 +203,7 @@ function win(r) {
 
         //Enviar una peticion post para almacenar los datos que relacionan el animal con la foto
         var queryStringSubirFoto =
-            'http://192.168.1.131/Adoptame/public/api/protectora/animalFoto';
+            'http://192.168.1.128/Adoptame/public/api/protectora/animalFoto';
 
         $.post(queryStringSubirFoto, {
 

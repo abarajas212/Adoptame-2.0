@@ -4,7 +4,7 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-document.getElementById("btnRegistro").addEventListener('click', registrar, false);
+document.getElementById("btnRegistro").addEventListener('click', registrarProtectora, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -41,7 +41,7 @@ function onDeviceReady() {
 };
 
 
-function registrar() {
+function registrarProtectora() {
 
     var flagValidacionesBlanco, flagValidacionesEspacio, flagValidacionTelefono;
 
@@ -82,9 +82,6 @@ function registrar() {
     //Recoge nombre 
     var nombre = document.getElementById("name").value;
 
-    //Recoge apellidos
-    var apellido = document.getElementById("surnames").value;
-
     //Recoge email
     var email = document.getElementById("emailUser").value;
 
@@ -114,20 +111,17 @@ function registrar() {
         return null;
     }
 
-
-    var tipo;
-
     //Convierto el usuario a minusculas
-    id = id.toLowerCase();
+    var idUsuario = id.toLowerCase();
 
     //Direccion server para utilizar json
     /*var queryString =
         'http://192.168.1.129/Adoptame/public/api/cliente/' + id;*/
 
     var queryString =
-        'http://192.168.0.23/Adoptame/public/api/cliente/' + id;
+        'http://192.168.1.128/Adoptame/public/api/cliente/' + id;
 
-    tipo = 3;
+    var apellidos = null;
 
     //Comprobar que la protectora no existe en la bbdd
     $.getJSON(queryString, function (results) {
@@ -135,37 +129,76 @@ function registrar() {
         if (jQuery.isEmptyObject(results)) {
             //Enviar json al servidor para dar de alta al usuario
 
-            /*var queryStringR =
-                'http://192.168.1.129/Adoptame/public/api/cliente/agregar';*/
-
             var queryStringR =
-                'http://192.168.0.23/Adoptame/public/api/cliente/agregar';
+                'http://192.168.1.128/Adoptame/public/api/cliente/agregar';
 
             //Hash de la contraseña
             var hashpassword = btoa(password);
 
             $.post(queryStringR, {
 
-                id: id,
+                idUsuario: idUsuario,
                 password: hashpassword,
-                tipo: tipo,
                 nombre: nombre,
-                apellido: apellido,
+                apellidos: apellidos,
                 email: email
 
-            })
-                .complete(function () {
-                    // Operación se completa, independientemente del estado
+            });/*.complete(function () {
+                // Operación se completa, independientemente del estado
+                alert('asdasd');
                 })
                 .success(function () {
                     // Operacion termina correctamente
-                    app.dialog.alert('Se ha registrado correctamente', 'Confirmacion');
-                    window.location.replace("login.html");
+                   /* app.dialog.alert('Se ha registrado correctamente', 'Confirmacion');
+                    window.location.replace("login.html");*/
+                  /*  alert('qweqwesd');
                 })
                 .error(function () {
                     // Se completa con error
                     app.dialog.alert('Error al registrar, intentelo más tarde', 'Error');
-                });
+                    return null;
+                });*/
+
+            //Registrar protectora
+            var queryStringP =
+                'http://192.168.1.128/Adoptame/public/api/protectora/registrar';
+
+            var descripcion = document.getElementById("descripcion").value;
+
+            $.post(queryStringP, {
+
+                idProtectora: id,
+                nombre: nombre,
+                descripcion: descripcion,
+                email: email,
+                telefono: telefono,
+                ciudad: ciudad
+
+            });
+
+            //Enlazar usuario y protectora
+            var queryStringC =
+                'http://192.168.1.128/Adoptame/public/api/cliente/hacerColaborador';
+            
+            $.post(queryStringC, {
+
+                idProtectora: id,
+                idUsuario: id
+
+            });
+
+            //Generar codigo protectora
+            var queryStringCodigo =
+                'http://192.168.1.128/Adoptame/public/api/protectora/insertarCodigoProtectora';
+
+            $.post(queryStringCodigo, {
+
+                idProtectora: id
+
+            });
+
+            app.dialog.alert('Se ha registrado correctamente', 'Exito!');
+
 
         } else {
             //Mostar popup el usuario ya existe en el sistema

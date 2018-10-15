@@ -77,7 +77,7 @@ $('#enviarCodigo').click(function () {
                 //Consultar el codigo
                 /*  CASA  */
                 var queryString =
-                    'http://192.168.1.131/Adoptame/public/api/protectora/obtenerDatoEmail/' + protectora;
+                    'http://192.168.1.128/Adoptame/public/api/protectora/obtenerDatoEmail/' + protectora;
 
                 $.getJSON(queryString, function (results) {
 
@@ -96,7 +96,7 @@ $('#enviarCodigo').click(function () {
 
                     //Post para enviar el email
                     var queryStringP =
-                        'http://192.168.1.131/Adoptame/public/api/protectora/enviarEmail/codigoProtectora';
+                        'http://192.168.1.128/Adoptame/public/api/protectora/enviarEmail/codigoProtectora';
 
                     $.post(queryStringP, {
 

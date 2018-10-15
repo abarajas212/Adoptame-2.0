@@ -60,7 +60,7 @@
 
         /*  CASA  */ 
         var queryString =
-            'http://192.168.1.131/Adoptame/public/api/cliente/' + user;
+            'http://192.168.1.128/Adoptame/public/api/cliente/' + user;
 
         $.getJSON(queryString, function (results) {
             //alert(results[0].nombre);

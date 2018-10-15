@@ -66,7 +66,7 @@ function cargarCodigo() {
 
     /*  CASA  */
     var queryString =
-        'http://192.168.1.131/Adoptame/public/api/protectora/obtenerCodigoProtectora/' + protectora;
+        'http://192.168.1.128/Adoptame/public/api/protectora/obtenerCodigoProtectora/' + protectora;
 
     $.getJSON(queryString, function (results) {
 

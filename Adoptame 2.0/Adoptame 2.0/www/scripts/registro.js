@@ -106,7 +106,7 @@ function registrar() {
         'http://192.168.1.131/Adoptame/public/api/cliente/' + idUsuario;*/
 
     var queryString =
-        'http://192.168.0.23/Adoptame/public/api/cliente/' + idUsuario;
+        'http://192.168.1.128/Adoptame/public/api/cliente/' + idUsuario;
 
     //Comprobar que el usuario no existe en la bbdd
     $.getJSON(queryString, function (results) {
@@ -118,7 +118,7 @@ function registrar() {
                 'http://192.168.1.131/Adoptame/public/api/cliente/agregar';*/
 
             var queryStringR =
-                'http://192.168.1.131/Adoptame/public/api/cliente/agregar';
+                'http://192.168.1.128/Adoptame/public/api/cliente/agregar';
 
             //Hash de la contraseña
             var hashpassword = btoa(password);
