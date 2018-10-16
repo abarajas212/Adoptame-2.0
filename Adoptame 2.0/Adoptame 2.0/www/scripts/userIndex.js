@@ -6,11 +6,13 @@
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnFiltrar").addEventListener('click', filtrar, false);
 document.getElementById("btnSesion").addEventListener('click', cerrarSesion, false);
+document.getElementById("btnRegistroAvanzado").addEventListener('click', registroColaborador, false);
 
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
 var app;
+var user;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -42,7 +44,7 @@ function onDeviceReady() {
     var mainView = app.views.create('.view-main');
 
     //Cargar el usuario en la sesion
-    var user = window.sessionStorage.getItem("usuario");
+     user = window.sessionStorage.getItem("usuario");
     document.getElementById("usuarioP").innerHTML = "Usuario: " + user;
 };
 
@@ -66,6 +68,14 @@ function cerrarSesion() {
 
 }
 
+/**
+ * Función que redirige al usuario para cargar
+ */
+
+function registroColaborador() {
+    window.sessionStorage.setItem("usuarioColabora", idUsuario);
+    app.dialog.alert('Será redireccionado para unirse a una protectora', 'Colaborador', redireccionarAvanzado);
+}
 /**
  * Funcion que redirecciona a la pagina de inicio
  */

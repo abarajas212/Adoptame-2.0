@@ -159,7 +159,7 @@ function registrar() {
 
     if (toggle.checked) {
         window.sessionStorage.setItem("usuarioColabora", idUsuario);
-        app.dialog.alert('Se ha registrado correctamente, sera redirigido para unirse a una protectora', 'Colaborador', redireccionarColabora);
+        app.dialog.alert('Se ha registrado correctamente, sera redirigido para unirse a una protectora', 'Colaborador', redireccionarAvanzado);
     } else {
         app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
     }
@@ -210,7 +210,7 @@ function redireccionar() {
 /**
  * Funcion que redirecciona a la pagina para introducir el codigo de colaboración
  */
-function redireccionar() {
+function redireccionarAvanzado() {
     window.location.replace("registroAvanzado.html");
 };
 

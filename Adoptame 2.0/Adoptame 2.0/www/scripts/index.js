@@ -92,20 +92,6 @@
                         window.sessionStorage.setItem("protectora", results[0].idProtectora);
                         window.location.replace("protIndex.html");
                     }
-                    /*if (results[0].tipo == 1) {
-                        alert("Administrador protectora");
-                        //Administrador protectora
-                        window.sessionStorage.setItem("usuario", user);
-                        //window.location.replace("protIndex.html");
-                    } else if (results[0].tipo == 2) {
-                        alert("Colaborador protectora");
-                        window.sessionStorage.setItem("usuario", user);
-                        // var user = window.sessionStorage.getItem("usuario");
-                       // window.location.replace("userIndex.html");
-                    } else {
-                        alert("Tipo 0 o null usuario normal");
-                        window.sessionStorage.setItem("usuario", user);
-                    }*/
                 }
             }
 

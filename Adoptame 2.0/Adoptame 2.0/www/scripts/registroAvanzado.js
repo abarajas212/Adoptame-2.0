@@ -58,7 +58,7 @@ function onResume() {
 function unirse() {
 
     var codigo = document.getElementById("codigo").value;
-    var idprotectora = document.getElementById("idProtectora").value;
+    var idProtectora = document.getElementById("idProtectora").value;
 
     if (flagValidacionesBlanco = validarCampoBlanco(idProtectora)) {
         app.dialog.alert('Introduzca un identificador de protectora', 'Error');
@@ -71,9 +71,47 @@ function unirse() {
     }
 
     //Comprobar
-    //Modificar usuario
 
-    //Eliminar usuario window.sessionStorage.setItem("usuarioColabora", idUsuario);
+    /*  CASA  */
+    var queryString =
+        'http://192.168.1.128/Adoptame/public/api/cliente/comprobarCodigo/' + idProtectora+ '/'+ codigo;
+
+    $.getJSON(queryString, function (results) {
+
+        //Compara el codigo recibido con el que ha introducido el usuario
+        if (jQuery.isEmptyObject(results)) {
+            app.dialog.alert('Los datos introducidos son incorrectos', 'Error');
+            return null;
+        } else {
+            //Se recibe respuesta del servidor, el id de la protectora es correcto, hay que comprobar el codigo
+
+            var idUsuario = window.sessionStorage.getItem("usuarioColabora");
+
+            var queryStringR =
+                'http://192.168.1.128/Adoptame/public/api/cliente/hacerColaborador';
+
+            $.post(queryStringR, {
+
+                idProtectora: idProtectora,
+                idUsuario: idUsuario
+
+            });
+
+            //Eliminar usuario window.sessionStorage.setItem("usuarioColabora", idUsuario);
+            app.dialog.alert('Se ha registrado en la protectora correctamente','Exito!');
+            window.sessionStorage.clear();
+            window.location.replace("index.html");
+
+        }
+
+
+    }).fail(function (jqXHR) {
+        /* $('#error-msg').show();
+         $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);*/
+        alert("Error en el sistema, contacte con el administrador");
+        return false;
+    });
+    
 }
 
 
