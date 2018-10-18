@@ -187,15 +187,18 @@ function clearCache() {
 //Log del envio
 function win(r) {
 
-    console.log("Code = " + r.responseCode);
+    /*console.log("Code = " + r.responseCode);
     console.log("Response = " + r.response);
-    console.log("Sent = " + r.bytesSent);
+    console.log("Sent = " + r.bytesSent);*/
 
      //Almacenar los datos de la foto y el animal al que corresponde
     //Recoger el id del animal
 
     var queryStringFoto =
         'http://192.168.1.128/Adoptame/public/api/protectora/obtenerIdAnimal/' + idProtectora + '/' + nombreAnimal ;
+
+    setTimeout(function () {  
+
 
     $.getJSON(queryStringFoto, function (results) {
         //Recogo el id del animal
@@ -210,7 +213,7 @@ function win(r) {
             idAnimal: idAnimal,
             idFoto: idFoto
 
-        }).complete(function () {
+        });/*.complete(function () {
                     // Operación se completa, independientemente del estado
             app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
         }).success(function () {
@@ -220,17 +223,18 @@ function win(r) {
         }).error(function () {
                 // Se completa con error
                 //app.dialog.alert('Error al registrar, intentelo más tarde', 'Error', redireccionar);
-        });
+        });*/
+
+        app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
 
     }).fail(function (jqXHR) {
         /* $('#error-msg').show();
          $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);
         alert("Error en el sistema, contacte con el administrador");*/
-        });
+            });
 
+    }, 3000);
 
-    app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
-    
 }
 
 //Log del envio

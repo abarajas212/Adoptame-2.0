@@ -44,9 +44,109 @@ function onDeviceReady() {
     var mainView = app.views.create('.view-main');
 
     //Cargar el usuario en la sesion
-     user = window.sessionStorage.getItem("usuario");
+    user = window.sessionStorage.getItem("usuario");
     document.getElementById("usuarioP").innerHTML = "Usuario: " + user;
+
+    cargarAnimales();
+
 };
+
+/**
+ * Funcion que rellena la pantalla principal de usuario con animales
+ */
+function cargarAnimales() {
+    //Variables html
+    var lu; var li; var a; var innerDiv; var img; var divinner; var divtitle;
+    var divtitlecontent; var text; var divsubtitle; var textsubtitle; var ruta;
+    var divtext; var textt;
+
+    var i;
+    //Peticion de animales al servidor
+
+    var queryString =
+        'http://192.168.1.128/Adoptame/public/api/animales/menuUsuario';
+
+    //Comprobar que el usuario no existe en la bbdd
+    $.getJSON(queryString, function (results) {
+
+        for (i = 0; i < results.length; i++) {
+
+            //Recoger lu y meter li dentro
+            lu = document.getElementById("listaAnimales");
+            li = document.createElement("li");
+            li.id = results[i].idAnimal;
+            lu.appendChild(li);
+
+            //Titulo
+            a = document.createElement("a");
+            a.href = '#';
+            a.id = results[i].idAnimal;
+            a.setAttribute('class', 'item-link item-content');
+            li.appendChild(a);
+
+            innerDiv = document.createElement('div');
+            innerDiv.setAttribute('class', 'item-media');
+            a.appendChild(innerDiv);
+
+            //Imagen
+            img = document.createElement("IMG");
+            ruta = "http://192.168.1.128/Adoptame/uploads/" + results[i].idFoto;
+            img.setAttribute("src", ruta);
+            img.setAttribute("width", "80");
+            innerDiv.appendChild(img);
+
+            divinner = document.createElement('div');
+            divinner.setAttribute('class', 'item-inner');
+            a.appendChild(divinner);
+
+            divtitle = document.createElement('div');
+            divtitle.setAttribute('class', 'item-title-row');
+            divinner.appendChild(divtitle);
+
+            //Subtitulo
+            divtitlecontent = document.createElement('div');
+            divtitlecontent.setAttribute('class', 'item-title');
+            var titulo = results[i].nombre;
+            text = document.createTextNode(titulo);
+            divtitlecontent.appendChild(text);
+            divtitle.appendChild(divtitlecontent);
+
+            divsubtitle = document.createElement('div');
+            divsubtitle.setAttribute('class', 'item-subtitle');
+            var titulodown = results[i].estado;
+            textsubtitle = document.createTextNode(titulodown);
+            divsubtitle.appendChild(textsubtitle);
+            divinner.appendChild(divsubtitle);
+
+            //Texto
+            divtext = document.createElement('div');
+            divtext.setAttribute('class', 'item-text');
+            textt = document.createTextNode(results[i].descripcion);
+            divtext.appendChild(textt);
+            divinner.appendChild(divtext);
+
+        }
+
+
+    }).fail(function (jqXHR) {
+        app.dialog.alert('Error en el sistema, contacte con el administrador', 'Error');
+    });
+    
+}
+
+/*
+* Evento que recoge la pulsación sobre la referencia del animal
+*/
+$("#listaAnimales").on("click", "a", function () {
+    //alert($(this).attr('id'));
+
+    var idAnimal = $(this).attr('id');
+    //Guardar el id del animal para cargar la pagina personal del animal
+    window.sessionStorage.setItem("idAnimal", idAnimal);
+    window.location.replace("detalleAnimal.html");
+
+})
+
 
 /**
  * Funcion que redirecciona a la pagina de inicio

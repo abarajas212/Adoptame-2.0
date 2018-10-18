@@ -23,50 +23,45 @@
     <title>Adoptame2.0</title>
     <!-- Path to Framework7 Library CSS -->
     <link rel="stylesheet" href="css/framework7.min.css">
-    <!-- Path to your custom app styles
-    <link rel="stylesheet" type="text/css" href="css/index.css">-->
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" type="text/css" href="css/detalleAnimal.css">
 </head>
 <body>
     <!-- App root element -->
     <div id="app">
-        <div class="panel panel-left panel-reveal">
-            <div class="block">
-                <img src="images/usuario.png" width="75" height="75" align="middle" border="0" />
-                <p id="usuarioP">Usuario: </p>
-                <div class="col">
-                    <a class="button" href="#" id="btnRegistroAvanzado">Registrarme como colaborador</a>
-                    <a class="button" href="#" id="btnSesion">Cerrar sesión</a>
-                </div>
-                <p><a class="panel-close" href="#">Volver</a></p>
-            </div>
-        </div>
-        <!-- En el panel derecho se despliegan diferentes combos en los que podran elegir los filtros
-               para la busqueda-->
-        <div class="panel panel-right panel-cover">
-            <div class="block">
-                <p>Aplicar filtros de busqueda</p>
-                
-                <p><a class="panel-close" href="#">Volver</a></p>
-            </div>
-        </div>
+        <!-- Statusbar overlay -->
+        <div class="statusbar"></div>
 
-        <div class="view view-main view-init">
-            <div class="page">
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+            <!-- Initial Page, "data-name" contains page name -->
+            <div data-name="register" class="page">
+
+                <!-- Top Navbar -->
                 <div class="navbar">
                     <div class="navbar-inner">
-                        <div class="left"></div>
-                        <div class="title">Buscar adopcion</div>
-                        <div class="right"></div>
+                        <div class="left">
+                            <a onclick="window.location = 'userIndex.html'" class="link back">
+                                <i class="icon icon-back"></i>
+                                <span class="ios-only">Back</span>
+                            </a>
+                        </div>
+                        <div class="title">Adoptame</div>
                     </div>
                 </div>
+                <!-- Scrollable page content -->
                 <div class="page-content">
-                    <div class="block">
-                        <button class="col button button-fill button-round" href="#" id="btnFiltrar">Filtrar</button>
-
-                        <div class="list media-list">
-                            <ul id="listaAnimales">
-                                <!-- Lista que se cargara dinamicamente desde javascript-->
-                            </ul>
+                    <div class="card demo-card-header-pic">
+                        <div style="background-image:url(http://192.168.1.128/Adoptame/uploads/1539820060731.jpg)" class="card-header align-items-flex-end">Lorem Ipsum</div>
+                        <div class="card-content card-content-padding">
+                            <p class="date">Posted on January 21, 2015</p>
+                            <p>Quisque eget vestibulum nulla. Quisque quis dui quis ex ultricies efficitur vitae non felis. Phasellus quis nibh hendrerit...</p>
+                        </div>
+                        <div class="card-footer"><a href="#" class="link">Like</a><a href="#" class="link">Read more</a></div>
+                    </div>
+                    <div class="block block-strong row">
+                        <div class="col">
+                            <a class="button" href="#" id="btnRegistro">Registrar</a>
                         </div>
                     </div>
                 </div>
@@ -78,6 +73,6 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="scripts/userIndex.js"></script>
+    <script type="text/javascript" src="scripts/registro.js"></script>
 </body>
 </html>

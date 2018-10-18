@@ -113,7 +113,7 @@ $('#registarProtectora').click(function () {
 });
 
 $('#pruebasUsuario').click(function () {
-    window.location.replace("registroAvanzado.html");
+    window.location.replace("detalleAnimal.html");
 });
 
 $('#pruebasProtectora').click(function () {
