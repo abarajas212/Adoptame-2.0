@@ -9,7 +9,7 @@ document.getElementById("btnLimpiar").addEventListener('click', limpiarFiltros, 
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
-var app;
+var app, ip;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -39,6 +39,7 @@ function onDeviceReady() {
     });
 
     var mainView = app.views.create('.view-main');
+    ip = window.sessionStorage.getItem("IP");
 };
 
 /**

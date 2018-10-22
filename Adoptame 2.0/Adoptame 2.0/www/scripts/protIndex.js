@@ -9,7 +9,7 @@ document.getElementById("btnSesion").addEventListener('click', cerrarSesion, fal
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
-var app, user, protectora;
+var app, user, protectora, ip;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -46,6 +46,8 @@ function onDeviceReady() {
 
     protectora = window.sessionStorage.getItem("protectora");
     document.getElementById("protectoraP").innerHTML = "Protectora: " + protectora;
+
+    ip = window.sessionStorage.getItem("IP");
 };
 
 /**
@@ -75,9 +77,13 @@ $('#enviarCodigo').click(function () {
 
             if (destinatario != null){
                 //Consultar el codigo
-                /*  CASA  */
+                /*  CASA  
                 var queryString =
-                    'http://192.168.1.128/Adoptame/public/api/protectora/obtenerDatoEmail/' + protectora;
+                    'http://192.168.1.128/Adoptame/public/api/protectora/obtenerDatoEmail/' + protectora;*/
+
+                var queryString =
+                    'http://' + ip + '/Adoptame/public/api/protectora/obtenerDatoEmail/' + protectora;
+
 
                 $.getJSON(queryString, function (results) {
 
@@ -95,8 +101,11 @@ $('#enviarCodigo').click(function () {
                     }
 
                     //Post para enviar el email
+                    /*var queryStringP =
+                        'http://192.168.1.128/Adoptame/public/api/protectora/enviarEmail/codigoProtectora';*/
+
                     var queryStringP =
-                        'http://192.168.1.128/Adoptame/public/api/protectora/enviarEmail/codigoProtectora';
+                        'http://' + ip + '/Adoptame/public/api/protectora/enviarEmail/codigoProtectora';
 
                     $.post(queryStringP, {
 

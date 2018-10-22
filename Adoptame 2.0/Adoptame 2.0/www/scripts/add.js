@@ -16,6 +16,7 @@ var destinationType; // sets the format of returned value
 var nombreAnimal; // Nombre del animal que se recoge por pantalla
 var idProtectora //Id de la protectora que se recogera de la variable que se carga al hacer login
 var idFoto //Nombre de la foto
+var ip;
 
 
 function onDeviceReady() {
@@ -50,6 +51,7 @@ function onDeviceReady() {
     });
 
     var mainView = app.views.create('.view-main');
+    ip = window.sessionStorage.getItem("IP");
 };
 
 
@@ -104,8 +106,11 @@ function aniadirAnimal() {
 
     var ciudad = null;
     //Url donde hacer el post
+    /*var queryStringR =
+        'http://192.168.1.128/Adoptame/public/api/protectora/agregar';*/
+
     var queryStringR =
-        'http://192.168.1.128/Adoptame/public/api/protectora/agregar';
+        'http://'+ ip +'/Adoptame/public/api/protectora/agregar';
 
     $.post(queryStringR, {
 
@@ -174,7 +179,7 @@ function onPhotoDataSuccess(imageData) {
     var ft = new FileTransfer();
     //ft.upload(imageData, encodeURI("http://192.168.0.174/APIrestAdoptame/gabri.php"), win, fail, options);
     //Subir la foto
-    ft.upload(imageData, encodeURI("http://192.168.1.128/Adoptame/public/api/protectora/uploadFoto"), win, fail, options);
+    ft.upload(imageData, encodeURI("http://"+ip+"/Adoptame/public/api/protectora/uploadFoto"), win, fail, options);
     
 }
 
@@ -194,8 +199,11 @@ function win(r) {
      //Almacenar los datos de la foto y el animal al que corresponde
     //Recoger el id del animal
 
+    /*var queryStringFoto =
+        'http://192.168.1.128/Adoptame/public/api/protectora/obtenerIdAnimal/' + idProtectora + '/' + nombreAnimal ;*/
+
     var queryStringFoto =
-        'http://192.168.1.128/Adoptame/public/api/protectora/obtenerIdAnimal/' + idProtectora + '/' + nombreAnimal ;
+        'http://'+ip+'/Adoptame/public/api/protectora/obtenerIdAnimal/' + idProtectora + '/' + nombreAnimal;
 
     setTimeout(function () {  
 
@@ -206,7 +214,7 @@ function win(r) {
 
         //Enviar una peticion post para almacenar los datos que relacionan el animal con la foto
         var queryStringSubirFoto =
-            'http://192.168.1.128/Adoptame/public/api/protectora/animalFoto';
+            'http://' + ip + '/Adoptame/public/api/protectora/animalFoto';
 
         $.post(queryStringSubirFoto, {
 

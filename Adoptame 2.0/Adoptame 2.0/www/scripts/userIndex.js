@@ -11,7 +11,7 @@ document.getElementById("btnRegistroAvanzado").addEventListener('click', registr
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
-var app;
+var app,ip;
 var user;
 
 function onDeviceReady() {
@@ -47,6 +47,8 @@ function onDeviceReady() {
     user = window.sessionStorage.getItem("usuario");
     document.getElementById("usuarioP").innerHTML = "Usuario: " + user;
 
+    ip = window.sessionStorage.getItem("IP");
+
     cargarAnimales();
 
 };
@@ -62,9 +64,11 @@ function cargarAnimales() {
 
     var i;
     //Peticion de animales al servidor
+    /*var queryString =
+        'http://192.168.1.128/Adoptame/public/api/animales/menuUsuario';*/
 
     var queryString =
-        'http://192.168.1.128/Adoptame/public/api/animales/menuUsuario';
+        'http://'+ip+'/Adoptame/public/api/animales/menuUsuario';
 
     //Comprobar que el usuario no existe en la bbdd
     $.getJSON(queryString, function (results) {
@@ -90,7 +94,8 @@ function cargarAnimales() {
 
             //Imagen
             img = document.createElement("IMG");
-            ruta = "http://192.168.1.128/Adoptame/uploads/" + results[i].idFoto;
+            //ruta = "http://192.168.1.128/Adoptame/uploads/" + results[i].idFoto;
+            ruta = "http://"+ip+"/Adoptame/uploads/" + results[i].idFoto;
             img.setAttribute("src", ruta);
             img.setAttribute("width", "80");
             innerDiv.appendChild(img);
@@ -138,7 +143,6 @@ function cargarAnimales() {
 * Evento que recoge la pulsación sobre la referencia del animal
 */
 $("#listaAnimales").on("click", "a", function () {
-    //alert($(this).attr('id'));
 
     var idAnimal = $(this).attr('id');
     //Guardar el id del animal para cargar la pagina personal del animal

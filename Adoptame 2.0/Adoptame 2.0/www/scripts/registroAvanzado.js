@@ -9,7 +9,7 @@ document.getElementById("btnUnirse").addEventListener('click', unirse, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
-var app;
+var app, ip;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -41,7 +41,8 @@ function onDeviceReady() {
         }
     });
 
-    var mainView = app.views.create('.view-main');
+     var mainView = app.views.create('.view-main');
+     ip = window.sessionStorage.getItem("IP");
 };
 
 function onPause() {
@@ -72,9 +73,12 @@ function unirse() {
 
     //Comprobar
 
-    /*  CASA  */
+    /*  CASA  
     var queryString =
-        'http://192.168.1.128/Adoptame/public/api/cliente/comprobarCodigo/' + idProtectora+ '/'+ codigo;
+        'http://192.168.1.128/Adoptame/public/api/cliente/comprobarCodigo/' + idProtectora+ '/'+ codigo;*/
+
+    var queryString =
+        'http://'+ip+'/Adoptame/public/api/cliente/comprobarCodigo/' + idProtectora + '/' + codigo;
 
     $.getJSON(queryString, function (results) {
 
@@ -87,8 +91,11 @@ function unirse() {
 
             var idUsuario = window.sessionStorage.getItem("usuarioColabora");
 
+            /*var queryStringR =
+                'http://192.168.1.128/Adoptame/public/api/cliente/hacerColaborador';*/
+
             var queryStringR =
-                'http://192.168.1.128/Adoptame/public/api/cliente/hacerColaborador';
+                'http://'+ip+'/Adoptame/public/api/cliente/hacerColaborador';
 
             $.post(queryStringR, {
 

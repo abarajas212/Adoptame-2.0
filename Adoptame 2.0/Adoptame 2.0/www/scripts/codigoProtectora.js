@@ -8,7 +8,7 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
-var app;
+var app, ip;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -41,6 +41,7 @@ function onDeviceReady() {
     });
 
     var mainView = app.views.create('.view-main');
+    ip = window.sessionStorage.getItem("IP");
 
     cargarCodigo();
 };
@@ -64,9 +65,12 @@ function cargarCodigo() {
     
     //Consultar el codigo
 
-    /*  CASA  */
+    /*  CASA  
     var queryString =
-        'http://192.168.1.128/Adoptame/public/api/protectora/obtenerCodigoProtectora/' + protectora;
+        'http://192.168.1.128/Adoptame/public/api/protectora/obtenerCodigoProtectora/' + protectora;*/
+
+    var queryString =
+        'http://'+ip+'/Adoptame/public/api/protectora/obtenerCodigoProtectora/' + protectora;
 
     $.getJSON(queryString, function (results) {
 

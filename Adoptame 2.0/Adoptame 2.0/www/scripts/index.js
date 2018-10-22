@@ -5,6 +5,7 @@
 
     document.addEventListener('deviceready', onDeviceReady.bind(this), false);
     var app;
+    var ip;
     function onDeviceReady() {
         // Controlar la pausa de Cordova y reanudar eventos
         document.addEventListener('pause', onPause.bind(this), false);
@@ -33,6 +34,9 @@
         });
 
         var mainView = app.views.create('.view-main');
+        window.sessionStorage.setItem("IP", "192.168.1.128");
+        ip = "192.168.1.128";
+
     };
 
     function onPause() {
@@ -60,7 +64,7 @@
 
         /*  CASA  */ 
         var queryString =
-            'http://192.168.1.128/Adoptame/public/api/cliente/' + user;
+            'http://'+ ip +'/Adoptame/public/api/cliente/' + user;
 
         $.getJSON(queryString, function (results) {
             //alert(results[0].nombre);

@@ -4,7 +4,8 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-var app;
+var app, ip, idAnimal;
+
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
     document.addEventListener('pause', onPause.bind(this), false);
@@ -33,6 +34,56 @@ function onDeviceReady() {
     });
 
     var mainView = app.views.create('.view-main');
+    ip = window.sessionStorage.getItem("IP");
+
+    //Recupera el id del animal
+    idAnimal = window.sessionStorage.getItem("idAnimal");;
+
+    //Consulta datos animal
+    var queryString =
+        'http://' + ip + '/Adoptame/public/api/animales/detalleAnimal/' + idAnimal;
+
+    $.getJSON(queryString, function (results) {
+
+        //Cargar pantalla datos animal
+        document.getElementById("estadoAnimal").innerHTML = results[0].estado.toUpperCase();
+        document.getElementById("descripcionAnimal").innerHTML = results[0].descripcion;
+        var img = results[0].idFoto;
+        var url = 'http://'+ip+'/Adoptame/uploads/' + img
+
+        $('#divCard').css('background-image', 'url(' + url + ')');
+        $('#divCard').html(results[0].nombre);
+
+        $('#nombreProtectora').html(results[0].nombreProtectora);
+        $('#ciudadProtectora').html(results[0].ciudadProtectora);
+        
+        $('#especieAnimal').html('Especie: '+results[0].especie);
+        $('#tamanioAnimal').html('Tamaño: '+results[0].tamanio);
+        $('#sexoAnimal').html('Sexo: '+results[0].sexoAnimal);
+
+       
+    }).fail(function (jqXHR) {
+            /* $('#error-msg').show();
+             $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);*/
+            alert("Error en el sistema, contacte con el administrador");
+    });
+
+    //Consulta para datos del animal
+    //$('#divCard').css("background-image", url('http://192.168.1.128/Adoptame/uploads/1539820060731.jpg'));  
+    
+
+    //Nombre
+   // $('#divCard').text("gggnat Nombre");
+    /*var titulo = "gggnat Nombre";
+    var text = document.createTextNode(titulo);
+    divtitlecontent.appendChild(text);*/
+
+    //Descripcion
+    //document.getElementById('descripcion').innerHTML = "descripcion";
+
+    //Estado
+    $("#estado").text("estado");
+
 };
 
 function onPause() {

@@ -8,7 +8,7 @@ document.getElementById("btnRegistro").addEventListener('click', registrarProtec
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
-var app;
+var app, ip;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -38,6 +38,7 @@ function onDeviceReady() {
     });
 
     var mainView = app.views.create('.view-main');
+    ip = window.sessionStorage.getItem("IP");
 };
 
 
@@ -119,7 +120,7 @@ function registrarProtectora() {
         'http://192.168.1.129/Adoptame/public/api/cliente/' + id;*/
 
     var queryString =
-        'http://192.168.1.128/Adoptame/public/api/cliente/' + id;
+        'http://'+ip+'/Adoptame/public/api/cliente/' + id;
 
     var apellidos = null;
 
@@ -129,8 +130,11 @@ function registrarProtectora() {
         if (jQuery.isEmptyObject(results)) {
             //Enviar json al servidor para dar de alta al usuario
 
+            /*var queryStringR =
+                'http://192.168.1.128/Adoptame/public/api/cliente/agregar';*/
+
             var queryStringR =
-                'http://192.168.1.128/Adoptame/public/api/cliente/agregar';
+                'http://'+ip+'/Adoptame/public/api/cliente/agregar';
 
             //Hash de la contraseña
             var hashpassword = btoa(password);
@@ -160,8 +164,11 @@ function registrarProtectora() {
                 });*/
 
             //Registrar protectora
+            /*var queryStringP =
+                'http://192.168.1.128/Adoptame/public/api/protectora/registrar';*/
+
             var queryStringP =
-                'http://192.168.1.128/Adoptame/public/api/protectora/registrar';
+                'http://'+ip+'/Adoptame/public/api/protectora/registrar';
 
             var descripcion = document.getElementById("descripcion").value;
 
@@ -177,8 +184,11 @@ function registrarProtectora() {
             });
 
             //Enlazar usuario y protectora
+            /*var queryStringC =
+                'http://192.168.1.128/Adoptame/public/api/cliente/hacerColaborador';*/
+
             var queryStringC =
-                'http://192.168.1.128/Adoptame/public/api/cliente/hacerColaborador';
+                'http://'+ip+'/Adoptame/public/api/cliente/hacerColaborador';
             
             $.post(queryStringC, {
 
@@ -188,8 +198,11 @@ function registrarProtectora() {
             });
 
             //Generar codigo protectora
+            /*var queryStringCodigo =
+                'http://192.168.1.128/Adoptame/public/api/protectora/insertarCodigoProtectora';*/
+
             var queryStringCodigo =
-                'http://192.168.1.128/Adoptame/public/api/protectora/insertarCodigoProtectora';
+                'http://'+ip+'/Adoptame/public/api/protectora/insertarCodigoProtectora';
 
             $.post(queryStringCodigo, {
 
@@ -257,94 +270,6 @@ function validarTelefono(campo){
         return false;
     }
 }
-//Comprobacion usuario y contraseña 
-/*$('#btnRegistro').click(function () {
-
-        var id = document.getElementById("idUsuario").value;
-        var nombre = document.getElementById("name").value;
-        var apellido = document.getElementById("surnames").value;
-        var email = document.getElementById("email").value;
-        var password = document.getElementById("userPassword").value;
-        var password2 = document.getElementById("userPasswordConfirm").value;
-        var tipo;
-
-        //Comprobar parametros de entrada
-
-        //Convierto el usuario a minusculas
-        id = id.toLowerCase();
-
-        //Direccion server para utilizar json
-        var queryString =
-            'http://192.168.1.129/Adoptame/public/api/cliente/' + id;
-
-        /*Comprobar checkbox para saber que tipo de usuario es
-        if (document.getElementById("check").checked == true) {
-            //Protectora
-            tipo = 1;
-        } else {
-            //Usuario
-            tipo = 2;
-        }*/
-//Se le asigna el tipo 3 a todos los usuarios hasta que introduzcan el codigo de la protectora
-/*  tipo = 3;
-
-  //Comprobar que las contraseñas coinciden
-  if (password != password2) {
-      //Mostrar popup
-      alert("Las contraseñas deben ser iguales");
-  } else {
-
-      //Comprobar que el usuario no existe en la bbdd
-      $.getJSON(queryString, function (results) {
-
-          if (jQuery.isEmptyObject(results)) {
-              //Enviar json al servidor para dar de alta al usuario
-
-              var queryStringR =
-                  'http://192.168.1.129/Adoptame/public/api/cliente/agregar';
-
-              //Hash de la contraseña
-              var hashpassword = btoa(password);
-
-              $.post(queryStringR, {
-
-                  id: id,
-                  password: hashpassword,
-                  tipo: tipo,
-                  nombre: nombre,
-                  apellido: apellido,
-                  email: email
-
-              })
-                  .complete(function () {
-                      // Operación se completa, independientemente del estado
-                  })
-                  .success(function () {
-                      // Operacion termina correctamente
-                      alert("Se ha registrado correctamente");
-                      window.location.replace("login.html");
-                  })
-                  .error(function () {
-                      // Se completa con error
-                      alert("No se pudo registrar");
-                  });
-
-          } else {
-              //Mostar popup el usuario ya existe en el sistema
-              alert("El usuario ya esta registrado");
-          }
-
-      }).fail(function (jqXHR) {
-          /* $('#error-msg').show();
-           $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);
-           alert("Error retrieving data. " + jqXHR.statusText)*/
-/*   alert("Error en el sistema, contacte con el administrador");
-});
-
-}
-
-});*/
-
 
 function onPause() {
     // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.
