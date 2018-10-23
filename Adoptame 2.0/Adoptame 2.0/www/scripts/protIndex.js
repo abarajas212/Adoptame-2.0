@@ -60,6 +60,13 @@ $('#aniadir').click(function () {
 /**
     Enlace para ver codigo protectora
 */
+$('#eliminar').click(function () {
+    window.location.replace("eliminar.html");
+});
+
+/**
+    Enlace para ver codigo protectora
+*/
 $('#verCodigo').click(function () {
     window.location.replace("codigoProtectora.html");
 });

@@ -4,14 +4,13 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-document.getElementById("btnFiltrar").addEventListener('click', filtrar, false);
+document.getElementById("btnEliminar").addEventListener('click', eliminar, false);
 document.getElementById("btnSesion").addEventListener('click', cerrarSesion, false);
-document.getElementById("btnRegistroAvanzado").addEventListener('click', registroColaborador, false);
 
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
-var app,ip;
+var app, ip;
 var user;
 
 function onDeviceReady() {
@@ -43,9 +42,12 @@ function onDeviceReady() {
 
     var mainView = app.views.create('.view-main');
 
-    //Cargar el usuario en la sesion
+    //Cargar el usuario y la portectora de la sesion
     user = window.sessionStorage.getItem("usuario");
     document.getElementById("usuarioP").innerHTML = "Usuario: " + user;
+
+    protectora = window.sessionStorage.getItem("protectora");
+    document.getElementById("protectoraP").innerHTML = "Protectora: " + protectora;
 
     ip = window.sessionStorage.getItem("IP");
 
@@ -68,7 +70,7 @@ function cargarAnimales() {
         'http://192.168.1.128/Adoptame/public/api/animales/menuUsuario';*/
 
     var queryString =
-        'http://'+ip+'/Adoptame/public/api/animales/menuUsuario';
+        'http://' + ip + '/Adoptame/public/api/animales/menuProtectora/' + protectora;
 
     //Comprobar que el usuario no existe en la bbdd
     $.getJSON(queryString, function (results) {
@@ -82,10 +84,10 @@ function cargarAnimales() {
             lu.appendChild(li);
 
             //Titulo
-            a = document.createElement("a");
-            a.href = '#';
+            a = document.createElement("div");
             a.id = results[i].idAnimal;
-            a.setAttribute('class', 'item-link item-content');
+            a.setAttribute('class', 'item-content');
+
             li.appendChild(a);
 
             innerDiv = document.createElement('div');
@@ -95,7 +97,7 @@ function cargarAnimales() {
             //Imagen
             img = document.createElement("IMG");
             //ruta = "http://192.168.1.128/Adoptame/uploads/" + results[i].idFoto;
-            ruta = "http://"+ip+"/Adoptame/uploads/" + results[i].idFoto;
+            ruta = "http://" + ip + "/Adoptame/uploads/" + results[i].idFoto;
             img.setAttribute("src", ruta);
             img.setAttribute("width", "80");
             innerDiv.appendChild(img);
@@ -130,33 +132,51 @@ function cargarAnimales() {
             divtext.appendChild(textt);
             divinner.appendChild(divtext);
 
+            var chekbox = document.createElement("input");
+            chekbox.id = results[i].idAnimal;
+            chekbox.setAttribute('type', 'checkbox');
+            chekbox.setAttribute('value', results[i].idAnimal);
+            a.appendChild(chekbox);
+
         }
 
 
     }).fail(function (jqXHR) {
         //app.dialog.alert('Error en el sistema, contacte con el administrador', 'Error');
     });
-    
+
 }
-
-/*
-* Evento que recoge la pulsación sobre la referencia del animal
-*/
-$("#listaAnimales").on("click", "a", function () {
-
-    var idAnimal = $(this).attr('id');
-    //Guardar el id del animal para cargar la pagina personal del animal
-    window.sessionStorage.setItem("idAnimal", idAnimal);
-    window.location.replace("detalleAnimal.html");
-
-})
 
 
 /**
  * Funcion que redirecciona a la pagina de inicio
  */
-function filtrar() {
-    window.location.replace("filtrar.html");
+function eliminar() {
+
+    var seleccionados = new Array();
+    var radios = document.getElementsByTagName('input');
+
+    //Recorre todos los inputs de la pantalla
+    for (var i = 0; i < radios.length; i++) {
+        //Si son radios y estan checked se revisa de que tipo son
+        if (radios[i].type === 'checkbox' && radios[i].checked) {
+            // Se guardan los valores seleccionados
+            seleccionados.push(radios[i].value);
+        }
+    }
+
+    var queryString =
+        'http://' + ip + '/Adoptame/public/api/animales/eliminarAnimal';
+
+    $.post(queryString, {
+
+        idAnimal: seleccionados
+
+    }, function (data) {
+        // Respuesta
+        alert(data);
+    });
+    //window.location.replace("protIndex.html");
 }
 
 /**
@@ -172,14 +192,7 @@ function cerrarSesion() {
 
 }
 
-/**
- * Función que redirige al usuario para cargar
- */
 
-function registroColaborador() {
-    window.sessionStorage.setItem("usuarioColabora", idUsuario);
-    app.dialog.alert('Será redireccionado para unirse a una protectora', 'Colaborador', redireccionarAvanzado);
-}
 /**
  * Funcion que redirecciona a la pagina de inicio
  */

@@ -36,36 +36,27 @@ function onDeviceReady() {
     ip = window.sessionStorage.getItem("IP");
 
     //Recupera el id del animal
-    idAnimal = window.sessionStorage.getItem("idAnimal");;
+    idProtectora = window.sessionStorage.getItem("idDetalleProtectora");
 
     //Consulta datos animal
     var queryString =
-        'http://' + ip + '/Adoptame/public/api/animales/detalleAnimal/' + idAnimal;
+        'http://' + ip + '/Adoptame/public/api/protectora/detalleProtectora/' + idProtectora;
 
     $.getJSON(queryString, function (results) {
 
         //Cargar pantalla datos animal
-        document.getElementById("estadoAnimal").innerHTML = results[0].estado.toUpperCase();
-        document.getElementById("descripcionAnimal").innerHTML = results[0].descripcion;
-        var img = results[0].idFoto;
-        var url = 'http://'+ip+'/Adoptame/uploads/' + img
+        document.getElementById("ciudadProtectora").innerHTML = results[0].ciudadProtectora.toUpperCase();
+        document.getElementById("descripcionProtectora").innerHTML = results[0].descripcionProtectora;
+        var img = results[0].fotoProtectora;
+        var url = 'http://' + ip + '/Adoptame/uploads/' + img
 
         $('#divCard').css('background-image', 'url(' + url + ')');
-        $('#divCard').html(results[0].nombre);
+        $('#divCard').html(results[0].nombreProtectora);
 
-        $('#nombreProtectora').html(results[0].nombreProtectora);
-        $('#ciudadProtectora').html(results[0].ciudadProtectora);
-        
-        $('#especieAnimal').html('Especie: '+results[0].especie);
-        $('#tamanioAnimal').html('Tamaño: '+results[0].tamanio);
-        $('#sexoAnimal').html('Sexo: '+results[0].sexoAnimal);
-
-        idProtectora = results[0].idProtectora;
-       
     }).fail(function (jqXHR) {
-            /* $('#error-msg').show();
-             $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);*/
-            //alert("Error en el sistema, contacte con el administrador");
+        /* $('#error-msg').show();
+         $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);*/
+        alert("Error en el sistema, contacte con el administrador");
     });
 
     var mainView = app.views.create('.view-main');
