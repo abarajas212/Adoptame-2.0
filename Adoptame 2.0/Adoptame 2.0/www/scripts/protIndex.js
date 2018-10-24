@@ -64,6 +64,14 @@ $('#eliminar').click(function () {
     window.location.replace("eliminar.html");
 });
 
+
+/**
+    Marcar como adoptado
+*/
+$('#adoptado').click(function () {
+    window.location.replace("marcarAdoptado.html");
+});
+
 /**
     Enlace para ver codigo protectora
 */
@@ -71,6 +79,12 @@ $('#verCodigo').click(function () {
     window.location.replace("codigoProtectora.html");
 });
 
+/**
+    Enlace para ver adoptados
+*/
+$('#verAdoptados').click(function () {
+    window.location.replace("adoptados.html");
+});
 
 // Prompt para enviar codigo por email
 $('#enviarCodigo').click(function () {

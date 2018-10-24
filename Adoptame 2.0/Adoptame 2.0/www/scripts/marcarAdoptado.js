@@ -4,7 +4,7 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-document.getElementById("btnEliminar").addEventListener('click', eliminar, false);
+document.getElementById("btnMarcar").addEventListener('click', marcar, false);
 document.getElementById("btnSesion").addEventListener('click', cerrarSesion, false);
 
 /**
@@ -44,10 +44,10 @@ function onDeviceReady() {
 
     //Cargar el usuario y la portectora de la sesion
     user = window.sessionStorage.getItem("usuario");
-    document.getElementById("usuarioP").innerHTML = "Usuario: " + user;
+    //document.getElementById("usuarioP").innerHTML = "Usuario: " + user;
 
     protectora = window.sessionStorage.getItem("protectora");
-    document.getElementById("protectoraP").innerHTML = "Protectora: " + protectora;
+    //document.getElementById("protectoraP").innerHTML = "Protectora: " + protectora;
 
     ip = window.sessionStorage.getItem("IP");
 
@@ -135,7 +135,7 @@ function cargarAnimales() {
             var chekbox = document.createElement("input");
             chekbox.id = results[i].idAnimal;
             chekbox.setAttribute('type', 'checkbox');
-            chekbox.setAttribute('value', results[i].idFoto);
+            chekbox.setAttribute('value', results[i].idAnimal);
             a.appendChild(chekbox);
 
         }
@@ -151,9 +151,9 @@ function cargarAnimales() {
 /**
  * Funcion que redirecciona a la pagina de inicio
  */
-function eliminar() {
+function marcar() {
 
-    app.dialog.confirm('¿Está seguro de que desea eliminar permanentemente?', function () {
+    app.dialog.confirm('¿Está seguro de que desea marcar como adoptado?', function () {
 
         var seleccionados = new Array();
         var archivos = new Array();
@@ -165,21 +165,19 @@ function eliminar() {
             if (radios[i].type === 'checkbox' && radios[i].checked) {
                 // Se guardan los valores seleccionados
                 seleccionados.push(radios[i].id);
-                archivos.push(radios[i].value);
             }
         }
 
         var queryString =
-            'http://' + ip + '/Adoptame/public/api/animales/eliminarAnimal';
+            'http://' + ip + '/Adoptame/public/api/animales/marcarAdoptados';
 
         $.post(queryString, {
 
-            idAnimal: seleccionados,
-            idArchivo: archivos
+            idAnimal: seleccionados
 
         }, function (data) {
             // Respuesta
-            app.dialog.alert('Se han eliminado correctamente', 'Eliminados', redireccionar);
+            app.dialog.alert('Se ha marcado correctamente', 'Marcados', redireccionar);
         });
 
     });

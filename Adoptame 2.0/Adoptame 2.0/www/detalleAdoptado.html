@@ -1,0 +1,87 @@
+﻿<!--
+    Personalice la directiva de seguridad de contenido en la etiqueta meta como sea necesario. Agregue "unsafe-inline" a default-src para permitir JavaScript insertado.
+    Para obtener más detalles, consulte http://go.microsoft.com/fwlink/?LinkID=617521
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+     -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>Adoptame2.0</title>
+    <!-- Path to Framework7 Library CSS -->
+    <link rel="stylesheet" href="css/framework7.min.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" type="text/css" href="css/detalleAnimal.css">
+</head>
+<body>
+    <!-- App root element -->
+    <div id="app">
+        <!-- Statusbar overlay -->
+        <div class="statusbar"></div>
+
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+            <!-- Initial Page, "data-name" contains page name -->
+            <div data-name="register" class="page">
+
+                <!-- Top Navbar -->
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <a onclick="window.location = 'adoptados.html'" class="link back">
+                                <i class="icon icon-back"></i>
+                                <span class="ios-only">Back</span>
+                            </a>
+                        </div>
+                        <div class="title">Adoptado</div>
+                    </div>
+                </div>
+                <!-- Scrollable page content -->
+                <div class="page-content">
+                    <div class="card demo-card-header-pic">
+                        <div id="divCard" class="card-header align-items-flex-end">Lorem</div>
+                        <div class="card-content card-content-padding">
+                            <p id="estadoAnimal" class="date"></p>
+                            <p id="descripcionAnimal"></p>
+                        </div>
+                    </div>
+                 
+                    <!--Informacion-->
+
+                    <div class="block block-strong row">
+                        <div class="col">
+                            <div class="item-title"> <b>Información:</b></div>
+                            <ul>
+                                <li> <div id="especieAnimal" class="item-subtitle">Especie</div> </li>
+                                <li> <div id="tamanioAnimal" class="item-subtitle">Tamaño</div> </li>
+                                <li> <div id="sexoAnimal" class="item-subtitle">Sexo</div> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--Page content-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Path to Framework7 Library JS-->
+                    <script type="text/javascript" src="scripts/framework7.min.js"></script>
+                    <script type="text/javascript" src="cordova.js"></script>
+                    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+                    <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
+                    <link rel="stylesheet" href="css/framework7-icons.css">
+                    <script type="text/javascript" src="scripts/detalleAdoptado.js"></script>
+</body>
+</html>

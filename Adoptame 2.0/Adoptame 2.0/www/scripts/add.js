@@ -104,7 +104,6 @@ function aniadirAnimal() {
     // Enviar los datos a la bbdd
     idProtectora = window.sessionStorage.getItem("protectora");
 
-    var ciudad = null;
     //Url donde hacer el post
     /*var queryStringR =
         'http://192.168.1.128/Adoptame/public/api/protectora/agregar';*/
@@ -115,7 +114,6 @@ function aniadirAnimal() {
     $.post(queryStringR, {
 
         idProtectora: idProtectora,
-        ciudad: ciudad,
         especie: especie,
         sexo: sexo,
         tamanio: tam,

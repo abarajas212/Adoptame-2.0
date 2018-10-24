@@ -4,14 +4,11 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-document.getElementById("btnEliminar").addEventListener('click', eliminar, false);
-document.getElementById("btnSesion").addEventListener('click', cerrarSesion, false);
 
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
-var app, ip;
-var user;
+var app, ip, idAnimal, idProtectora;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -42,13 +39,7 @@ function onDeviceReady() {
 
     var mainView = app.views.create('.view-main');
 
-    //Cargar el usuario y la portectora de la sesion
-    user = window.sessionStorage.getItem("usuario");
-    document.getElementById("usuarioP").innerHTML = "Usuario: " + user;
-
     protectora = window.sessionStorage.getItem("protectora");
-    document.getElementById("protectoraP").innerHTML = "Protectora: " + protectora;
-
     ip = window.sessionStorage.getItem("IP");
 
     cargarAnimales();
@@ -66,11 +57,8 @@ function cargarAnimales() {
 
     var i;
     //Peticion de animales al servidor
-    /*var queryString =
-        'http://192.168.1.128/Adoptame/public/api/animales/menuUsuario';*/
-
     var queryString =
-        'http://' + ip + '/Adoptame/public/api/animales/menuProtectora/' + protectora;
+        'http://' + ip + '/Adoptame/public/api/animales/menuProtectora/adoptados/' + protectora;
 
     //Comprobar que el usuario no existe en la bbdd
     $.getJSON(queryString, function (results) {
@@ -84,10 +72,10 @@ function cargarAnimales() {
             lu.appendChild(li);
 
             //Titulo
-            a = document.createElement("div");
+            a = document.createElement("a");
+            a.href = '#';
             a.id = results[i].idAnimal;
-            a.setAttribute('class', 'item-content');
-
+            a.setAttribute('class', 'item-link item-content');
             li.appendChild(a);
 
             innerDiv = document.createElement('div');
@@ -132,12 +120,6 @@ function cargarAnimales() {
             divtext.appendChild(textt);
             divinner.appendChild(divtext);
 
-            var chekbox = document.createElement("input");
-            chekbox.id = results[i].idAnimal;
-            chekbox.setAttribute('type', 'checkbox');
-            chekbox.setAttribute('value', results[i].idFoto);
-            a.appendChild(chekbox);
-
         }
 
 
@@ -147,55 +129,24 @@ function cargarAnimales() {
 
 }
 
+/*
+* Evento que recoge la pulsación sobre la referencia del animal
+*/
+$("#listaAnimales").on("click", "a", function () {
+
+    var idAnimal = $(this).attr('id');
+    //Guardar el id del animal para cargar la pagina personal del animal
+    window.sessionStorage.setItem("idAnimal", idAnimal);
+    window.location.replace("detalleAdoptado.html");
+
+})
+
 
 /**
  * Funcion que redirecciona a la pagina de inicio
  */
-function eliminar() {
-
-    app.dialog.confirm('¿Está seguro de que desea eliminar permanentemente?', function () {
-
-        var seleccionados = new Array();
-        var archivos = new Array();
-        var radios = document.getElementsByTagName('input');
-
-        //Recorre todos los inputs de la pantalla
-        for (var i = 0; i < radios.length; i++) {
-            //Si son radios y estan checked se revisa de que tipo son
-            if (radios[i].type === 'checkbox' && radios[i].checked) {
-                // Se guardan los valores seleccionados
-                seleccionados.push(radios[i].id);
-                archivos.push(radios[i].value);
-            }
-        }
-
-        var queryString =
-            'http://' + ip + '/Adoptame/public/api/animales/eliminarAnimal';
-
-        $.post(queryString, {
-
-            idAnimal: seleccionados,
-            idArchivo: archivos
-
-        }, function (data) {
-            // Respuesta
-            app.dialog.alert('Se han eliminado correctamente', 'Eliminados', redireccionar);
-        });
-
-    });
-}
-
-/**
- * Funcion que cierra sesion, redirigiendo y eliminando los datos de sesion
- */
-function cerrarSesion() {
-    //Mostrar popup de confirmacion
-    app.dialog.confirm('¿Está seguro de que desea cerrar sesión?', function () {
-        app.dialog.alert('Hasta pronto! :)');
-        window.sessionStorage.clear();
-        window.location.replace("index.html");
-    });
-
+function filtrar() {
+    window.location.replace("filtrar.html");
 }
 
 
@@ -203,7 +154,7 @@ function cerrarSesion() {
  * Funcion que redirecciona a la pagina de inicio
  */
 function redireccionar() {
-    window.location.replace("protIndex.html");
+    window.location.replace("index.html");
 };
 
 function onPause() {
