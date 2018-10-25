@@ -35,63 +35,42 @@
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
             <!-- Initial Page, "data-name" contains page name -->
-            <div data-name="register" class="page">
+            <div data-name="contact" class="page">
 
                 <!-- Top Navbar -->
-                  <div class="navbar">
-                      <div class="navbar-inner">
-                          <div class="left">
-                              <a onclick="window.location = 'index.html'" class="link back" >
-                                  <i class="icon icon-back"></i>
-                                  <span class="ios-only">Back</span>
-                              </a>
-                          </div>
-                          <div class="title">Registro</div>
-                      </div>
-                 </div>
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <a onclick="window.location = 'detalleAnimal.html'" class="link back">
+                                <i class="icon icon-back"></i>
+                                <span class="ios-only">Back</span>
+                            </a>
+                        </div>
+                        <div class="title">Contactar</div>
+                    </div>
+                </div>
                 <!-- Scrollable page content -->
                 <div class="page-content">
+                    <div class="block-title">Detalles</div>
+                    <div class="block">
+                        <div class="col">
+                            <p id="infoContacto">
+                                Será puesto en contacto con la protectora $nombre para mostrar su interés por $animal
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="block-title">Datos personales</div>
+                    <div class="block">
+                        <div class="col">
                             <form class="list" id="my-form">
                                 <ul>
                                     <li>
                                         <div class="item-content item-input">
                                             <div class="item-inner">
-                                                <div class="item-title item-label">Usuario</div>
-                                                <div class="item-input-wrap">
-                                                    <input type="text" name="idUsuario" id="idUsuario" placeholder="Identificador usuario" validate required>
-                                                    <span class="input-clear-button"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-title item-label">Contraseña</div>
-                                                <div class="item-input-wrap">
-                                                    <input type="password" name="password" id="userPassword" validate pattern="^(?=\w*\d)(?=\w*[A-Z])\S{8,16}$" data-error-message="Entre 8 y 16 caracteres, con un dígito y una mayúscula" required placeholder="Contraseña">
-                                                    <span class="input-clear-button"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-title item-label">Confirmacion contraseña</div>
-                                                <div class="item-input-wrap">
-                                                    <input type="password" name="userPasswordConfirm" id="passwordConfirm" placeholder="Repita la contraseña" validate required>
-                                                    <span class="input-clear-button"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-content item-input">
-                                            <div class="item-inner">
                                                 <div class="item-title item-label">Nombre</div>
                                                 <div class="item-input-wrap">
-                                                    <input type="text" name="name" id="name" placeholder="Nombre" validate required>
+                                                    <input type="text" name="nombreUsuario" id="nombreUsuario">
                                                     <span class="input-clear-button"></span>
                                                 </div>
                                             </div>
@@ -100,20 +79,9 @@
                                     <li>
                                         <div class="item-content item-input">
                                             <div class="item-inner">
-                                                <div class="item-title item-label">Apellidos</div>
+                                                <div class="item-title item-label">Email</div>
                                                 <div class="item-input-wrap">
-                                                    <input type="text" name="surnames" id="surnames" placeholder="Apellidos">
-                                                    <span class="input-clear-button"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-title item-label">E-mail</div>
-                                                <div class="item-input-wrap">
-                                                    <input type="email" name="email" id="emailUser" placeholder="E-mail" required validate>
+                                                    <input type="text" name="emailUsuario" id="emailUsuario">
                                                     <span class="input-clear-button"></span>
                                                 </div>
                                             </div>
@@ -124,35 +92,58 @@
                                             <div class="item-inner">
                                                 <div class="item-title item-label">Teléfono</div>
                                                 <div class="item-input-wrap">
-                                                    <input type="tel" name="telefono" id="telefonoUser" placeholder="Número de teléfono" required validate pattern="[0-9]*" data-error-message="Solo números!">
+                                                    <input type="text" name="telefonoUsuario" id="telefonoUsuario">
                                                     <span class="input-clear-button"></span>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
                                     <li>
-                                        <div class="item-content">
+                                        <div class="item-content item-input">
                                             <div class="item-inner">
-                                                <div class="item-title">Colaboro con una protectora</div>
-                                                <div class="item-after">
-                                                    <!-- Add toggle-init class -->
-                                                    <label class="toggle toggle-init">
-                                                        <input type="checkbox">
-                                                        <span class="toggle-icon"></span>
+                                                <div class="item-title item-label">¿Que desea?</div>
+                                                <div class="item-input-wrap">
+                                                    <label class="item-radio item-content">
+                                                        <input type="radio" name="opcion" value="adoptar" checked />
+                                                        <i class="icon icon-radio"></i>
+                                                        <div class="item-inner">
+                                                            <div class="item-title">Adoptar</div>
+                                                        </div>
                                                     </label>
+                                                    <label class="item-radio item-content">
+                                                        <input type="radio" name="opcion" value="acoger" />
+                                                        <i class="icon icon-radio"></i>
+                                                        <div class="item-inner">
+                                                            <div class="item-title">Acoger</div>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-title item-label">Mensaje</div>
+                                                <div class="item-input-wrap">
+                                                    <textarea name="textarea" rows="20" cols="50" minLength="20" maxLength="1000" id="mensaje" placeholder="Escriba el contenido del correo"></textarea>
+                                                    <span class="input-clear-button"></span>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
                                 </ul>
                             </form>
-                            <div class="block block-strong row">
-                                <div class="col">
-                                    <a class="button" href="#" id="btnRegistro" >Registrar</a>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
+                    <div class="block block-strong row">
+                        <div class="col">
+                            <a class="button" href="#" id="btnEnviar">Enviar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- Path to Framework7 Library JS-->
@@ -160,6 +151,6 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="scripts/registro.js"></script>
+    <script type="text/javascript" src="scripts/contactar.js"></script>
 </body>
 </html>

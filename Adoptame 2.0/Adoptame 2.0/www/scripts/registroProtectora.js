@@ -145,7 +145,8 @@ function registrarProtectora() {
                 password: hashpassword,
                 nombre: nombre,
                 apellidos: apellidos,
-                email: email
+                email: email,
+                telefono: telefono
 
             });/*.complete(function () {
                 // Operación se completa, independientemente del estado

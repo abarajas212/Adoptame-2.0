@@ -4,7 +4,9 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-var app, ip, idAnimal, idProtectora;
+document.getElementById("btnContactar").addEventListener('click', contactar, false);
+
+var app, ip, idAnimal, idProtectora, nombreAnimal;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -52,6 +54,7 @@ function onDeviceReady() {
 
         $('#divCard').css('background-image', 'url(' + url + ')');
         $('#divCard').html(results[0].nombre);
+        nombreAnimal = results[0].nombre;
 
         $('#nombreProtectora').html(results[0].nombreProtectora);
         $('#ciudadProtectora').html(results[0].ciudadProtectora);
@@ -78,6 +81,15 @@ function onPause() {
 function onResume() {
     // TODO: esta aplicación se ha reactivado. Restaure el estado de la aplicación aquí.
 };
+
+function contactar() {
+
+    window.sessionStorage.setItem("idDetalleProtectora", idProtectora);
+    window.sessionStorage.setItem("nombreAnimal", nombreAnimal);
+    window.location.replace("contactar.html");
+
+}
+
 
 /**
     Enlace para pantalla añadir animal

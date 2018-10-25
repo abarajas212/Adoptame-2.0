@@ -99,6 +99,19 @@ function registrar() {
         return null;
     }
 
+    //Recoge telefono
+    var telefono = document.getElementById("telefonoUser").value;
+
+    if (flagValidacionesBlanco = validarCampoBlanco(telefono)) {
+        app.dialog.alert('Introduzca un teléfono', 'Error');
+        return null;
+    }
+
+    if (flagValidacionesEspacio = validarEspacios(telefono)) {
+        app.dialog.alert('El teléfono introducido es incorrecto', 'Error');
+        return null;
+    }
+
     //Convierto el usuario a minusculas
     idUsuario = idUsuario.toLowerCase();
 
@@ -130,7 +143,8 @@ function registrar() {
                 password: hashpassword,
                 nombre: nombre,
                 apellidos: apellido,
-                email: email
+                email: email,
+                telefono: telefono
 
             })
                 .complete(function () {

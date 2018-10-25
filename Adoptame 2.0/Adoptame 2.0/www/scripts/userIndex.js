@@ -149,7 +149,7 @@ $("#listaAnimales").on("click", "a", function () {
     window.sessionStorage.setItem("idAnimal", idAnimal);
     window.location.replace("detalleAnimal.html");
 
-})
+});
 
 
 /**
