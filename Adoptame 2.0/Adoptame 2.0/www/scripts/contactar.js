@@ -8,7 +8,7 @@ document.getElementById("btnEnviar").addEventListener('click', contactar, false)
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
-var app, ip, idAnimal, idProtectora, idUsuario, nombreAnimal;
+var app, ip, idAnimal, idProtectora, idUsuario, nombreAnimal, nombreUsuario, emailUsuario, telefonoUsuario, emailProtectora;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -53,14 +53,16 @@ function onDeviceReady() {
     $.getJSON(queryString, function (results) {
 
         $('#nombreUsuario').val(results[0].nombre);
+        emailUsuario = results[0].email;
         $('#emailUsuario').val(results[0].email);
+        telefonoUsuario = results[0].telefono;
         $('#telefonoUsuario').val(results[0].telefono);
 
     }).fail(function (jqXHR) {
         /* $('#error-msg').show();
          $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);*/
         alert("Error en el sistema, contacte con el administrador");
-        });
+     });
 
 
     var queryStringP =
@@ -69,6 +71,7 @@ function onDeviceReady() {
     $.getJSON(queryStringP, function (results) {
 
         $('#infoContacto').text("Será puesto en contacto con la protectora " + results[0].nombre + " para mostrar su interés por " + nombreAnimal);
+        emailProtectora = results[0].email;
 
     }).fail(function (jqXHR) {
         /* $('#error-msg').show();
@@ -85,6 +88,86 @@ function onDeviceReady() {
 
 function contactar() {
 
+    //Comprobar email y teléfono
+    var flagValidacionesBlanco, flagValidacionesEspacio;
+    var radios = document.getElementsByTagName('input');
+
+    //Recoge email
+    var emailUsuario = document.getElementById("emailUsuario").value;
+
+    if (flagValidacionesBlanco = validarCampoBlanco(emailUsuario)) {
+        app.dialog.alert('Introduzca un email', 'Error');
+        return null;
+    }
+
+    if (flagValidacionesEspacio = validarEspacios(emailUsuario)) {
+        app.dialog.alert('El email introducido es incorrecto', 'Error');
+        return null;
+    }
+
+    //Recoge teléfono
+    telefonoUsuario = document.getElementById("telefonoUsuario").value;
+
+    if (flagValidacionesBlanco = validarCampoBlanco(telefonoUsuario)) {
+        app.dialog.alert('Introduzca un teléfono', 'Error');
+        return null;
+    }
+
+    if (flagValidacionesEspacio = validarEspacios(telefonoUsuario)) {
+        app.dialog.alert('El teléfono introducido es incorrecto', 'Error');
+        return null;
+    }
+
+    //Recoge nombre
+    var nombreUsuario = document.getElementById("nombreUsuario").value;
+
+    if (flagValidacionesBlanco = validarCampoBlanco(nombreUsuario)) {
+        app.dialog.alert('Introduzca un nombre para contactar con usted', 'Error');
+        return null;
+    }
+
+
+    //Mensaje
+    var mensaje = document.getElementById("mensaje").value;
+
+    if (flagValidacionesBlanco = validarCampoBlanco(mensaje)) {
+        app.dialog.alert('Introduzca un nombre mensaje', 'Error');
+        return null;
+    }
+
+    //Que desea
+    //Recorre todos los inputs de la pantalla
+    for (var i = 0; i < radios.length; i++) {
+        //Si son radios y estan checked se revisa de que tipo son
+        if (radios[i].type === 'radio' && radios[i].checked) {
+            // Se guardan el valor seleccionado
+            var desea = radios[i].value;
+        }
+    }
+
+    //Post email
+
+    var asunto = desea + " " + nombreAnimal;
+
+    var queryStringM =
+        'http://' + ip + '/Adoptame/public/api/protectora/enviarEmail/contactoProtectora';
+
+    $.post(queryStringM, {
+
+        emailProtectora: emailProtectora,
+        emailUsuario: emailUsuario,
+        nombreUsuario: nombreUsuario,
+        asunto: asunto,
+        telefonoUsuario: telefonoUsuario,
+        mensaje: mensaje
+
+    }, function (data) {
+        // Respuesta
+        app.dialog.alert(data, 'Envio', redireccionar);
+        return null;
+    });
+
+
 
 }
 
@@ -94,6 +177,39 @@ function contactar() {
 function redireccionar() {
     window.location.replace("detalleAnimal.html");
 };
+
+/**
+ * Funcion que comprueba si el campo esta en blanco
+ * @param {any} campo
+ */
+function validarCampoBlanco(campo) {
+
+    if (campo == "" || campo.length == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+/**
+ * Funcion que comprueba si el campo contiene espacios /^\s*$/.test(campo)
+ * @returns True en caso de contener espacios, sino false.
+ * @param {any} campo
+ */
+function validarEspacios(campo) {
+
+    //Sin espacios
+    var noValido = / /;
+
+    if (noValido.test(campo)) { // se chequea el regex de que el string no tenga espacio
+        //alert("El campo no puede contener espacios en blanco");
+        return true;
+    } else {
+        return false;
+    }
+
+}
 
 function onPause() {
     // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.

@@ -34,8 +34,8 @@
         });
 
         var mainView = app.views.create('.view-main');
-        window.sessionStorage.setItem("IP", "192.168.1.128");
-        ip = "192.168.1.128";
+        window.sessionStorage.setItem("IP", "192.168.1.130");
+        ip = "192.168.1.130";
 
     };
 
