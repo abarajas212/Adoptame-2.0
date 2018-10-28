@@ -167,6 +167,7 @@ function cerrarSesion() {
     app.dialog.confirm('¿Está seguro de que desea cerrar sesión?', function () {
         app.dialog.alert('Hasta pronto! :)');
         window.sessionStorage.clear();
+        window.localStorage.clear();
         window.location.replace("index.html");
     });
 
