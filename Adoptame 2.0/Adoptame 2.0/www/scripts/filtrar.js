@@ -11,9 +11,9 @@ document.getElementById("btnLimpiar").addEventListener('click', limpiarFiltros, 
  */
 var app, ip;
 
-//Variables para cargar y guardar filtros
-
+//Variables para cargar y guardar filtro
 var especie, sexo, tamanio, estado;
+var titulo, subtitulo;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -52,21 +52,62 @@ function onDeviceReady() {
         var cadena = str.split('/'),
             especie = cadena[0]; sexo = cadena[1]; tamanio = cadena[2]; estado = cadena[3];
 
+            //Modificar el valor
             $('#especie').val(especie);
 
-            //Recoger lu y meter li dentro
-            var titulo = document.getElementById("tituloEspecie");
-            var subtitulo = document.createElement("div");
+            //Mostrar el valor seleccionado
+            titulo = document.getElementById("tituloEspecie");
+            subtitulo = document.createElement("div");
             subtitulo.setAttribute('class', 'item-after');
-            subtitulo.innerHTML = "Hello"
+            if (especie == '*') {
+                subtitulo.innerHTML = 'Todas';
+            } else {
+                subtitulo.innerHTML = especie;
+            }
             titulo.appendChild(subtitulo);
 
+            //Modificar el valor
             $('#sexo').val(sexo);
+
+            //Mostrar el valor seleccionado
+            titulo = document.getElementById("tituloSexo");
+            subtitulo = document.createElement("div");
+            subtitulo.setAttribute('class', 'item-after');
+            if (sexo == '*') {
+                subtitulo.innerHTML = 'Todos';
+            } else {
+                subtitulo.innerHTML = sexo;
+            }
+            titulo.appendChild(subtitulo);
+
+            //Modificar el valor
             $('#tamanio').val(tamanio);
+
+            //Mostrar el valor seleccionado
+            titulo = document.getElementById("tituloTamanio");
+            subtitulo = document.createElement("div");
+            subtitulo.setAttribute('class', 'item-after');
+            if (tamanio == '*') {
+                subtitulo.innerHTML = 'Todos';
+            } else {
+                subtitulo.innerHTML = tamanio;
+            }
+            titulo.appendChild(subtitulo);
+
+            //Modificar el valor
             $('#estado').val(estado);
+
+            //Mostrar el valor seleccionado
+            titulo = document.getElementById("tituloEstado");
+            subtitulo = document.createElement("div");
+            subtitulo.setAttribute('class', 'item-after');
+            if (estado == '*') {
+                subtitulo.innerHTML = 'Todos';
+            } else {
+                subtitulo.innerHTML = estado;
+            }
+            titulo.appendChild(subtitulo);         
     }
-
-
 };
 
 /**
@@ -74,18 +115,18 @@ function onDeviceReady() {
  */
 function filtrar() {
 
-    var especie = $("#especie").val();
-    var sexo = $("#sexo").val();
-    var tamanio = $("#tamanio").val();
-    var estado = $("#estado").val();
+    especie = $("#especie").val();
+    sexo = $("#sexo").val();
+    tamanio = $("#tamanio").val();
+    estado = $("#estado").val();
 
     var filtrado = especie + "/" + sexo + "/" + tamanio + "/" + estado;
 
-    alert(filtrado);
+    alert("Se aplicacarán los filtros en la búsqueda");
     window.sessionStorage.setItem("fitradoBusqueda", filtrado);
 
     // Volver a la pantalla de seleccion una vez almacenados los datos
-    //window.location.replace("userIndex.html");
+    window.location.replace("userIndex.html");
 }
 
 /*

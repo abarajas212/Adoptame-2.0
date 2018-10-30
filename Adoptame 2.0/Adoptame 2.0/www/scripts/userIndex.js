@@ -60,15 +60,20 @@ function cargarAnimales() {
     //Variables html
     var lu; var li; var a; var innerDiv; var img; var divinner; var divtitle;
     var divtitlecontent; var text; var divsubtitle; var textsubtitle; var ruta;
-    var divtext; var textt;
+    var divtext; var textt; var queryString;
 
     var i;
-    //Peticion de animales al servidor
-    /*var queryString =
-        'http://192.168.1.128/Adoptame/public/api/animales/menuUsuario';*/
 
-    var queryString =
-        'http://'+ip+'/Adoptame/public/api/animales/menuUsuario';
+    var filtrado = window.sessionStorage.getItem("fitradoBusqueda");
+
+        //Peticion de animales al servidor
+    if (filtrado != null) {
+        queryString =
+            'http://' + ip + '/Adoptame/public/api/animales/menuUsuario/filtrado/' + filtrado;
+    } else {
+        queryString =
+            'http://'+ip+'/Adoptame/public/api/animales/menuUsuario';
+    }
 
     //Comprobar que el usuario no existe en la bbdd
     $.getJSON(queryString, function (results) {
