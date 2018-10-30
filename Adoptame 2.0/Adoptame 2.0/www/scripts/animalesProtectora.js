@@ -8,7 +8,7 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
-var app, ip, idAnimal, idProtectora;
+var app, ip, idAnimal, idProtectora, accion;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -42,6 +42,15 @@ function onDeviceReady() {
     protectora = window.sessionStorage.getItem("protectora");
     ip = window.sessionStorage.getItem("IP");
 
+    accion = window.sessionStorage.getItem("accion");
+
+    if (accion == "editar") {
+        $("#titulo").html("Editar");
+    } else if (accion == "verAdoptados"){
+        $("#titulo").html("Adoptados");
+    }
+    
+
     cargarAnimales();
 
 };
@@ -53,12 +62,18 @@ function cargarAnimales() {
     //Variables html
     var lu; var li; var a; var innerDiv; var img; var divinner; var divtitle;
     var divtitlecontent; var text; var divsubtitle; var textsubtitle; var ruta;
-    var divtext; var textt;
+    var divtext; var textt; var queryString;
 
     var i;
     //Peticion de animales al servidor
-    var queryString =
-        'http://' + ip + '/Adoptame/public/api/animales/menuProtectora/adoptados/' + protectora;
+
+    if (accion == "editar") {
+        queryString =
+            'http://' + ip + '/Adoptame/public/api/animales/menuProtectora/' + protectora;
+    } else if (accion == "verAdoptados") {
+        queryString =
+            'http://' + ip + '/Adoptame/public/api/animales/menuProtectora/adoptados/' + protectora;
+    }
 
     //Comprobar que el usuario no existe en la bbdd
     $.getJSON(queryString, function (results) {
@@ -137,8 +152,13 @@ $("#listaAnimales").on("click", "a", function () {
     var idAnimal = $(this).attr('id');
     //Guardar el id del animal para cargar la pagina personal del animal
     window.sessionStorage.setItem("idAnimal", idAnimal);
-    window.location.replace("detalleAdoptado.html");
 
+    if (accion == "editar") {
+        window.location.replace("editar.html");
+    } else if (accion == "verAdoptados"){
+        window.location.replace("detalleAdoptado.html");
+    }
+    
 })
 
 

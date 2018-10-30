@@ -57,6 +57,15 @@ $('#aniadir').click(function () {
     window.location.replace("add.html");
 });
 
+
+/**
+    Enlace para pantalla añadir animal
+*/
+$('#editar').click(function () {
+    window.sessionStorage.setItem("accion", "editar");
+    window.location.replace("animalesProtectora.html");
+});
+
 /**
     Enlace para ver codigo protectora
 */
@@ -83,7 +92,8 @@ $('#verCodigo').click(function () {
     Enlace para ver adoptados
 */
 $('#verAdoptados').click(function () {
-    window.location.replace("adoptados.html");
+    window.sessionStorage.setItem("accion", "verAdoptados");
+    window.location.replace("animalesProtectora.html");
 });
 
 // Prompt para enviar codigo por email

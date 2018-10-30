@@ -1,0 +1,244 @@
+﻿<!--
+    Personalice la directiva de seguridad de contenido en la etiqueta meta como sea necesario. Agregue "unsafe-inline" a default-src para permitir JavaScript insertado.
+    Para obtener más detalles, consulte http://go.microsoft.com/fwlink/?LinkID=617521
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+     -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>Adoptame2.0</title>
+    <!-- Path to Framework7 Library CSS -->
+    <link rel="stylesheet" href="css/framework7.min.css">
+    <!-- Path to your custom app styles
+    <link rel="stylesheet" type="text/css" href="css/index.css">-->
+</head>
+<body>
+    <!-- App root element -->
+    <div id="app">
+        <div class="view view-main view-init">
+            <div class="page">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <a onclick="window.location = 'animalesProtectora.html'" class="link back">
+                            <i class="icon icon-back"></i>
+                            <span class="ios-only">Back</span>
+                        </a>
+                        <div class="title">Editar animal</div>
+                        <div class="right"></div>
+                    </div>
+                </div>
+                <div class="page-content">
+                    <form class="list" id="my-form">
+                        <ul>
+                            <li>
+                                <div class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Nombre</div>
+                                        <div class="item-input-wrap">
+                                            <input type="text" id="nombreAnimal" validate required>
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Descripcion</div>
+                                        <div class="item-input-wrap">
+                                            <textarea name="textarea" rows="20" cols="50" minLength="20" maxLength="1000" id="descripcion" placeholder="Escriba una breve descripción del animal"></textarea>
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                        </ul>
+                        <div class="block">
+                            <div class="block-title">Especie</div>
+                            <div class="list">
+                                <ul>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="especie" value="cachorro" id="cachorro" checked />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Cachorro</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="especie" value="perro" id="perro" />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Perro</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="especie" value="gato" id="gato"  />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Gato</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="especie" value="roedor" id="roedor" />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Roedor</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="especie" value="otros" id="otros" />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Otros</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="block">
+                            <div class="block-title">Sexo</div>
+                            <div class="list">
+                                <ul>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="sexoAnimal" value="macho" id="macho" checked />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Macho</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="sexoAnimal" value="hembra" id="hembra" />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Hembra</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="block">
+                            <div class="block-title">Tamaño</div>
+                            <div class="list">
+                                <ul>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="tamanio" value="mini" id="mini" checked />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Mini</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="tamanio" value="pequeño" id="pequeño" />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Pequeño</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="tamanio" value="mediano" id="mediano" checked />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Mediano</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="tamanio" value="grande" id="grande" />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Grande</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="block">
+                            <div class="block-title">Estado</div>
+                            <div class="list">
+                                <ul>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="estado" value="adopcion" id="adopcion" checked />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Adopcion</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="estado" value="urge" id="urge"/>
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Urgente</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="estado" value="acogida" id="acogida"/>
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Acogida</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="block">
+                            <button class="col button button-fill button-round" href="#" id="btnModificar">Modificar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="scripts/framework7.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="css/framework7-icons.css">
+    <script type="text/javascript" src="scripts/editar.js"></script>
+</body>
+</html>
