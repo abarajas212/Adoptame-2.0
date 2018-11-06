@@ -162,12 +162,25 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
     });
 
+/*
+    Enlace a la pantalla de registro
+*/
 $('#registro').click(function () {
     window.location.replace("registro.html");
     });
 
+/*
+    Enlace a la pantalla de registro de protectora
+*/
 $('#registarProtectora').click(function () {
     window.location.replace("registroProtectora.html");
+});
+
+/*
+    Enlace a la pantalla de recuperar contraseña
+*/
+$('#recuperarContrasenia').click(function () {
+    window.location.replace("recuperarContrasenia.html");
 });
 
 $('#pruebasUsuario').click(function () {
