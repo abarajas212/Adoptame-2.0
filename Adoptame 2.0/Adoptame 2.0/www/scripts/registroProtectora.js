@@ -238,7 +238,6 @@ function validarCampoBlanco(campo) {
     }
 }
 
-
 /**
  * Funcion que comprueba si el campo contiene espacios /^\s*$/.test(campo)
  * @returns True en caso de contener espacios, sino false.

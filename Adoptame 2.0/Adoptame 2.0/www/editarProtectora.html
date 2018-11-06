@@ -35,57 +35,24 @@
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
             <!-- Initial Page, "data-name" contains page name -->
-            <div data-name="registroProtectora" class="page">
+            <div data-name="modificarProtectora" class="page">
 
                 <!-- Top Navbar -->
                 <div class="navbar">
                     <div class="navbar-inner">
                         <div class="left">
-                            <a onclick="window.location = 'index.html'" class="link back">
+                            <a onclick="window.location = 'protIndex.html'" class="link back">
                                 <i class="icon icon-back"></i>
                                 <span class="ios-only">Back</span>
                             </a>
                         </div>
-                        <div class="title">Registro de protectoras</div>
+                        <div class="title">Modificar datos</div>
                     </div>
                 </div>
                 <!-- Scrollable page content -->
                 <div class="page-content">
                     <form class="list" id="my-form">
                         <ul>
-                            <li>
-                                <div class="item-content item-input">
-                                    <div class="item-inner">
-                                        <div class="item-title item-label">Identificador</div>
-                                        <div class="item-input-wrap">
-                                            <input type="text" name="idUsuario" id="idUsuario" placeholder="Identificador para login" validate required>
-                                            <span class="input-clear-button"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item-content item-input">
-                                    <div class="item-inner">
-                                        <div class="item-title item-label">Contraseña</div>
-                                        <div class="item-input-wrap">
-                                            <input type="password" name="password" id="userPassword" validate pattern="^(?=\w*\d)(?=\w*[A-Z])\S{8,16}$" data-error-message="Entre 8 y 16 caracteres, con un dígito y una mayúscula" required placeholder="Contraseña">
-                                            <span class="input-clear-button"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item-content item-input">
-                                    <div class="item-inner">
-                                        <div class="item-title item-label">Confirmacion contraseña</div>
-                                        <div class="item-input-wrap">
-                                            <input type="password" name="userPasswordConfirm" id="passwordConfirm" placeholder="Repita la contraseña" validate required>
-                                            <span class="input-clear-button"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
                             <li>
                                 <div class="item-content item-input">
                                     <div class="item-inner">
@@ -113,7 +80,7 @@
                                     <div class="item-inner">
                                         <div class="item-title item-label">E-mail</div>
                                         <div class="item-input-wrap">
-                                            <input type="email" name="email" id="emailUser" placeholder="E-mail de la protectora" required validate>
+                                            <input type="email" name="email" id="emailProtectora" placeholder="E-mail de la protectora" required validate>
                                             <span class="input-clear-button"></span>
                                         </div>
                                     </div>
@@ -135,7 +102,7 @@
                             <li>
                                 <div class="item-content item-input">
                                     <div class="item-inner">
-                                        <div class="item-title item-label">Ciudad</div>
+                                       <div class="item-title item-label">Ciudad</div>
                                         <f7-list>
                                             <f7-list-item title="Ciudad" smart-select :smart-select-params="{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Selecciona una ciudad'}">
                                                 <select name="ciudad" id="ciudad">
@@ -199,13 +166,13 @@
                                     </div>
                                 </div>
                             </li>
-                        </ul>      
+                        </ul>
                     </form>
-                        <div class="block block-strong row">
-                            <div class="col">
-                                <a class="button" href="#" id="btnRegistro">Registrar</a>
-                            </div>
+                    <div class="block block-strong row">
+                        <div class="col">
+                            <a class="button" href="#" id="btnModificar">Modificar Datos</a>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -215,6 +182,6 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="scripts/registroProtectora.js"></script>
+    <script type="text/javascript" src="scripts/editarProtectora.js"></script>
 </body>
 </html>

@@ -89,6 +89,14 @@ $('#verCodigo').click(function () {
 });
 
 /**
+    Enlace para modificar datos de la protectora
+*/
+$('#modificarProtectora').click(function () {
+
+    window.location.replace("editarProtectora.html");
+});
+
+/**
     Enlace para ver adoptados
 */
 $('#verAdoptados').click(function () {

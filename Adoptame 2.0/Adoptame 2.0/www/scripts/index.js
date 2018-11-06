@@ -37,8 +37,8 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
             // ... other parameters
         });
 
-        window.sessionStorage.setItem("IP", "192.168.1.128");
-        ip = "192.168.1.128";
+        window.sessionStorage.setItem("IP", "192.168.1.130");
+        ip = "192.168.1.130";
 
         //Comprobar si hay usuario guardado y su contrasenia
         usuarioDispositivo = window.localStorage.getItem("usuarioDispositivo");
@@ -144,8 +144,8 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
                     } else {
                         //alert("Pantalla protectora");
-                        //comprobar permisos que tiene el usuario y almacenarlos en las variables de la aplicacion
-                        // para consultarlas cuando sea necesarioz
+                        // Almacena usuario y protectora
+
                         window.sessionStorage.setItem("usuario", user);
                         window.sessionStorage.setItem("protectora", results[0].idProtectora);
                         window.location.replace("protIndex.html");

@@ -13,8 +13,8 @@ var app;
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
 var nombreAnimal; // Nombre del animal que se recoge por pantalla
-var idProtectora //Id de la protectora que se recogera de la variable que se carga al hacer login
-var idFoto //Nombre de la foto
+var idProtectora; //Id de la protectora que se recogera de la variable que se carga al hacer login
+var idFoto; //Nombre de la foto
 var ip;
 var idAnimal;
 
