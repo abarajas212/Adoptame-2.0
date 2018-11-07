@@ -23,8 +23,8 @@
     <title>Adoptame2.0</title>
     <!-- Path to Framework7 Library CSS -->
     <link rel="stylesheet" href="css/framework7.min.css">
-    <!-- Path to your custom app styles
-    <link rel="stylesheet" type="text/css" href="css/index.css">-->
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" type="text/css" href="css/detalleAnimal.css">
 </head>
 <body>
     <!-- App root element -->
@@ -224,15 +224,20 @@
                                 </ul>
                             </div>
                         </div>
-
-                        <div class="block">
-                            <div class="block-title">Añadir foto</div>
-                            <a class="button" href="#" id="btnFoto">
-                                <i class="f7-icons">camera</i>
-                            </a>
-                            <img style="display:none;width:80px;height:80px;" id="smallImage" src="" />
+                        <div class="card demo-card-header-pic">
+                            <div id="divCard" class="card-header align-items-flex-end"></div>
+                            <div class="card-content card-content-padding">
+                            </div>
+                            <div class="card-footer">
+                                <a class="button" href="#" id="btnFoto"><i class="f7-icons">camera</i></a>
+                                <a class="button" href="#" id="btnFotoGaleria">Añadir desde galería</a>
+                            </div>
                         </div>
-                       <!--<button class="col button button-fill button-round" href="#" id="btnAniadir">Añadir</button>-->
+                        <div class="block block-strong row">
+                            <div class="col">
+                                <a class="button" href="#" id="btnAniadir">Añadir</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
