@@ -23,11 +23,11 @@
     <title>Adoptame2.0</title>
     <!-- Path to Framework7 Library CSS -->
     <link rel="stylesheet" href="css/framework7.min.css">
-    <!-- Path to your custom app styles
-    <link rel="stylesheet" type="text/css" href="css/index.css">-->
-</head>
-<body>
-    <!-- App root element -->
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" type="text/css" href="css/detalleAnimal.css">
+    </head>
+    <body>
+        <!-- App root element -->
     <div id="app">
         <!-- Statusbar overlay -->
         <div class="statusbar"></div>
@@ -102,7 +102,7 @@
                             <li>
                                 <div class="item-content item-input">
                                     <div class="item-inner">
-                                       <div class="item-title item-label">Ciudad</div>
+                                        <div class="item-title item-label">Ciudad</div>
                                         <f7-list>
                                             <f7-list-item title="Ciudad" smart-select :smart-select-params="{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Selecciona una ciudad'}">
                                                 <select name="ciudad" id="ciudad">
@@ -168,9 +168,15 @@
                             </li>
                         </ul>
                     </form>
+                    <div class="card demo-card-header-pic">
+                        <div id="divCard" class="card-header align-items-flex-end"></div>
+                        <div class="card-content card-content-padding">
+                        </div>
+                        <div class="card-footer"><a class="button" href="#" id="btnFoto">Modificar foto</a></div>
+                    </div>
                     <div class="block block-strong row">
                         <div class="col">
-                            <a class="button" href="#" id="btnModificar">Modificar Datos</a>
+                            <a class="button" href="#" id="btnModificar">Modificar</a>
                         </div>
                     </div>
                 </div>
@@ -183,5 +189,5 @@
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="scripts/editarProtectora.js"></script>
-</body>
+    </body>
 </html>

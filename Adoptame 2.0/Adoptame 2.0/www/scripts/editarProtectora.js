@@ -5,6 +5,8 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnModificar").addEventListener('click', modificarDatos, false);
+document.getElementById("btnFoto").addEventListener('click', modificarFoto, false);
+
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -18,6 +20,10 @@ var idFoto; //Nombre de la foto
 var protectora;
 var ip;
 var idAnimal;
+var imagen;
+var pictureSource;   // picture source
+var destinationType; // sets the format of returned value
+var flagModificarFoto;
 
 
 function onDeviceReady() {
@@ -55,7 +61,7 @@ function onDeviceReady() {
     ip = window.sessionStorage.getItem("IP");
 
     protectora = window.sessionStorage.getItem("protectora");
-   
+    flagModificarFoto = false;
     cargarDatosProtectora();
 };
 
@@ -78,6 +84,11 @@ function cargarDatosProtectora() {
         $('#emailProtectora').val(results[0].emailProtectora);
         $('#telefono').val(results[0].telefonoProtectora);
         $('select').val(results[0].ciudadProtectora);
+
+        var img = results[0].fotoProtectora;
+        var url = 'http://' + ip + '/Adoptame/uploads/' + img
+
+        $('#divCard').css('background-image', 'url(' + url + ')');
 
     }).fail(function (jqXHR) {
         /* $('#error-msg').show();
@@ -150,13 +161,86 @@ function modificarDatos() {
          email: email,
          telefono: telefono,
          ciudad: ciudad
-     });
+    });
 
+    //Subir foto
+     if (flagModificarFoto){
+         var options = new FileUploadOptions();
+         options.fileKey = "file";
+         //options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+         options.fileName = "logo" + protectora +".jpg";
+         options.mimeType = "image/jpeg";
+
+         var params = {};
+         params.value1 = "test";
+         params.value2 = "param";
+
+         options.params = params;
+         //Guardar el nombre de la foto
+         idFoto = options.fileName;
+         //Transferir
+         var ft = new FileTransfer();
+         //Subir la foto
+         ft.upload(imagen, encodeURI("http://" + ip + "/Adoptame/public/api/protectora/uploadFoto"), win, fail, options);
+
+     }
      alert("Se han modificado los datos de la protectora");
      window.location.replace("protIndex.html"); 
 }
 
 
+// Called when a photo is successfully retrieved
+//
+function onPhotoURISuccess(imageURI) {
+
+    $('#divCard').css('background-image', 'url(' + imageURI + ')');
+
+    //Guardar la imagen en global
+    imagen = imageURI;
+ 
+    app.dialog.alert('Foto cargada');
+}
+
+function modificarFoto() {
+
+    flagModificarFoto = true;
+    // Retrieve image file location from specified source
+    navigator.camera.getPicture(onPhotoURISuccess, onFail, {
+        quality: 50,
+        destinationType: destinationType.FILE_URI,
+        sourceType: pictureSource.PHOTOLIBRARY
+    });
+
+}
+
+
+//Log del envio
+function fail(error) {
+    alert("An error has occurred: Code = " + error.code);
+    alert("upload error source " + error.source);
+    alert("upload error target " + error.target);
+}
+
+// Called if something bad happens.
+//
+function onFail(message) {
+    //alert('Failed because: ' + message);
+    alert('Error: La foto ha sido cancelada');
+}
+
+//Log del envio
+function win(r) {
+
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
+}
+
+
+
+/*
+  Validaciones
+*/
 function validarCampoBlanco(campo) {
 
     if (campo == "" || campo.length == 0) {

@@ -5,15 +5,26 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnRegistro").addEventListener('click', registrarProtectora, false);
+document.getElementById("btnFoto").addEventListener('click', modificarFoto, false);
+
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
 var app, ip;
+var imagen;
+var protectora
+var pictureSource;   // picture source
+var destinationType; // sets the format of returned value
+var flagModificarFoto;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
     document.addEventListener('pause', onPause.bind(this), false);
     document.addEventListener('resume', onResume.bind(this), false);
+
+    // Carga los controladores de la camara
+    pictureSource = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
 
     // TODO: Cordova se ha cargado. Haga aquí las inicializaciones de Cordova y Framework 7.
     app = new Framework7({
@@ -39,6 +50,8 @@ function onDeviceReady() {
 
     var mainView = app.views.create('.view-main');
     ip = window.sessionStorage.getItem("IP");
+
+    flagModificarFoto = false;
 };
 
 
@@ -148,25 +161,7 @@ function registrarProtectora() {
                 email: email,
                 telefono: telefono
 
-            });/*.complete(function () {
-                // Operación se completa, independientemente del estado
-                alert('asdasd');
-                })
-                .success(function () {
-                    // Operacion termina correctamente
-                   /* app.dialog.alert('Se ha registrado correctamente', 'Confirmacion');
-                    window.location.replace("login.html");*/
-                  /*  alert('qweqwesd');
-                })
-                .error(function () {
-                    // Se completa con error
-                    app.dialog.alert('Error al registrar, intentelo más tarde', 'Error');
-                    return null;
-                });*/
-
-            //Registrar protectora
-            /*var queryStringP =
-                'http://192.168.1.128/Adoptame/public/api/protectora/registrar';*/
+            });
 
             var queryStringP =
                 'http://'+ip+'/Adoptame/public/api/protectora/registrar';
@@ -184,17 +179,15 @@ function registrarProtectora() {
 
             });
 
+            
             //Enlazar usuario y protectora
-            /*var queryStringC =
-                'http://192.168.1.128/Adoptame/public/api/cliente/hacerColaborador';*/
-
             var queryStringC =
                 'http://'+ip+'/Adoptame/public/api/cliente/hacerColaborador';
             
             $.post(queryStringC, {
 
                 idProtectora: id,
-                idUsuario: id
+                idUsuario: idUsuario
 
             });
 
@@ -211,8 +204,44 @@ function registrarProtectora() {
 
             });
 
-            app.dialog.alert('Se ha registrado correctamente', 'Exito!');
+            //Cargar el nombre de la protectora con su id
+            protectora = id;
+            //Subir foto
+            if (flagModificarFoto) {
 
+                var options = new FileUploadOptions();
+                options.fileKey = "file";
+                //options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+                options.fileName = "logo" + protectora + ".jpg";
+                options.mimeType = "image/jpeg";
+
+                var params = {};
+                params.value1 = "test";
+                params.value2 = "param";
+
+                options.params = params;
+                //Guardar el nombre de la foto
+                idFoto = options.fileName;
+                //Transferir
+                var ft = new FileTransfer();
+                //Subir la foto
+                ft.upload(imagen, encodeURI("http://" + ip + "/Adoptame/public/api/protectora/uploadFoto"), win, fail, options);
+
+                //Relacionar foto con protectora
+
+                var queryStringFoto =
+                    'http://' + ip + '/Adoptame/public/api/protectora/protectoraFoto';
+
+                $.post(queryStringFoto, {
+                    idProtectora: protectora,
+                    idFotoProtectora: idFoto
+                });
+
+
+            }
+
+            alert('Se ha registrado correctamente');
+            window.location.replace("index.html"); 
 
         } else {
             //Mostar popup el usuario ya existe en el sistema
@@ -226,6 +255,57 @@ function registrarProtectora() {
 
 }
 
+
+// Called when a photo is successfully retrieved
+//
+function onPhotoURISuccess(imageURI) {
+
+    $('#divCard').css('background-image', 'url(' + imageURI + ')');
+
+    //Guardar la imagen en global
+    imagen = imageURI;
+
+    app.dialog.alert('Foto cargada');
+}
+
+function modificarFoto() {
+
+    flagModificarFoto = true;
+    // Retrieve image file location from specified source
+    navigator.camera.getPicture(onPhotoURISuccess, onFail, {
+        quality: 50,
+        destinationType: destinationType.FILE_URI,
+        sourceType: pictureSource.PHOTOLIBRARY
+    });
+}
+
+
+//Log del envio
+function fail(error) {
+    alert("An error has occurred: Code = " + error.code);
+    alert("upload error source " + error.source);
+    alert("upload error target " + error.target);
+}
+
+// Called if something bad happens.
+//
+function onFail(message) {
+    //alert('Failed because: ' + message);
+    alert('Error: La foto ha sido cancelada');
+}
+
+//Log del envio
+function win(r) {
+
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
+}
+
+/**
+ * Validaciones
+ * @param {any} campo
+ */
 function validarCampoBlanco(campo) {
 
     if (campo == "" || campo.length == 0) {
