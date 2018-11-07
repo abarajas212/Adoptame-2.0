@@ -6,6 +6,7 @@
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnFiltrar").addEventListener('click', filtrar, false);
 document.getElementById("btnSesion").addEventListener('click', cerrarSesion, false);
+document.getElementById("btnPassword").addEventListener('click', cambiarPassword, false);
 document.getElementById("btnRegistroAvanzado").addEventListener('click', registroColaborador, false);
 
 /**
@@ -176,6 +177,15 @@ function cerrarSesion() {
         window.location.replace("index.html");
     });
 
+}
+
+/**
+ * Funcion que redirige para cambiar la contraseña
+ */
+function cambiarPassword() {
+    //Redirecciona para modificar password
+    window.sessionStorage.setItem("pantallaAnterior", "userIndex.html");
+    window.location.replace("modificarPassword.html");
 }
 
 /**

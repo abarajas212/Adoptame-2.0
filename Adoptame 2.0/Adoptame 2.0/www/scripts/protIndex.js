@@ -4,6 +4,7 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+document.getElementById("btnPassword").addEventListener('click', cambiarPassword, false);
 document.getElementById("btnSesion").addEventListener('click', cerrarSesion, false);
 
 /**
@@ -180,12 +181,13 @@ $('#enviarCodigo').click(function () {
     });
 });
 
-
 /**
- * Funcion que redirecciona a la pagina de inicio
+ * Funcion que redirige para cambiar la contraseña
  */
-function filtrar() {
-    window.location.replace("filtrar.html");
+function cambiarPassword() {
+    //Redirecciona para modificar password
+    window.sessionStorage.setItem("pantallaAnterior", "protIndex.html");
+    window.location.replace("modificarPassword.html");
 }
 
 /**

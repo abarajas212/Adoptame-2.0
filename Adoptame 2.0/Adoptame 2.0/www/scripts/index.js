@@ -182,12 +182,3 @@ $('#registarProtectora').click(function () {
 $('#recuperarContrasenia').click(function () {
     window.location.replace("recuperarContrasenia.html");
 });
-
-$('#pruebasUsuario').click(function () {
-
-    
-});
-
-$('#pruebasProtectora').click(function () {
-    window.location.replace("protIndex.html");
-});
