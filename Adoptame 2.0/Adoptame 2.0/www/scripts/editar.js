@@ -5,6 +5,8 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnModificar").addEventListener('click', modificarAnimal, false);
+document.getElementById("btnFoto").addEventListener('click', aniadirFoto, false);
+document.getElementById("btnFotoGaleria").addEventListener('click', aniadirFotoGaleria, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -17,6 +19,9 @@ var idProtectora; //Id de la protectora que se recogera de la variable que se ca
 var idFoto; //Nombre de la foto
 var ip;
 var idAnimal;
+var imagen;
+var flagModificarFoto;
+var img; // Nombre de la imagen del animal
 
 
 function onDeviceReady() {
@@ -55,7 +60,14 @@ function onDeviceReady() {
 
     idAnimal = window.sessionStorage.getItem("idAnimal");
 
-    cargarAnimal();
+    flagModificarFoto = false;
+
+    app.dialog.progress();
+
+    setTimeout(function () {
+        app.dialog.close();
+        cargarAnimal();
+    }, 2000);
 };
 
 /**
@@ -70,23 +82,29 @@ function cargarAnimal() {
     var queryString =
         'http://' + ip + '/Adoptame/public/api/animales/detalleAnimal/' + idAnimal;
 
-    $.getJSON(queryString, function (results) {
+        $.getJSON(queryString, function (results) {
 
-        //Cargar pantalla datos animal
+            //Cargar pantalla datos animal
 
-        $('#nombreAnimal').val(results[0].nombre);
-        $('#descripcion').html(results[0].descripcion);
-        $('#' + results[0].especie).prop("checked", true);
-        $('#' + results[0].sexoAnimal).prop("checked", true);
-        $('#' + results[0].tamanio).prop("checked", true);
-        $('#' + results[0].estado).prop("checked", true);
+            $('#nombreAnimal').val(results[0].nombre);
+            $('#descripcion').html(results[0].descripcion);
+            $('#' + results[0].especie).prop("checked", true);
+            $('#' + results[0].sexoAnimal).prop("checked", true);
+            $('#' + results[0].tamanio).prop("checked", true);
+            $('#' + results[0].estado).prop("checked", true);
 
-    }).fail(function (jqXHR) {
-        /* $('#error-msg').show();
-         $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);*/
-        alert("Error en el sistema, contacte con el administrador");
-    });
+            img = results[0].idFoto;
+            var url = 'http://' + ip + '/Adoptame/uploads/' + img
 
+            $('#divCard').css('background-image', 'url(' + url + ')');
+
+            app.dialog.close();
+
+        }).fail(function (jqXHR) {
+            /* $('#error-msg').show();
+             $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);*/
+            alert("Error en el sistema, contacte con el administrador");
+        });
 }
 
 /**
@@ -149,14 +167,116 @@ function modificarAnimal() {
             estado: estado,
             nombre: nombreAnimal,
             descripcion: descripcionAnimal
-     });
+    });
 
-     alert("Animal modificado");
-     window.location.replace("protIndex.html");
-    
+     if (flagModificarFoto) {
+
+         var options = new FileUploadOptions();
+         options.fileKey = "file";
+         //Se le carga el nombre de la imagen para que al subirlo se sustituya
+         options.fileName = img;
+         options.mimeType = "image/jpeg";
+
+         var params = {};
+         params.value1 = "test";
+         params.value2 = "param";
+
+         options.params = params;
+         //Guardar el nombre de la foto
+         idFoto = options.fileName;
+         //Transferir
+         var ft = new FileTransfer();
+         //Subir la foto
+         ft.upload(imagen, encodeURI("http://" + ip + "/Adoptame/public/api/protectora/uploadFoto"), win, fail, options);
+
+     }
+
+         alert("Animal modificado");
+         window.location.replace("editar.html");
+     
+}
+
+/*
+*  Funciones para el manejo de la imagen
+*/
+
+// Called when a photo is successfully retrieved
+//
+function onPhotoDataSuccess(imageData) {
+
+    $('#divCard').css('background-image', 'url(' + imageData + ')');
+
+    //Guardar la imagen en global
+    imagen = imageData;
+
+    app.dialog.alert('Foto cargada');
+
+}
+// Called when a photo is successfully retrieved
+//
+function onPhotoURISuccess(imageURI) {
+
+    $('#divCard').css('background-image', 'url(' + imageURI + ')');
+
+    //Guardar la imagen en global
+    imagen = imageURI;
+
+    app.dialog.alert('Foto cargada');
+}
+
+// Limpiar cache
+function clearCache() {
+    navigator.camera.cleanup();
 }
 
 
+//Log del envio
+function fail(error) {
+    alert("An error has occurred: Code = " + error.code);
+    alert("upload error source " + error.source);
+    alert("upload error target " + error.target);
+}
+
+// Called if something bad happens.
+//
+function onFail(message) {
+    //alert('Failed because: ' + message);
+    alert('Error: La foto ha sido cancelada');
+}
+
+//Log del envio
+function win(r) {
+
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
+}
+
+
+/**
+ * Funcion que abre la camara para hacer una foto y añadirla
+ */
+function aniadirFoto() {
+
+    flagModificarFoto = true;
+    // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+    navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
+        quality: 20, allowEdit: true,
+        destinationType: destinationType.FILE_URI
+    });
+
+}
+
+function aniadirFotoGaleria() {
+
+    flagModificarFoto = true;
+    // Retrieve image file location from specified source
+    navigator.camera.getPicture(onPhotoURISuccess, onFail, {
+        quality: 50,
+        destinationType: destinationType.FILE_URI,
+        sourceType: pictureSource.PHOTOLIBRARY
+    });
+}
 /**
  * Funcion que comprueba si el campo esta en blanco
  * @param {any} campo
