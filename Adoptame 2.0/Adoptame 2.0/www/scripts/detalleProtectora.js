@@ -30,6 +30,10 @@ function onDeviceReady() {
                 url: 'about.html',
             },
         ],
+        // Habilita la funcion pegar en inputs
+        touch: {
+            disableContextMenu: false,
+        }
         // ... other parameters
     });
 
@@ -52,6 +56,9 @@ function onDeviceReady() {
 
         $('#divCard').css('background-image', 'url(' + url + ')');
         $('#divCard').html(results[0].nombreProtectora);
+
+        $('#email').val(results[0].emailProtectora);
+        $('#telefono').val(results[0].telefonoProtectora);
 
     }).fail(function (jqXHR) {
         /* $('#error-msg').show();
