@@ -71,11 +71,7 @@ function unirse() {
         return null;
     }
 
-    //Comprobar
-
-    /*  CASA  
-    var queryString =
-        'http://192.168.1.128/Adoptame/public/api/cliente/comprobarCodigo/' + idProtectora+ '/'+ codigo;*/
+    //Comprobar codigo protectora
 
     var queryString =
         'http://'+ip+'/Adoptame/public/api/cliente/comprobarCodigo/' + idProtectora + '/' + codigo;
@@ -87,15 +83,12 @@ function unirse() {
             app.dialog.alert('Los datos introducidos son incorrectos', 'Error');
             return null;
         } else {
-            //Se recibe respuesta del servidor, el id de la protectora es correcto, hay que comprobar el codigo
-
+            //Se recibe respuesta del servidor, los datos son correctos
             var idUsuario = window.sessionStorage.getItem("usuarioColabora");
 
-            /*var queryStringR =
-                'http://192.168.1.128/Adoptame/public/api/cliente/hacerColaborador';*/
-
+            //Hacer colaborador
             var queryStringR =
-                'http://'+ip+'/Adoptame/public/api/cliente/hacerColaborador';
+                'http://' + ip + '/Adoptame/public/api/cliente/hacerColaborador';
 
             $.post(queryStringR, {
 
@@ -105,12 +98,11 @@ function unirse() {
             });
 
             //Eliminar usuario window.sessionStorage.setItem("usuarioColabora", idUsuario);
-            app.dialog.alert('Se ha registrado en la protectora correctamente','Exito!');
+            app.dialog.alert('Se ha registrado en la protectora correctamente', 'Exito!');
             window.sessionStorage.clear();
             window.location.replace("index.html");
-
+         
         }
-
 
     }).fail(function (jqXHR) {
         /* $('#error-msg').show();
@@ -121,6 +113,11 @@ function unirse() {
     
 }
 
+$("#btnRegistroAvanzado").click(function () {
+
+    var pantalla = window.sessionStorage.getItem("pantallaAnterior");
+    window.location.replace(pantalla);
+});
 
 /**
  * Funcion que comprueba si el campo esta en blanco

@@ -174,6 +174,7 @@ function registrar() {
 
     if (toggle.checked) {
         window.sessionStorage.setItem("usuarioColabora", idUsuario);
+        window.sessionStorage.setItem("pantallaAnterior", "index.html");
         app.dialog.alert('Se ha registrado correctamente, sera redirigido para unirse a una protectora', 'Colaborador', redireccionarAvanzado);
     } else {
         app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);

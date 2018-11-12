@@ -193,7 +193,8 @@ function cambiarPassword() {
  */
 
 function registroColaborador() {
-    window.sessionStorage.setItem("usuarioColabora", idUsuario);
+    window.sessionStorage.setItem("usuarioColabora", user);
+    window.sessionStorage.setItem("pantallaAnterior", "userIndex.html");
     app.dialog.alert('Será redireccionado para unirse a una protectora', 'Colaborador', redireccionarAvanzado);
 }
 /**
@@ -201,6 +202,13 @@ function registroColaborador() {
  */
 function redireccionar() {
     window.location.replace("index.html");
+};
+
+/**
+ * Funcion que redirecciona a la pagina para unirse a una protectora
+ */
+function redireccionarAvanzado() {
+    window.location.replace("registroAvanzado.html");
 };
 
 function onPause() {
