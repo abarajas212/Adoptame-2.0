@@ -27,15 +27,23 @@
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
   </platform>
-  <platform name="android">
+  <!-- <platform name="android">
     <icon src="res/icons/android/icon-36-ldpi.png" density="ldpi" />
     <icon src="res/icons/android/icon-48-mdpi.png" density="mdpi" />
     <icon src="res/icons/android/icon-72-hdpi.png" density="hdpi" />
     <icon src="res/icons/android/icon-96-xhdpi.png" density="xhdpi" />
+  </platform>-->
+  <platform name="android">
+    <icon src="res/icons/android/iconoPerro.png" density="ldpi" />
+    <icon src="res/icons/android/iconoPerro.png" density="mdpi" />
+    <icon src="res/icons/android/iconoPerro.png" density="hdpi" />
+    <icon src="res/icons/android/iconoPerro.png" density="xhdpi" />
   </platform>
+  
   <platform name="ios">
     <!-- iOS 8.0+ -->
-    <!-- iPhone 6 Plus  -->
+    <!-- iPhone 6 Plus  
+    <icon src="res/icons/ios/icon-60-3x.png" width="180" height="180" />-->
     <icon src="res/icons/ios/icon-60-3x.png" width="180" height="180" />
     <!-- iOS 7.0+ -->
     <!-- iPhone / iPod Touch  -->

@@ -58,7 +58,12 @@ function onDeviceReady() {
         $('#sexoAnimal').html('Sexo: '+results[0].sexoAnimal);
 
         idProtectora = results[0].idProtectora;
-       
+
+        app.range.setValue('#rangoApego', results[0].apego);
+        app.range.setValue('#rangoObediencia', results[0].obediencia);
+        app.range.setValue('#rangoComportamiento', results[0].comportamiento);
+        app.range.setValue('#rangoActividad', results[0].actividad);
+
     }).fail(function (jqXHR) {
             /* $('#error-msg').show();
              $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);*/

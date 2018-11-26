@@ -85,7 +85,7 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
             }).fail(function (jqXHR) {
                 /* $('#error-msg').show();
                  $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);*/
-                alert("Error en el sistema, contacte con el administrador");
+                alert("Error, no se puedo conectar con el servidor");
             });
 
             return false;
@@ -156,7 +156,7 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
         }).fail(function (jqXHR) {
             /* $('#error-msg').show();
              $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);*/
-            alert("Error en el sistema, contacte con el administrador");
+            alert("Error, no se puedo conectar con el servidor");
         });
         return false;
 

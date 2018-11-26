@@ -7,6 +7,7 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnContactar").addEventListener('click', contactar, false);
 
 var app, ip, idAnimal, idProtectora, nombreAnimal;
+var apego, obediencia, comportamiento, actividad;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -38,8 +39,8 @@ function onDeviceReady() {
     ip = window.sessionStorage.getItem("IP");
 
     //Recupera el id del animal
-    idAnimal = window.sessionStorage.getItem("idAnimal");;
-
+    idAnimal = window.sessionStorage.getItem("idAnimal");
+    
     //Consulta datos animal
     var queryString =
         'http://' + ip + '/Adoptame/public/api/animales/detalleAnimal/' + idAnimal;
@@ -64,6 +65,11 @@ function onDeviceReady() {
         $('#sexoAnimal').html('Sexo: '+results[0].sexoAnimal);
 
         idProtectora = results[0].idProtectora;
+
+        app.range.setValue('#rangoApego', results[0].apego);
+        app.range.setValue('#rangoObediencia', results[0].obediencia);
+        app.range.setValue('#rangoComportamiento', results[0].comportamiento);
+        app.range.setValue('#rangoActividad', results[0].actividad);
        
     }).fail(function (jqXHR) {
             /* $('#error-msg').show();
@@ -72,6 +78,7 @@ function onDeviceReady() {
     });
 
     var mainView = app.views.create('.view-main');
+
 };
 
 function onPause() {

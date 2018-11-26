@@ -98,6 +98,11 @@ function cargarAnimal() {
 
             $('#divCard').css('background-image', 'url(' + url + ')');
 
+            app.range.setValue('#rangoApego', results[0].apego);
+            app.range.setValue('#rangoObediencia', results[0].obediencia);
+            app.range.setValue('#rangoComportamiento', results[0].comportamiento);
+            app.range.setValue('#rangoActividad', results[0].actividad);
+
             app.dialog.close();
 
         }).fail(function (jqXHR) {
@@ -154,6 +159,11 @@ function modificarAnimal() {
         }
     }
 
+    //Recoger valor de los range
+    var apego = document.getElementById("rangoApegoValue").value;
+    var obediencia = document.getElementById("rangoObedienciaValue").value;
+    var comportamiento = document.getElementById("rangoComportamientoValue").value;
+    var actividad = document.getElementById("rangoActividadValue").value;
 
     var queryStringR =
         'http://' + ip + '/Adoptame/public/api/animales/modificarAnimal';
@@ -166,7 +176,11 @@ function modificarAnimal() {
             tamanio: tam,
             estado: estado,
             nombre: nombreAnimal,
-            descripcion: descripcionAnimal
+            descripcion: descripcionAnimal,
+            apego: apego,
+            obediencia: obediencia,
+            comportamiento: comportamiento,
+            actividad: actividad
     });
 
      if (flagModificarFoto) {

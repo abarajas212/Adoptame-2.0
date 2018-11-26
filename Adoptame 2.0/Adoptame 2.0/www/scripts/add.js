@@ -54,7 +54,9 @@ function onDeviceReady() {
     });
 
     var mainView = app.views.create('.view-main');
+    //Inicializacion
     ip = window.sessionStorage.getItem("IP");
+    imagen = null;
 };
 
 
@@ -107,6 +109,18 @@ function aniadirAnimal() {
     // Enviar los datos a la bbdd
     idProtectora = window.sessionStorage.getItem("protectora");
 
+    var apego = document.getElementById("rangoApego").value;
+    var obediencia = document.getElementById("rangoObediencia").value;
+    var comportamiento = document.getElementById("rangoComportamiento").value;
+    var actividad = document.getElementById("rangoActividad").value;
+
+    //Comprobar si hay foto cargada
+    if (imagen == null) {
+        app.dialog.close();
+        app.dialog.alert('Es obligatorio cargar una imagen', 'Error');
+        return null;
+    }
+
     //Url donde hacer el post para agregar el animal
     var queryStringR =
         'http://'+ ip +'/Adoptame/public/api/protectora/agregar';
@@ -119,10 +133,14 @@ function aniadirAnimal() {
         tamanio: tam,
         estado: estado,
         nombre: nombreAnimal,
-        descripcion: descripcionAnimal
+        descripcion: descripcionAnimal,
+        apego: apego,
+        obediencia: obediencia,
+        comportamiento: comportamiento,
+        actividad: actividad
 
     }, function (data) {
-        // Respuesta
+        //alert(data);
     });
 
     var numero = Math.floor(Math.random() * (999 + 1)); 
@@ -150,7 +168,10 @@ function aniadirAnimal() {
     var queryStringFoto =
         'http://' + ip + '/Adoptame/public/api/protectora/obtenerIdAnimal/' + idProtectora + '/' + nombreAnimal;
 
+    //Cierro los dialogos antes de mostrar uno nuevo
+    app.dialog.close();
     app.dialog.preloader('Guardando...');
+
     setTimeout(function () {
 
         $.getJSON(queryStringFoto, function (results) {
