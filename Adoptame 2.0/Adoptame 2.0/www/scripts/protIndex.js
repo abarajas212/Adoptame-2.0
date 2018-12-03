@@ -93,7 +93,6 @@ $('#verCodigo').click(function () {
     Enlace para modificar datos de la protectora
 */
 $('#modificarProtectora').click(function () {
-
     window.location.replace("editarProtectora.html");
 });
 
@@ -103,6 +102,13 @@ $('#modificarProtectora').click(function () {
 $('#verAdoptados').click(function () {
     window.sessionStorage.setItem("accion", "verAdoptados");
     window.location.replace("animalesProtectora.html");
+});
+
+/**
+    Enlace para ver datos de la protectora
+*/
+$('#verDatosProtectora').click(function () {
+    window.location.replace("datosProtectora.html");
 });
 
 // Prompt para enviar codigo por email
