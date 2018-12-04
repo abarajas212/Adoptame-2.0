@@ -43,10 +43,10 @@ function onDeviceReady() {
 
     //Cargar el usuario y la portectora de la sesion
     user = window.sessionStorage.getItem("usuario");
-    document.getElementById("usuarioP").innerHTML = "Usuario: " + user;
+    document.getElementById("usuarioP").innerHTML = "<b>Usuario:</b> " + user;
 
     protectora = window.sessionStorage.getItem("protectora");
-    document.getElementById("protectoraP").innerHTML = "Protectora: " + protectora;
+    document.getElementById("protectoraP").innerHTML = "<b>Protectora:</b> " + protectora;
 
     ip = window.sessionStorage.getItem("IP");
 };

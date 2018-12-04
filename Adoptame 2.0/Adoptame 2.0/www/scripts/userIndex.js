@@ -46,7 +46,7 @@ function onDeviceReady() {
 
     //Cargar el usuario en la sesion
     user = window.sessionStorage.getItem("usuario");
-    document.getElementById("usuarioP").innerHTML = "Usuario: " + user;
+    document.getElementById("usuarioP").innerHTML = "<b>Usuario:</b> " + user;
 
     ip = window.sessionStorage.getItem("IP");
 
