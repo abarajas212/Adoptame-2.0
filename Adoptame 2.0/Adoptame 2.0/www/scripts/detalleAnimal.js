@@ -5,9 +5,12 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnContactar").addEventListener('click', contactar, false);
+document.getElementById("mostrarFoto").addEventListener('click', mostrarFoto, false);
 
 var app, ip, idAnimal, idProtectora, nombreAnimal;
 var apego, obediencia, comportamiento, actividad;
+var urlImagen;
+var myPhotoBrowserStandalone;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -36,6 +39,9 @@ function onDeviceReady() {
         // ... other parameters
     });
 
+    //Inicialización para capturar elementos de DOM7
+    $$ = Dom7;
+
     ip = window.sessionStorage.getItem("IP");
 
     //Recupera el id del animal
@@ -51,9 +57,9 @@ function onDeviceReady() {
         document.getElementById("estadoAnimal").innerHTML = results[0].estado.toUpperCase();
         document.getElementById("descripcionAnimal").innerHTML = results[0].descripcion;
         var img = results[0].idFoto;
-        var url = 'http://'+ip+'/Adoptame/uploads/' + img
+        urlImagen = 'http://'+ip+'/Adoptame/uploads/' + img
 
-        $('#divCard').css('background-image', 'url(' + url + ')');
+        $('#divCard').css('background-image', 'url(' + urlImagen + ')');
         $('#divCard').html(results[0].nombre);
         nombreAnimal = results[0].nombre;
 
@@ -70,6 +76,13 @@ function onDeviceReady() {
         app.range.setValue('#rangoObediencia', results[0].obediencia);
         app.range.setValue('#rangoComportamiento', results[0].comportamiento);
         app.range.setValue('#rangoActividad', results[0].actividad);
+
+        /*=== Crea galeria ===*/
+        myPhotoBrowserStandalone = app.photoBrowser.create({
+            photos: [
+                urlImagen
+            ]
+        });
        
     }).fail(function (jqXHR) {
             /* $('#error-msg').show();
@@ -79,6 +92,8 @@ function onDeviceReady() {
 
     var mainView = app.views.create('.view-main');
 
+
+    
 };
 
 function onPause() {
@@ -95,6 +110,13 @@ function contactar() {
     window.sessionStorage.setItem("nombreAnimal", nombreAnimal);
     window.location.replace("contactar.html");
 
+}
+
+
+
+//Open photo browser on click
+function mostrarFoto() {
+    myPhotoBrowserStandalone.open();
 }
 
 
