@@ -75,71 +75,75 @@ function cargarAnimales() {
     //Comprobar que el usuario no existe en la bbdd
     $.getJSON(queryString, function (results) {
 
-        for (i = 0; i < results.length; i++) {
+        if (results.length == 0) {
+            document.getElementById('divListaAnimales').innerHTML = '<div class="block block-strong text-align-center"><div class="block-title" > No se han encontrado animales</div >';
+        } else {
+            for (i = 0; i < results.length; i++) {
 
-            //Recoger lu y meter li dentro
-            lu = document.getElementById("listaAnimales");
-            li = document.createElement("li");
-            li.id = results[i].idAnimal;
-            lu.appendChild(li);
+                //Recoger lu y meter li dentro
+                lu = document.getElementById("listaAnimales");
+                li = document.createElement("li");
+                li.id = results[i].idAnimal;
+                lu.appendChild(li);
 
-            //Titulo
-            a = document.createElement("div");
-            a.id = results[i].idAnimal;
-            a.setAttribute('class', 'item-content');
+                //Titulo
+                a = document.createElement("div");
+                a.id = results[i].idAnimal;
+                a.setAttribute('class', 'item-content');
 
-            li.appendChild(a);
+                li.appendChild(a);
 
-            innerDiv = document.createElement('div');
-            innerDiv.setAttribute('class', 'item-media');
-            a.appendChild(innerDiv);
+                innerDiv = document.createElement('div');
+                innerDiv.setAttribute('class', 'item-media');
+                a.appendChild(innerDiv);
 
-            //Imagen
-            img = document.createElement("IMG");
-            //ruta = "http://192.168.1.128/Adoptame/uploads/" + results[i].idFoto;
-            ruta = "http://" + ip + "/Adoptame/uploads/" + results[i].idFoto;
-            img.setAttribute("src", ruta);
-            img.setAttribute("width", "80");
-            innerDiv.appendChild(img);
+                //Imagen
+                img = document.createElement("IMG");
+                //ruta = "http://192.168.1.128/Adoptame/uploads/" + results[i].idFoto;
+                ruta = "http://" + ip + "/Adoptame/uploads/" + results[i].idFoto;
+                img.setAttribute("src", ruta);
+                img.setAttribute("width", "80");
+                innerDiv.appendChild(img);
 
-            divinner = document.createElement('div');
-            divinner.setAttribute('class', 'item-inner');
-            a.appendChild(divinner);
+                divinner = document.createElement('div');
+                divinner.setAttribute('class', 'item-inner');
+                a.appendChild(divinner);
 
-            divtitle = document.createElement('div');
-            divtitle.setAttribute('class', 'item-title-row');
-            divinner.appendChild(divtitle);
+                divtitle = document.createElement('div');
+                divtitle.setAttribute('class', 'item-title-row');
+                divinner.appendChild(divtitle);
 
-            //Subtitulo
-            divtitlecontent = document.createElement('div');
-            divtitlecontent.setAttribute('class', 'item-title');
-            var titulo = results[i].nombre;
-            text = document.createTextNode(titulo);
-            divtitlecontent.appendChild(text);
-            divtitle.appendChild(divtitlecontent);
+                //Subtitulo
+                divtitlecontent = document.createElement('div');
+                divtitlecontent.setAttribute('class', 'item-title');
+                var titulo = results[i].nombre;
+                text = document.createTextNode(titulo);
+                divtitlecontent.appendChild(text);
+                divtitle.appendChild(divtitlecontent);
 
-            divsubtitle = document.createElement('div');
-            divsubtitle.setAttribute('class', 'item-subtitle');
-            var titulodown = results[i].estado;
-            textsubtitle = document.createTextNode(titulodown);
-            divsubtitle.appendChild(textsubtitle);
-            divinner.appendChild(divsubtitle);
+                divsubtitle = document.createElement('div');
+                divsubtitle.setAttribute('class', 'item-subtitle');
+                var titulodown = results[i].estado;
+                textsubtitle = document.createTextNode(titulodown);
+                divsubtitle.appendChild(textsubtitle);
+                divinner.appendChild(divsubtitle);
 
-            //Texto
-            divtext = document.createElement('div');
-            divtext.setAttribute('class', 'item-text');
-            textt = document.createTextNode(results[i].descripcion);
-            divtext.appendChild(textt);
-            divinner.appendChild(divtext);
+                //Texto
+                divtext = document.createElement('div');
+                divtext.setAttribute('class', 'item-text');
+                textt = document.createTextNode(results[i].descripcion);
+                divtext.appendChild(textt);
+                divinner.appendChild(divtext);
 
-            var chekbox = document.createElement("input");
-            chekbox.id = results[i].idAnimal;
-            chekbox.setAttribute('type', 'checkbox');
-            chekbox.setAttribute('value', results[i].idFoto);
-            a.appendChild(chekbox);
+                var chekbox = document.createElement("input");
+                chekbox.id = results[i].idAnimal;
+                chekbox.setAttribute('type', 'checkbox');
+                chekbox.setAttribute('value', results[i].idFoto);
+                a.appendChild(chekbox);
 
+
+            }
         }
-
 
     }).fail(function (jqXHR) {
         //app.dialog.alert('Error en el sistema, contacte con el administrador', 'Error');

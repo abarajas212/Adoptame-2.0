@@ -5,6 +5,7 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 var app, ip, idAnimal, idProtectora;
+var urlImagen, myPhotoBrowserStandalone;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -64,6 +65,13 @@ function onDeviceReady() {
         app.range.setValue('#rangoComportamiento', results[0].comportamiento);
         app.range.setValue('#rangoActividad', results[0].actividad);
 
+        /*=== Crea galeria ===*/
+        myPhotoBrowserStandalone = app.photoBrowser.create({
+            photos: [
+                url
+            ]
+        });
+
     }).fail(function (jqXHR) {
             /* $('#error-msg').show();
              $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);*/
@@ -80,6 +88,10 @@ function onPause() {
 function onResume() {
     // TODO: esta aplicación se ha reactivado. Restaure el estado de la aplicación aquí.
 };
+
+$('body').on('click', '#divCard', function () {
+    myPhotoBrowserStandalone.open();
+})
 
 /**
     Enlace para pantalla añadir animal

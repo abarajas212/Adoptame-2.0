@@ -147,8 +147,6 @@ $('#enviarCodigo').click(function () {
                     }
 
                     //Post para enviar el email
-                    /*var queryStringP =
-                        'http://192.168.1.128/Adoptame/public/api/protectora/enviarEmail/codigoProtectora';*/
 
                     var queryStringP =
                         'http://' + ip + '/Adoptame/public/api/protectora/enviarEmail/codigoProtectora';

@@ -91,9 +91,7 @@ function onDeviceReady() {
     });
 
     var mainView = app.views.create('.view-main');
-
-
-    
+ 
 };
 
 function onPause() {
@@ -113,12 +111,10 @@ function contactar() {
 }
 
 
-
 //Open photo browser on click
 function mostrarFoto() {
     myPhotoBrowserStandalone.open();
 }
-
 
 /**
     Enlace para pantalla añadir animal
