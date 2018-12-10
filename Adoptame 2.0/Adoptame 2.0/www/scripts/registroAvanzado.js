@@ -97,6 +97,15 @@ function unirse() {
 
             });
 
+            //Modificar codigo protectora
+            var queryStringM =
+                'http://' + ip + '/Adoptame/public/api/protectora/modificarCodigoProtectora';
+
+            $.post(queryStringM, {
+
+                idProtectora: idProtectora
+
+            });
             //Eliminar usuario window.sessionStorage.setItem("usuarioColabora", idUsuario);
             app.dialog.alert('Se ha registrado en la protectora correctamente', 'Exito!');
             window.sessionStorage.clear();

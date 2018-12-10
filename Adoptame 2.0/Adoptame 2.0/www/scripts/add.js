@@ -16,8 +16,9 @@ var app;
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
 var nombreAnimal; // Nombre del animal que se recoge por pantalla
-var idProtectora //Id de la protectora que se recogera de la variable que se carga al hacer login
-var idFoto //Nombre de la foto
+var idProtectora; //Id de la protectora que se recogera de la variable que se carga al hacer login
+var fecha; //Fecha de recogida del animal
+var idFoto; //Nombre de la foto
 var ip;
 var imagen;
 
@@ -57,6 +58,10 @@ function onDeviceReady() {
     //Inicializacion
     ip = window.sessionStorage.getItem("IP");
     imagen = null;
+
+    var calendarDefault = app.calendar.create({
+        inputEl: '#calendar-default',
+    });
 };
 
 
@@ -113,6 +118,7 @@ function aniadirAnimal() {
     var obediencia = document.getElementById("rangoObediencia").value;
     var comportamiento = document.getElementById("rangoComportamiento").value;
     var actividad = document.getElementById("rangoActividad").value;
+    fecha = document.getElementById("calendar-default").value;
 
     //Comprobar si hay foto cargada
     if (imagen == null) {
@@ -137,7 +143,8 @@ function aniadirAnimal() {
         apego: apego,
         obediencia: obediencia,
         comportamiento: comportamiento,
-        actividad: actividad
+        actividad: actividad,
+        fecha_ingreso: fecha
 
     }, function (data) {
         //alert(data);
@@ -190,7 +197,7 @@ function aniadirAnimal() {
             }, function (data) {
                 // Respuesta
                 app.dialog.close();
-                app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
+                app.dialog.alert('Se ha añadido el animal correctamente', 'Registrado', redireccionar);
             });
 
         }).fail(function (jqXHR) {

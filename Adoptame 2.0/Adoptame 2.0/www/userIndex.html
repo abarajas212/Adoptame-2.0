@@ -48,14 +48,20 @@
                     <div class="navbar-inner">
                         <div class="left"></div>
                         <div class="title">Buscar adopcion</div>
-                        <div class="right"></div>
+                        <div class="right">
+                            <div class="block text-align-center">
+                                <a href="#" class="item-link item-content" id="recargar">
+                                    <div class="item-media"><i class="f7-icons">reload_round</i></div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="page-content">
                     <div class="block">
                         <button class="col button button-fill button-round" href="#" id="btnFiltrar">Filtrar</button>
 
-                        <div class="list media-list">
+                        <div class="list media-list" id="contenerdorLista">
                             <ul id="listaAnimales">
                                 <!-- Lista que se cargara dinamicamente desde javascript-->
                             </ul>
@@ -70,6 +76,7 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
     <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="css/framework7-icons.css">
     <script type="text/javascript" src="scripts/userIndex.js"></script>
 </body>
 </html>

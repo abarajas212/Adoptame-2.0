@@ -125,13 +125,17 @@ function registrarProtectora() {
         return null;
     }
 
+
+    //Comprobar que se ha cargado foto
+    if (flagModificarFoto == false) {
+        app.dialog.alert('Carge una foto para la protectora', 'Error');
+        return null;
+    }
+
     //Convierto el usuario a minusculas
     var idUsuario = id.toLowerCase();
 
     //Direccion server para utilizar json
-    /*var queryString =
-        'http://192.168.1.129/Adoptame/public/api/cliente/' + id;*/
-
     var queryString =
         'http://'+ip+'/Adoptame/public/api/cliente/' + id;
 
@@ -192,9 +196,6 @@ function registrarProtectora() {
             });
 
             //Generar codigo protectora
-            /*var queryStringCodigo =
-                'http://192.168.1.128/Adoptame/public/api/protectora/insertarCodigoProtectora';*/
-
             var queryStringCodigo =
                 'http://'+ip+'/Adoptame/public/api/protectora/insertarCodigoProtectora';
 
@@ -350,6 +351,19 @@ function validarTelefono(campo){
         return false;
     }
 }
+
+// Funcion para mostrar y ocultar contraseñas
+$("#mostrarContrasenia").change(function () {
+    if ($(this).prop("checked") == true) {
+        //Mostrar contrasenia
+        $('#userPassword').attr('type', 'text');
+        $('#passwordConfirm').attr('type', 'text');
+    } else {
+        //Ocultar contrasenia
+        $('#userPassword').attr('type', 'password');
+        $('#passwordConfirm').attr('type', 'password');
+    }
+});
 
 function onPause() {
     // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.

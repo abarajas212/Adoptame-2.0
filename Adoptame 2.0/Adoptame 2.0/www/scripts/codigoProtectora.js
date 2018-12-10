@@ -4,11 +4,12 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+document.getElementById("btnLModificarCodigo").addEventListener('click', modificarCodigo, false);
 
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
-var app, ip;
+var app, ip, protectora;
 
 function onDeviceReady() {
     // Controlar la pausa de Cordova y reanudar eventos
@@ -65,10 +66,6 @@ function cargarCodigo() {
     
     //Consultar el codigo
 
-    /*  CASA  
-    var queryString =
-        'http://192.168.1.128/Adoptame/public/api/protectora/obtenerCodigoProtectora/' + protectora;*/
-
     var queryString =
         'http://'+ip+'/Adoptame/public/api/protectora/obtenerCodigoProtectora/' + protectora;
 
@@ -84,6 +81,30 @@ function cargarCodigo() {
         alert("Error, no se puedo recuperar el codigo");
     });
 }
+
+/**
+    Modificar código
+*/
+function modificarCodigo() {
+
+    //Modificar codigo protectora
+    var queryStringM =
+        'http://' + ip + '/Adoptame/public/api/protectora/modificarCodigoProtectora';
+
+    $.post(queryStringM, {
+
+        idProtectora: protectora
+
+    });
+
+    
+    app.dialog.alert('Se ha generado un nuevo código', 'Exito!');
+    
+    //recargar la pagina
+    setTimeout(function () {
+        window.location.replace("codigoProtectora.html");
+    }, 3000);
+};
 
 
 /**

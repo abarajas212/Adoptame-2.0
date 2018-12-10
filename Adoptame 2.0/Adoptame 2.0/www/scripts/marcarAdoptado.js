@@ -66,9 +66,6 @@ function cargarAnimales() {
 
     var i;
     //Peticion de animales al servidor
-    /*var queryString =
-        'http://192.168.1.128/Adoptame/public/api/animales/menuUsuario';*/
-
     var queryString =
         'http://' + ip + '/Adoptame/public/api/animales/menuProtectora/' + protectora;
 
@@ -96,7 +93,7 @@ function cargarAnimales() {
 
             //Imagen
             img = document.createElement("IMG");
-            //ruta = "http://192.168.1.128/Adoptame/uploads/" + results[i].idFoto;
+            //ruta
             ruta = "http://" + ip + "/Adoptame/uploads/" + results[i].idFoto;
             img.setAttribute("src", ruta);
             img.setAttribute("width", "80");

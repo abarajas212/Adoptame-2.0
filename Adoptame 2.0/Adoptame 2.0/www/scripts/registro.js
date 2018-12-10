@@ -115,10 +115,6 @@ function registrar() {
     //Convierto el usuario a minusculas
     idUsuario = idUsuario.toLowerCase();
 
-    //Direccion server para utilizar json
-   /* var queryString =
-        'http://192.168.1.131/Adoptame/public/api/cliente/' + idUsuario;*/
-
     var queryString =
         'http://'+ip+'/Adoptame/public/api/cliente/' + idUsuario;
 
@@ -127,9 +123,6 @@ function registrar() {
 
         if (jQuery.isEmptyObject(results)) {
             //Enviar json al servidor para dar de alta al usuario
-
-            /*var queryStringR =
-                'http://192.168.1.131/Adoptame/public/api/cliente/agregar';*/
 
             var queryStringR =
                 'http://'+ip+'/Adoptame/public/api/cliente/agregar';
@@ -170,9 +163,7 @@ function registrar() {
     });
 
     //Comprobar si el usuario ha pulsado colabora con una protectora
-    var toggle = app.toggle.get('.toggle');
-
-    if (toggle.checked) {
+    if ($('#colaborador').prop("checked")) {
         window.sessionStorage.setItem("usuarioColabora", idUsuario);
         window.sessionStorage.setItem("pantallaAnterior", "index.html");
         app.dialog.alert('Se ha registrado correctamente, sera redirigido para unirse a una protectora', 'Colaborador', redireccionarAvanzado);
@@ -180,8 +171,23 @@ function registrar() {
         app.dialog.alert('Se ha registrado correctamente', 'Registrado', redireccionar);
     }
 
- 
+    //Enviar email de bienvenida
+
 }
+
+// Funcion para mostrar y ocultar contraseñas
+$("#mostrarContrasenia").change(function () {
+    if ($(this).prop("checked") == true) {
+        //Mostrar contrasenia
+        $('#userPassword').attr('type', 'text');
+        $('#passwordConfirm').attr('type', 'text');
+    } else {
+        //Ocultar contrasenia
+        $('#userPassword').attr('type', 'password');
+        $('#passwordConfirm').attr('type', 'password');
+    }
+});
+
 
 /**
  * Funcion que comprueba si el campo esta en blanco
