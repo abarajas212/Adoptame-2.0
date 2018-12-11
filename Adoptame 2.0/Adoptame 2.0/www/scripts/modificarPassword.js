@@ -135,23 +135,20 @@ function modificar() {
     });
 }
 
-function mostrar() {
-
-    var password = document.getElementById("password");
-    var newPassword = document.getElementById("newPassword");
-    var newPasswordConfirm = document.getElementById("newPasswordConfirm");
-
-    if (password.type === "password") {
-        password.type = "text";
-        newPassword.type = "text";
-        password.type = "text";
-
+// Funcion para mostrar y ocultar contraseñas
+$("#mostrarContrasenia").change(function () {
+    if ($(this).prop("checked") == true) {
+        //Mostrar contrasenia
+        $('#password').attr('type', 'text');
+        $('#newPassword').attr('type', 'text');
+        $('#newPasswordConfirm').attr('type', 'text');
     } else {
-        password.type = "password";
-        newPassword.type = "text";
-        newPasswordConfirm.type = "text";
+        //Ocultar contrasenia
+        $('#password').attr('type', 'password');
+        $('#newPassword').attr('type', 'password');
+        $('#newPasswordConfirm').attr('type', 'password');
     }
-};
+});
 
 
 /**

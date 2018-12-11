@@ -182,23 +182,29 @@ function aniadirAnimal() {
     setTimeout(function () {
 
         $.getJSON(queryStringFoto, function (results) {
-            //Recogo el id del animal
-            var idAnimal = results[0].idAnimal
 
-            //Enviar una peticion post para almacenar los datos que relacionan el animal con la foto
-            var queryStringSubirFoto =
-                'http://' + ip + '/Adoptame/public/api/protectora/animalFoto';
-
-            $.post(queryStringSubirFoto, {
-
-                idAnimal: idAnimal,
-                idFoto: idFoto
-
-            }, function (data) {
-                // Respuesta
+            if (results.length == 0) {
                 app.dialog.close();
-                app.dialog.alert('Se ha añadido el animal correctamente', 'Registrado', redireccionar);
-            });
+                app.dialog.alert('Se ha producido un error al publicar el animal', 'Error', redireccionar);
+            } else {
+                //Recogo el id del animal
+                var idAnimal = results[0].idAnimal
+
+                //Enviar una peticion post para almacenar los datos que relacionan el animal con la foto
+                var queryStringSubirFoto =
+                    'http://' + ip + '/Adoptame/public/api/protectora/animalFoto';
+
+                $.post(queryStringSubirFoto, {
+
+                    idAnimal: idAnimal,
+                    idFoto: idFoto
+
+                }, function (data) {
+                    // Respuesta
+                    app.dialog.close();
+                    app.dialog.alert('Se ha añadido el animal correctamente', 'Registrado', redireccionar);
+                });
+            }
 
         }).fail(function (jqXHR) {
             /* $('#error-msg').show();
