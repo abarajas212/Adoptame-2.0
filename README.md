@@ -13,6 +13,9 @@ Para conseguir un proyecto escalable, robusto y mantenible se han utilizado toda
 
 Palabras clave: Adopción, animales, protectora, multiplataforma, aplicación, RESTful.
 
+El código del servidor puede encontrar en el repositorio:
+  https://github.com/abarajas212/Adoptame-2.0_REST
+
 Abstract
 
 The project done as an end-of-degree work consists of a client and server architecture in which the client is a multiplatform mobile application. The application is designed to make it easier to the protectors to publish their animals, and at the same time the adopters can find the better option for them.
