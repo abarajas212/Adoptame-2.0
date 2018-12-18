@@ -13,7 +13,7 @@ Para conseguir un proyecto escalable, robusto y mantenible se han utilizado toda
 
 Palabras clave: Adopción, animales, protectora, multiplataforma, aplicación, RESTful.
 
-El código del servidor puede encontrar en el repositorio:
+El código del servidor se encuentra en el repositorio:
   https://github.com/abarajas212/Adoptame-2.0_REST
 
 Abstract
