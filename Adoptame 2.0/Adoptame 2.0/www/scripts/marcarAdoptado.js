@@ -6,6 +6,7 @@
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnMarcar").addEventListener('click', marcar, false);
 document.getElementById("btnSesion").addEventListener('click', cerrarSesion, false);
+document.addEventListener("backbutton", onBackKeyDown, false);
 
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
@@ -195,13 +196,19 @@ function cerrarSesion() {
 
 }
 
-
 /**
  * Funcion que redirecciona a la pagina de inicio
  */
 function redireccionar() {
     window.location.replace("protIndex.html");
 };
+
+/**
+ * Funcion para desactivar el boton atras
+ */
+function onBackKeyDown() {
+    // Desactiva el boton atras
+}
 
 function onPause() {
     // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.

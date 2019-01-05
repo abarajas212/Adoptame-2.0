@@ -7,6 +7,7 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnAniadir").addEventListener('click', aniadirAnimal, false);
 document.getElementById("btnFoto").addEventListener('click', aniadirFoto, false);
 document.getElementById("btnFotoGaleria").addEventListener('click', aniadirFotoGaleria, false);
+document.addEventListener("backbutton", onBackKeyDown, false);
 
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
@@ -64,6 +65,12 @@ function onDeviceReady() {
     });
 };
 
+/**
+ * Funcion para desactivar el boton atras
+ */
+function onBackKeyDown() {
+    // Desactiva el boton atras
+}
 
 /**
  * Funcion que añade un animal nuevo, se activa al pulsar el boton "btnAniadir"

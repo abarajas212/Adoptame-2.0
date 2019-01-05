@@ -5,7 +5,7 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnLModificarCodigo").addEventListener('click', modificarCodigo, false);
-
+document.addEventListener("backbutton", onBackKeyDown, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -46,6 +46,13 @@ function onDeviceReady() {
 
     cargarCodigo();
 };
+
+/**
+ * Funcion para desactivar el boton atras
+ */
+function onBackKeyDown() {
+    // Desactiva el boton atras
+}
 
 function onPause() {
     // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.

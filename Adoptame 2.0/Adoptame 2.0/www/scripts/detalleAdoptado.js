@@ -4,6 +4,8 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+document.addEventListener("backbutton", onBackKeyDown, false);
+
 var app, ip, idAnimal, idProtectora;
 var urlImagen, myPhotoBrowserStandalone;
 
@@ -80,6 +82,13 @@ function onDeviceReady() {
 
     var mainView = app.views.create('.view-main');
 };
+
+/**
+ * Funcion para desactivar el boton atras
+ */
+function onBackKeyDown() {
+    // Desactiva el boton atras
+}
 
 function onPause() {
     // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.

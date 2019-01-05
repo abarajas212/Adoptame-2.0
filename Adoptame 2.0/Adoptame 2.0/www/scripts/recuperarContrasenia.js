@@ -5,6 +5,7 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnRecuperar").addEventListener('click', recuperar, false);
+document.addEventListener("backbutton", onBackKeyDown, false);
 
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
@@ -133,6 +134,13 @@ function generarPassword(longitud) {
     var password = "";
     for (i = 0; i < longitud; i++) password += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
     return password;
+}
+
+/**
+ * Funcion para desactivar el boton atras
+ */
+function onBackKeyDown() {
+    // Desactiva el boton atras
 }
 
 /**

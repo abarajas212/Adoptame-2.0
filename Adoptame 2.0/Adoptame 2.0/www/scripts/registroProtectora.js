@@ -6,7 +6,7 @@
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnRegistro").addEventListener('click', registrarProtectora, false);
 document.getElementById("btnFoto").addEventListener('click', modificarFoto, false);
-
+document.addEventListener("backbutton", onBackKeyDown, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -364,6 +364,13 @@ $("#mostrarContrasenia").change(function () {
         $('#passwordConfirm').attr('type', 'password');
     }
 });
+
+/**
+ * Funcion para desactivar el boton atras
+ */
+function onBackKeyDown() {
+    // Desactiva el boton atras
+}
 
 function onPause() {
     // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.

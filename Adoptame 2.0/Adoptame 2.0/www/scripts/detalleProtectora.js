@@ -4,6 +4,7 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+document.addEventListener("backbutton", onBackKeyDown, false);
 var app, ip, idAnimal, idProtectora;
 
 function onDeviceReady() {
@@ -76,6 +77,13 @@ function onPause() {
 function onResume() {
     // TODO: esta aplicación se ha reactivado. Restaure el estado de la aplicación aquí.
 };
+
+/**
+ * Funcion para desactivar el boton atras
+ */
+function onBackKeyDown() {
+    // Desactiva el boton atras
+}
 
 /**
     Enlace para pantalla añadir animal

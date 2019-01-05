@@ -5,6 +5,7 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnEnviar").addEventListener('click', contactar, false);
+document.addEventListener("backbutton", onBackKeyDown, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -78,14 +79,20 @@ function onDeviceReady() {
          $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);*/
         alert("Error en el sistema, contacte con el administrador");
     });
-
-
-    
+  
     return false;
-
 };
 
+/**
+ * Funcion para desactivar el boton atras
+ */
+function onBackKeyDown() {
+    // Desactiva el boton atras
+}
 
+/**
+ * Contactar
+ */
 function contactar() {
 
     //Comprobar email y teléfono
@@ -146,7 +153,6 @@ function contactar() {
     }
 
     //Post email
-
     var asunto = desea + " " + nombreAnimal;
 
     var queryStringM =

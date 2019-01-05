@@ -8,7 +8,7 @@ document.getElementById("btnFiltrar").addEventListener('click', filtrar, false);
 document.getElementById("btnSesion").addEventListener('click', cerrarSesion, false);
 document.getElementById("btnPassword").addEventListener('click', cambiarPassword, false);
 document.getElementById("btnRegistroAvanzado").addEventListener('click', registroColaborador, false);
-
+document.addEventListener("backbutton", onBackKeyDown, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -169,6 +169,12 @@ $('#recargar').click(function () {
     window.location.replace("userIndex.html");
 });
 
+/**
+ * Funcion para desactivar el boton atras
+ */
+function onBackKeyDown() {
+    // Desactiva el boton atras
+}
 
 /**
  * Funcion que redirecciona a la pagina de inicio

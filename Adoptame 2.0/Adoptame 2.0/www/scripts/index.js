@@ -4,6 +4,7 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+document.addEventListener("backbutton", onBackKeyDown, false);
 
     var app;
     var ip;
@@ -37,8 +38,12 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
             // ... other parameters
         });
 
-        window.sessionStorage.setItem("IP", "192.168.1.128");
-        ip = "192.168.1.128";
+        //Puntos de acceso
+        /*window.sessionStorage.setItem("IP", "192.168.43.19");
+        ip = "192.168.43.19";*/
+        
+        window.sessionStorage.setItem("IP", "192.168.1.129");
+        ip = "192.168.1.129";
 
         //Comprobar si hay usuario guardado y su contrasenia
         usuarioDispositivo = window.localStorage.getItem("usuarioDispositivo");
@@ -93,6 +98,13 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
         var mainView = app.views.create('.view-main');
     };
+
+    /**
+     * Funcion para desactivar el boton atras
+     */
+    function onBackKeyDown() {
+        // Desactiva el boton atras
+    }
 
     function onPause() {
         // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.
