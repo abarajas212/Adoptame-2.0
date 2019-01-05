@@ -5,6 +5,7 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnModificar").addEventListener('click', modificar, false);
+document.addEventListener("backbutton", onBackKeyDown, false);
 
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
@@ -157,6 +158,13 @@ $("#mostrarContrasenia").change(function () {
 function redireccionar(pantalla) {
     window.location.replace(pantalla);
 };
+
+/*
+* Funcion que bloquea el boton atras
+*/
+function onBackKeyDown() {
+    // Boton atras bloqueado
+}
 
 /**
  * Funcion que comprueba si el campo esta en blanco

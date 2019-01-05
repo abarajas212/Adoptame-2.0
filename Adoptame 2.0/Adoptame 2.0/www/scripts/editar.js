@@ -7,6 +7,8 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnModificar").addEventListener('click', modificarAnimal, false);
 document.getElementById("btnFoto").addEventListener('click', aniadirFoto, false);
 document.getElementById("btnFotoGaleria").addEventListener('click', aniadirFotoGaleria, false);
+document.addEventListener("backbutton", onBackKeyDown, false);
+
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -317,3 +319,10 @@ function onPause() {
 function onResume() {
     // TODO: esta aplicación se ha reactivado. Restaure el estado de la aplicación aquí.
 };
+
+/*
+* Funcion que bloquea el boton atras
+*/
+function onBackKeyDown() {
+    // Boton atras bloqueado
+}

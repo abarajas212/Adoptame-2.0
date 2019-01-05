@@ -6,6 +6,7 @@
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnFiltrar").addEventListener('click', filtrar, false);
 document.getElementById("btnLimpiar").addEventListener('click', limpiarFiltros, false);
+document.addEventListener("backbutton", onBackKeyDown, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -142,6 +143,13 @@ function limpiarFiltros() {
 function redireccionar() {
     window.location.replace("index.html");
 };
+
+/*
+* Funcion que bloquea el boton atras
+*/
+function onBackKeyDown() {
+    // Boton atras bloqueado
+}
 
 function onPause() {
     // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.

@@ -5,6 +5,7 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnEnviar").addEventListener('click', contactar, false);
+document.addEventListener("backbutton", onBackKeyDown, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -77,12 +78,9 @@ function onDeviceReady() {
         /* $('#error-msg').show();
          $('#error-msg').text("Error retrieving data. " + jqXHR.statusText);*/
         alert("Error en el sistema, contacte con el administrador");
-    });
+        });
 
-
-    
     return false;
-
 };
 
 
@@ -177,6 +175,13 @@ function contactar() {
 function redireccionar() {
     window.location.replace("detalleAnimal.html");
 };
+
+/*
+* Funcion que bloquea el boton atras
+*/
+function onBackKeyDown() {
+    // Boton atras bloqueado
+}
 
 /**
  * Funcion que comprueba si el campo esta en blanco

@@ -6,7 +6,7 @@
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnEliminar").addEventListener('click', eliminar, false);
 document.getElementById("btnSesion").addEventListener('click', cerrarSesion, false);
-
+document.addEventListener("backbutton", onBackKeyDown, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -203,6 +203,12 @@ function cerrarSesion() {
 
 }
 
+/*
+* Funcion que bloquea el boton atras
+*/
+function onBackKeyDown() {
+    // Boton atras bloqueado
+}
 
 /**
  * Funcion que redirecciona a la pagina de inicio

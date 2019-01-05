@@ -4,6 +4,9 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+document.addEventListener("backbutton", onBackKeyDown, false);
+
+//Variables
 
     var app;
     var ip;
@@ -101,6 +104,13 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
     function onResume() {
         // TODO: esta aplicación se ha reactivado. Restaure el estado de la aplicación aquí.
     };
+
+    /*
+    * Funcion que bloquea el boton atras
+    */
+    function onBackKeyDown() {
+        // Boton atras bloqueado
+    }
 
     //Comprobacion usuario y contraseña 
     $('#login').click(function () {

@@ -7,6 +7,7 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnAniadir").addEventListener('click', aniadirAnimal, false);
 document.getElementById("btnFoto").addEventListener('click', aniadirFoto, false);
 document.getElementById("btnFotoGaleria").addEventListener('click', aniadirFotoGaleria, false);
+document.addEventListener("backbutton", onBackKeyDown, false);
 
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
@@ -311,6 +312,13 @@ function validarCampoBlanco(campo) {
 function redireccionar() {
     window.location.replace("protIndex.html");
 };
+
+/*
+* Funcion que bloquea el boton atras
+*/
+function onBackKeyDown() {
+    // Boton atras bloqueado
+}
 
 function onPause() {
     // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.

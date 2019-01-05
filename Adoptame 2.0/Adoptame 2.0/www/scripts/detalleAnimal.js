@@ -6,7 +6,9 @@
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnContactar").addEventListener('click', contactar, false);
 document.getElementById("mostrarFoto").addEventListener('click', mostrarFoto, false);
+document.addEventListener("backbutton", onBackKeyDown, false);
 
+//Variables
 var app, ip, idAnimal, idProtectora, nombreAnimal;
 var apego, obediencia, comportamiento, actividad;
 var urlImagen;
@@ -102,6 +104,14 @@ function onResume() {
     // TODO: esta aplicación se ha reactivado. Restaure el estado de la aplicación aquí.
 };
 
+/*
+* Funcion que bloquea el boton atras
+*/
+function onBackKeyDown() {
+    // Boton atras bloqueado
+}
+
+//Contactar
 function contactar() {
 
     window.sessionStorage.setItem("idDetalleProtectora", idProtectora);

@@ -8,7 +8,7 @@ document.getElementById("btnFiltrar").addEventListener('click', filtrar, false);
 document.getElementById("btnSesion").addEventListener('click', cerrarSesion, false);
 document.getElementById("btnPassword").addEventListener('click', cambiarPassword, false);
 document.getElementById("btnRegistroAvanzado").addEventListener('click', registroColaborador, false);
-
+document.addEventListener("backbutton", onBackKeyDown, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -222,6 +222,13 @@ function redireccionar() {
 function redireccionarAvanzado() {
     window.location.replace("registroAvanzado.html");
 };
+
+/*
+* Funcion que bloquea el boton atras
+*/
+function onBackKeyDown() {
+    // Boton atras bloqueado
+}
 
 function onPause() {
     // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.

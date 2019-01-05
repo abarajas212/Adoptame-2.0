@@ -5,7 +5,7 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnMarcar").addEventListener('click', marcar, false);
-document.getElementById("btnSesion").addEventListener('click', cerrarSesion, false);
+document.addEventListener("backbutton", onBackKeyDown, false);
 
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
@@ -181,20 +181,12 @@ function marcar() {
     });
 }
 
-/**
- * Funcion que cierra sesion, redirigiendo y eliminando los datos de sesion
- */
-function cerrarSesion() {
-    //Mostrar popup de confirmacion
-    app.dialog.confirm('¿Está seguro de que desea cerrar sesión?', function () {
-        app.dialog.alert('Hasta pronto! :)');
-        window.sessionStorage.clear();
-        window.localStorage.clear();
-        window.location.replace("index.html");
-    });
-
+/*
+* Funcion que bloquea el boton atras
+*/
+function onBackKeyDown() {
+    // Boton atras bloqueado
 }
-
 
 /**
  * Funcion que redirecciona a la pagina de inicio

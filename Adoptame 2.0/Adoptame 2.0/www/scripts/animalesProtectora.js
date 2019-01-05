@@ -4,7 +4,7 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-
+document.addEventListener("backbutton", onBackKeyDown, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -171,6 +171,12 @@ function filtrar() {
     window.location.replace("filtrar.html");
 }
 
+/*
+* Funcion que bloquea el boton atras
+*/
+function onBackKeyDown() {
+    // Boton atras bloqueado
+}
 
 /**
  * Funcion que redirecciona a la pagina de inicio

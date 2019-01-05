@@ -5,6 +5,7 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnRecuperar").addEventListener('click', recuperar, false);
+document.addEventListener("backbutton", onBackKeyDown, false);
 
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
@@ -53,6 +54,13 @@ function onPause() {
 function onResume() {
     // TODO: esta aplicación se ha reactivado. Restaure el estado de la aplicación aquí.
 };
+
+/*
+* Funcion que bloquea el boton atras
+*/
+function onBackKeyDown() {
+    // Boton atras bloqueado
+}
 
 /**
  * Funcion que recupera los datos de pantalla y si son correctos realizara la recuperacion

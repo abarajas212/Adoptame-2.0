@@ -5,6 +5,8 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnRegistro").addEventListener('click', registrar, false);
+document.addEventListener("backbutton", onBackKeyDown, false);
+
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -41,7 +43,9 @@ function onDeviceReady() {
     ip = window.sessionStorage.getItem("IP");
 };
 
-
+/*
+* Funcion que registra nuevos usurios 
+*/
 function registrar() {
 
     var flagValidacionesBlanco, flagValidacionesEspacio;
@@ -188,6 +192,12 @@ $("#mostrarContrasenia").change(function () {
     }
 });
 
+/*
+* Funcion que bloquea el boton atras
+*/
+function onBackKeyDown() {
+    // Boton atras bloqueado
+}
 
 /**
  * Funcion que comprueba si el campo esta en blanco

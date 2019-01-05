@@ -6,7 +6,7 @@
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnModificar").addEventListener('click', modificarDatos, false);
 document.getElementById("btnFoto").addEventListener('click', modificarFoto, false);
-
+document.addEventListener("backbutton", onBackKeyDown, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -292,6 +292,13 @@ function validarTelefono(campo) {
 function redireccionar() {
     window.location.replace("protIndex.html");
 };
+
+/*
+* Funcion que bloquea el boton atras
+*/
+function onBackKeyDown() {
+    // Boton atras bloqueado
+}
 
 function onPause() {
     // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.
