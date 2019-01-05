@@ -109,6 +109,7 @@ function unirse() {
             //Eliminar usuario window.sessionStorage.setItem("usuarioColabora", idUsuario);
             app.dialog.alert('Se ha registrado en la protectora correctamente', 'Exito!');
             window.sessionStorage.clear();
+            window.localStorage.clear();
             window.location.replace("index.html");
          
         }
