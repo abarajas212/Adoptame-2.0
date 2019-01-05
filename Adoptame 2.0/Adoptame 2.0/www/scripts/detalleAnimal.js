@@ -6,7 +6,6 @@
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnContactar").addEventListener('click', contactar, false);
 document.getElementById("mostrarFoto").addEventListener('click', mostrarFoto, false);
-document.addEventListener("backbutton", onBackKeyDown, false);
 
 var app, ip, idAnimal, idProtectora, nombreAnimal;
 var apego, obediencia, comportamiento, actividad;
@@ -94,13 +93,6 @@ function onDeviceReady() {
     var mainView = app.views.create('.view-main');
  
 };
-
-/**
- * Funcion para desactivar el boton atras
- */
-function onBackKeyDown() {
-    // Desactiva el boton atras
-}
 
 function onPause() {
     // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.

@@ -5,7 +5,7 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnModificar").addEventListener('click', modificar, false);
-document.addEventListener("backbutton", onBackKeyDown, false);
+
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -150,12 +150,6 @@ $("#mostrarContrasenia").change(function () {
     }
 });
 
-/**
- * Funcion para desactivar el boton atras
- */
-function onBackKeyDown() {
-    // Desactiva el boton atras
-}
 
 /**
  * Funcion que redirecciona a la pagina de inicio

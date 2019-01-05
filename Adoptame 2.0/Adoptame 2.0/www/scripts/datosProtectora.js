@@ -4,7 +4,7 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-document.addEventListener("backbutton", onBackKeyDown, false);
+
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -167,6 +167,10 @@ function onDeviceReady() {
      });
 
 
+
+
+
+
     //Recoger el id del animal
     var queryStringDatosAdoptados =
         'http://' + ip + '/Adoptame/public/api/animales/datosProtectoraAdoptados/' + protectora;
@@ -289,12 +293,8 @@ function onDeviceReady() {
    
 };
 
-/**
- * Funcion para desactivar el boton atras
- */
-function onBackKeyDown() {
-    // Desactiva el boton atras
-}
+
+
 
 function onPause() {
     // TODO: esta aplicación se ha suspendido. Guarde el estado de la aplicación aquí.

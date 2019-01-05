@@ -6,7 +6,6 @@
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnPassword").addEventListener('click', cambiarPassword, false);
 document.getElementById("btnSesion").addEventListener('click', cerrarSesion, false);
-document.addEventListener("backbutton", onBackKeyDown, false);
 
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
@@ -51,14 +50,6 @@ function onDeviceReady() {
 
     ip = window.sessionStorage.getItem("IP");
 };
-
-
-/**
- * Funcion para desactivar el boton atras
- */
-function onBackKeyDown() {
-    // Desactiva el boton atras
-}
 
 /**
     Enlace para pantalla añadir animal

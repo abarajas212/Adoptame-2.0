@@ -6,7 +6,6 @@
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnFiltrar").addEventListener('click', filtrar, false);
 document.getElementById("btnLimpiar").addEventListener('click', limpiarFiltros, false);
-document.addEventListener("backbutton", onBackKeyDown, false);
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -130,15 +129,8 @@ function filtrar() {
     window.location.replace("userIndex.html");
 }
 
-/**
- * Funcion para desactivar el boton atras
- */
-function onBackKeyDown() {
-    // Desactiva el boton atras
-}
-
 /*
-   Limpiar filros de busqueda
+   
 */
 function limpiarFiltros() {
     window.sessionStorage.removeItem("fitradoBusqueda");

@@ -4,7 +4,7 @@
 // y ejecute "window.location.reload()" en la Consola de JavaScript.
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-document.addEventListener("backbutton", onBackKeyDown, false);
+
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -50,15 +50,10 @@ function onDeviceReady() {
         $("#titulo").html("Adoptados");
     }
     
-    cargarAnimales();
-};
 
-/**
- * Funcion para desactivar el boton atras
- */
-function onBackKeyDown() {
-    // Desactiva el boton atras
-}
+    cargarAnimales();
+
+};
 
 /**
  * Funcion que rellena la pantalla principal de usuario con animales

@@ -5,7 +5,7 @@
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 document.getElementById("btnUnirse").addEventListener('click', unirse, false);
-document.addEventListener("backbutton", onBackKeyDown, false);
+
 /**
  * Se declara app como global para poder acceder desde las diferentes funciones declaradas en javascript
  */
@@ -109,7 +109,6 @@ function unirse() {
             //Eliminar usuario window.sessionStorage.setItem("usuarioColabora", idUsuario);
             app.dialog.alert('Se ha registrado en la protectora correctamente', 'Exito!');
             window.sessionStorage.clear();
-            window.localStorage.clear();
             window.location.replace("index.html");
          
         }
@@ -123,21 +122,11 @@ function unirse() {
     
 }
 
-/*
-*  Boton para volver de registro avanzado a registro
-*/
 $("#btnRegistroAvanzado").click(function () {
 
     var pantalla = window.sessionStorage.getItem("pantallaAnterior");
     window.location.replace(pantalla);
 });
-
-/**
- * Funcion para desactivar el boton atras
- */
-function onBackKeyDown() {
-    // Desactiva el boton atras
-}
 
 /**
  * Funcion que comprueba si el campo esta en blanco
