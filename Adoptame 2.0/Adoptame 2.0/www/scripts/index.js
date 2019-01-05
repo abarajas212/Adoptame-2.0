@@ -37,8 +37,8 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
             // ... other parameters
         });
 
-        window.sessionStorage.setItem("IP", "192.168.1.128");
-        ip = "192.168.1.128";
+        window.sessionStorage.setItem("IP", "192.168.1.129");
+        ip = "192.168.1.129";
 
         //Comprobar si hay usuario guardado y su contrasenia
         usuarioDispositivo = window.localStorage.getItem("usuarioDispositivo");
